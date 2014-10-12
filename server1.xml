@@ -1,0 +1,335 @@
+<?xml version="1.0" ?>
+<configuration title="City of Raleigh and Wake County iMAPS"
+	login="false" icon="com/raleigh/components/assets/icon.png">
+	<map showPOI="true" initExtent="1994600,637200,2228500,854500">
+		<geometry url="http://mapsarcserver1:6080/ArcGIS/rest/services/Utilities/Geometry/GeometryServer"/>
+		<poilayer id="poi" name="Places of Interest"
+			url="http://mapsarcserver1:6080/ArcGIS/rest/services/POI1/MapServer/0"
+			visible="false" 
+			photos="http://maps.raleighnc.gov/Photos/POI/"/>
+		<baselayers>
+			<!--Base Map Service -->
+			<baselayer id="BaseMap" name="Detailed"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/BaseMap/MapServer"
+				visible="true" type="tiled" minscale="0" alpha="1" visibleLayers="all"
+				identifiable="true" identifiableLayers="42,43,44,45,46,47,49,56,57,58,62" />
+			<baselayer id="BaseMapBasic" name="Basic"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/BaseMapBasic/MapServer"
+				visible="false" type="dynamic" minscale="0" alpha="1" visibleLayers="all"
+				identifiable="true" identifiableLayers="4,5,6,7,8,9,10,14,15,16,17" />
+		</baselayers>
+		<imagelayers wakeDefault="2013" raleighDefault="2013">
+			<!--Image Services -->
+			<imagelayer id="Orthos1981" name="1981"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Orthos10/Orthos1981/ImageServer"
+				visible="false" type="tiled" minscale="0" alpha="1" />
+			<imagelayer id="Orthos1988" name="1988"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Orthos10/Orthos1988/ImageServer"
+				visible="false" type="tiled" minscale="0" alpha="1" />
+			<imagelayer id="Orthos1999" name="1999"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Orthos10/Orthos1999/ImageServer"
+				visible="false" type="tiled" minscale="0" alpha="1" />
+			<imagelayer id="Orthos2002" name="2002"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Orthos10/Orthos2002/ImageServer"
+				visible="false" type="tiled" minscale="0" alpha="1" />
+			<imagelayer id="Orthos2004" name="2004"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Orthos10/Orthos2004/ImageServer"
+				visible="false" type="tiled" minscale="0" alpha="1" />
+			<imagelayer id="Orthos2005" name="2005"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Orthos10/Orthos2005/ImageServer"
+				visible="false" type="tiled" minscale="0" alpha="1" />
+			<imagelayer id="Orthos2006" name="2006"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Orthos10/Orthos2006/ImageServer"
+				visible="false" type="tiled" minscale="0" alpha="1" />
+			<imagelayer id="Orthos2007" name="2007"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Orthos10/Orthos2007/ImageServer"
+				visible="false" type="tiled" minscale="0" alpha="1" />
+			<imagelayer id="Orthos2008" name="2008"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Orthos10/Orthos2008/ImageServer"
+				visible="false" type="tiled" minscale="0" alpha="1" />
+			<imagelayer id="Orthos2009" name="2009"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Orthos10/Orthos2009/ImageServer"
+				visible="false" type="tiled" minscale="0" alpha="1" />
+			<imagelayer id="Orthos2010" name="2010"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Orthos10/Orthos2010/ImageServer"
+				visible="false" type="tiled" minscale="0" alpha="1" />
+			<imagelayer id="Orthos2011" name="2011"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Orthos10/Orthos2011/ImageServer"
+				visible="false" type="tiled" minscale="0" alpha="1" />
+			<imagelayer id="Orthos2012" name="2012"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Orthos10/Orthos2012/ImageServer"
+				visible="false" type="tiled" minscale="0" alpha="1" />	
+			<imagelayer id="Orthos2013" name="2013"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Orthos10/Orthos2013/ImageServer"
+				visible="false" type="tiled" minscale="0" alpha="1" />									
+		</imagelayers>
+		<maplayers categories="true" excludedLayers="Labels">
+			<!--Operational Layers -->
+			<maplayer id="Corporate" name="Corporate Boundaries"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Planning/Jurisdictions/MapServer"
+				visible="false" type="dynamic" minscale="0" alpha="0.7"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Boundaries" />
+			<maplayer id="PublicSafety" name="Public Safety"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/PublicSafety/PublicSafety/MapServer"
+				visible="false" type="dynamic" minscale="0" alpha="0.6"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Public Safety" />
+
+			<maplayer id="Zoning" name="Zoning"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Planning/Zoning/MapServer"
+				visible="false" type="dynamic" minscale="76800" alpha=".5"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Planning" />
+			<maplayer id="LeafCollection" name="Leaf Collection Areas"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/PublicWorks/LeafCollection/MapServer"
+				visible="false" type="dynamic" minscale="0" alpha=".6"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Public Works" />
+			<maplayer id="Floodplains" name="Floodplains"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Environmental/Floodplains/MapServer"
+				visible="false" type="dynamic" minscale="76800" alpha=".5"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Environmental" />
+			<maplayer id="Soils" name="Soils"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Environmental/Soils/MapServer"
+				visible="false" type="dynamic" minscale="76800" alpha=".5"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Environmental" />
+			<maplayer id="Watersheds" name="Watersheds"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Environmental/Watersheds/MapServer"
+				visible="false" type="dynamic" minscale="0" alpha=".5"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Environmental" />
+			<maplayer id="Swift Creek Critical Area" name="Swift Creek Critical Area"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Environmental/SwiftCreek/MapServer"
+				visible="false" type="dynamic" minscale="0" alpha=".75"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Environmental" />
+			<maplayer id="RiparianBuffers" name="Riparian Buffers"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Environmental/RiparianBuffers/MapServer"
+				visible="false" type="dynamic" minscale="19200" alpha=".5"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Environmental" />
+			<maplayer id="Parcels" name="Parcels"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Parcels/MapServer"
+				visible="true" type="dynamic" minscale="9600" alpha="1"
+				visibleLayers="all" identifiable="true" identifiableLayers="0,1"
+				category="Property" />
+			<maplayer id="Topo" name="Topography"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Environmental/Topo/MapServer"
+				visible="false" type="dynamic" minscale="4800" alpha="1"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Environmental" />
+			<maplayer id="Greenway" name="Greenways"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Parks/Greenway/MapServer"
+				visible="false" type="dynamic" minscale="0" alpha="1" visibleLayers="all"
+				identifiable="true" identifiableLayers="all" category="Parks" />
+			<maplayer id="blueLineStreams" name="USGS Blueline Streams"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Environmental/USGS_Streams/MapServer"
+				visible="false" type="dynamic" minscale="0" alpha="1" visibleLayers="all"
+				identifiable="true" identifiableLayers="all" category="Environmental" />
+			<maplayer id="Easements" name="Easements"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/PublicUtility/Easements/MapServer"
+				visible="false" type="dynamic" minscale="19200" alpha="1"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Public Utilities" />
+			<maplayer id="SewerExternal" name="Raleigh Sewer"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/PublicUtility/SewerExternal/MapServer"
+				visible="false" type="dynamic" minscale="19200" alpha="1"
+				visibleLayers="all" identifiable="false" identifiableLayers="all"
+				category="Public Utilities" />
+			<maplayer id="Stormwater" name="Raleigh Stormwater"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/PublicWorks/Stormwater/MapServer"
+				visible="false" type="dynamic" minscale="9600" alpha="1"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Public Works" />
+			<maplayer id="DevelopmentPlans" name="Development Plans"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Planning/RalDevPlans/MapServer"
+				visible="false" type="dynamic" minscale="19200" alpha="1"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Planning" />
+			<maplayer id="Overlays" name="Raleigh Overlay Districts"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Planning/Overlays/MapServer"
+				visible="false" type="dynamic" minscale="76800" alpha="1"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Planning" />
+			<maplayer id="Subdivisions" name="Subdivisions"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Planning/Subdivisions/MapServer"
+				visible="false" type="dynamic" minscale="19200" alpha="1"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Planning" />
+			<maplayer id="Septic" name="Septic"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Environmental/SepticTanks/MapServer"
+				visible="false" type="dynamic" minscale="38400" alpha="1"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Environmental" />
+			<maplayer id="Wells" name="Wells"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Environmental/Wells/MapServer"
+				visible="false" type="dynamic" minscale="19200" alpha="1"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Environmental" />
+			<maplayer id="Census" name="Demographics"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Census/MapServer"
+				visible="false" type="dynamic" minscale="0" alpha="1" visibleLayers="all"
+				identifiable="true" identifiableLayers="all" category="Demographics" />
+			<maplayer id="SpecialZoningUses" name="Special Zoning Uses"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Planning/SpecialUse/MapServer"
+				visible="false" type="dynamic" minscale="0" alpha="0.60" visibleLayers="all"
+				identifiable="true" identifiableLayers="all" category="Planning" />				
+			<maplayer id="Boundaries" name="Boundaries"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Boundaries/MapServer"
+				visible="false" type="dynamic" minscale="0" alpha="1" visibleLayers="all"
+				identifiable="true" identifiableLayers="all" category="Boundaries" />
+			<maplayer id="StreetTypology" name="Raleigh Street Typology"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Planning/StreetTypology/MapServer"
+				visible="false" type="dynamic" minscale="0" alpha="1"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Planning" />				
+			<maplayer id="Labels" name="Labels"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Labels/MapServer"
+				visible="true" type="tiled" minscale="0" alpha="1" visibleLayers="all"
+				identifiable="false" identifiableLayers="all" />
+			<maplayer id="FutureLandUse" name="Future Landuse"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Planning/FutureLandUse/MapServer"
+				visible="false" type="dynamic" minscale="0" alpha="0.5"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Planning" />
+			<maplayer id="UrbanForm" name="Raleigh Urban Form Map"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Planning/UrbanForm/MapServer"
+				visible="false" type="dynamic" minscale="100000" alpha="0.75"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Planning" />				
+			<maplayer id="RedevelopmentAreas" name="Redevelopment Areas"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Planning/RedevelopmentAreas/MapServer"
+				visible="false" type="dynamic" minscale="76800" alpha="1"
+				visibleLayers="all" identifiable="false" identifiableLayers="all"
+				category="Planning" />
+			<maplayer id="RaleighPermitHistory" name="Raleigh Permit History"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Planning/Permit_History/MapServer"
+				visible="false" type="dynamic" minscale="38400" alpha="1"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Planning" />			
+			<maplayer id="RaleighHistoricLandmarks" name="Raleigh Historic Landmarks"
+				url="http://mapsarcserver1:6080/ArcGIS/rest/services/Planning/HistoricLandmarks/MapServer"
+				visible="false" type="dynamic" minscale="72800" alpha="1"
+				visibleLayers="all" identifiable="true" identifiableLayers="all"
+				category="Planning" />			
+		</maplayers>
+	</map>
+	<property>
+		<propertylayer
+			url="http://mapsarcserver1:6080/ArcGIS/rest/services/Parcels/MapServer/0"
+			name="Wake Parcels" id="wakeParcels" />
+		<propertylayer
+			url="http://mapsarcserver1:6080/ArcGIS/rest/services/Parcels/MapServer/1"
+			name="Durham Parcels" id="durhamParcels" />
+	</property>
+	<rightpanel>
+		<paneltools>
+			<paneltool name="Property Search"
+				file="com.raleigh.components.paneltools.property.PropertySearch" />
+			<paneltool name="Location Search"
+				file="com.raleigh.components.paneltools.location.LocationSearch" />
+			<paneltool name="Raleigh Development Plan Search"
+				file="com.raleigh.components.paneltools.developmentplans.DevelopmentPlanSearch" />
+			<paneltool name="Raleigh Crime Search"
+				file="com.raleigh.components.paneltools.crime.CrimeSearch" />
+			<paneltool name="Show Additional Layers"
+				file="com.raleigh.components.paneltools.layerlist.LayerList" />
+		</paneltools>
+	</rightpanel>
+	<toolbar>
+		<toolbartools>
+			<toolbartool name="Identify"
+				file="com.raleigh.components.toolbar.identify.IdentifyTool" tooltip="Identify Features" />
+			<toolbartool name="Select Property"
+				file="com.raleigh.components.toolbar.selection.SelectTool" tooltip="Select Properties" />
+			<toolbartool name="StreetView"
+				file="com.raleigh.components.toolbar.streetview.StreetViewButton"
+				tooltip="View Google StreetView" />
+			<toolbartool name="Pictometry"
+				file="com.raleigh.components.toolbar.pictometry.PictometryButton"
+				tooltip="View Pictometry (Bird's Eye) Images" />
+			<toolbartool name="Measure"
+				file="com.raleigh.components.toolbar.measure.MeasureButton" tooltip="Measure" />
+			<!--<toolbartool name="Historic Orthos"
+				file="com.raleigh.components.toolbar.orthoslider.OrthoSliderButton"
+				tooltip="Historic Orthos" />-->
+			<toolbartool name="Bookmarks"
+				file="com.raleigh.components.toolbar.bookmarks.SpatialBookmarksButton"
+				tooltip="Spatial Bookmarks" />
+			<toolbartool name="Drawing Tool"
+				file="com.raleigh.components.toolbar.drawing.DrawingToolButton"
+				tooltip="Drawing Tool" />
+			<toolbartool name="Print"
+				file="com.raleigh.components.toolbar.print.PrintButton" tooltip="Print" />
+			<toolbartool name="Clear"
+				file="com.raleigh.components.toolbar.clear.ClearGraphicsButton"
+				tooltip="Clear Graphics" />
+		</toolbartools>
+	</toolbar>
+	<lowerpanel enabled="true" />
+	<menu>
+		<menuitems label="About" url="">
+			<menuitem label="Disclaimer" url="" />
+			<menuitem label="About" url="" />
+		</menuitems>
+		<menuitems label="Feedback">
+			<menuitem label="Comments" url="" />
+			<menuitem label="Survey"
+				url="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dEljaElEa05od2FRc2ZKVm5vVzVSQ1E6MQ#gid=0" />
+		</menuitems>
+		<menuitems label="Links">
+			<menuitem label="City of Raleigh" url="http://www.raleigh-nc.org" />
+			<menuitem label="Wake County" url="http://www.wakegov.com/" />
+			<menuitem label="City of Raleigh GIS"
+				url="http://www.raleighnc.gov/home/content/ITechGIS/Articles/GeographicInformationServices.html" />
+			<menuitem label="Wake County GIS" url="http://www.wakegov.com/gis/Pages/default.aspx" />
+			<menuitem label="City of Raleigh Map Gallery"
+				url="http://www.raleighnc.gov/home/content/ITechGIS/Articles/MapGallery.html" />
+			<menuitem label="Wake County Maps"
+				url="http://www.wakegov.com/gis/Pages/maps.aspx" />
+		</menuitems>
+		<menuitems label="Data Download">
+			<menuitem label="City of Raleigh Geoportal" url="http://maps.raleighnc.gov/geoportal/" />
+			<menuitem label="Wake County Downloads"
+				url="http://www.wakegov.com/gis/services/Pages/data.aspx" />
+		</menuitems>
+		<menuitems label="Settings">
+			<menuitem label="Settings" url="" />
+		</menuitems>
+		<menuitems label="Help">
+			<menuitem label="PDF"
+				url="http://maps.raleighnc.gov/imaps/documents/iMapsHelp.pdf" />
+			<menuitem label="Quick Start Guide"
+				url="http://maps.raleighnc.gov/imaps/documents/iMaps_Quickstart.pdf" />
+			<menuitem label="Electoral Quick Start Guide"
+				url="http://maps.raleighnc.gov/imaps/documents/Electoral_Quickstart.pdf" />				
+		</menuitems>
+	</menu>
+	<feedback sendto="gis@raleighnc.gov,iMapsHelpDesk@wakegov.com"
+		subject="iMaps Upgrade Feedback" />
+	<bookmarks>
+		<bookmark name="Downtown Raleigh" extent="2104769 736771 2109252 739663" />
+		<bookmark name="Five Points" extent="2103840 746959 2106084 748405" />
+		<bookmark name="NC State" extent="2094300 738100 2100830 742700" />
+		<bookmark name="Downtown Apex" extent="2042392 719456 2045709 721742" />
+		<bookmark name="Downtown Cary" extent="2061317 738842 2067975 743413" />
+		<bookmark name="Downtown Wake Forest" extent="2143338 808426 2149896 812997" />
+	</bookmarks>
+	<scripts>
+		<script name="PropertyStreets" url="http://maps.raleighnc.gov/json/streetsProp.json"/>
+		<script name="GeocodeStreets" url="http://maps.raleighnc.gov/json/streetsGeocode.json"/>
+		<script name="ExportGrid" url="http://maps.raleighnc.gov/php/exportexcel.php"/>
+	</scripts>
+	<style>
+		<theme enabled="false" textColor="0x000000" backgroundColor="0x333333"
+			rolloverColor="0x101010" selectionColor="0x000000" titleColor="0xFFD700"
+			linkColor="0xFFD700" applicationBackgroundColor="0xFFFFFF"
+			styleAlpha="0.8" />
+		<panelcolors enabled="true" downColor="0x3c61a5" upColor="0x657838"
+			textColor="0x000000" />
+		<titlecolors background="0x000000" text="0xFFFFFF" />
+	</style>
+</configuration>

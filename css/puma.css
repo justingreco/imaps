@@ -1,0 +1,45 @@
+header{
+	background-color: rgb(37,46,65);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(41, 128, 185)), to(rgb(44, 62, 80)));
+    background: -moz-linear-gradient(center top , rgb(41, 128, 185), rgb(44, 62, 80)) repeat scroll 0% 0% transparent;
+}
+
+.expandable{
+    color:white;
+    font-size:12px;
+    background-color: rgb(44, 62, 80);
+    background-color: rgba(44, 62, 80,0.80);
+}
+
+footer{
+    background-color: rgb(44, 62, 80);
+    font-size:11px;
+    color:white;
+}
+
+.ui-progressbar-value {
+background: rgb(231, 76, 60) !important;
+}
+
+
+.ui-accordion .ui-state-default{
+    background-color:rgb(52, 152, 219);
+}
+.ui-accordion .ui-state-active{
+    background-color: rgb(231, 76, 60);
+}
+
+.ui-dialog-titlebar.ui-widget-header {
+background: rgb(104, 77, 188);
+color: white;
+}
+
+.ui-dialog {
+border: none !important;
+background-color: rgb(52, 38, 65) !important;
+background: rgba(52, 38, 65,0.8) !important;
+}
+
+.k-window-titlebar {
+background: rgb(104, 77, 188) !important;
+}

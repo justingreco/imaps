@@ -1,0 +1,904 @@
+/*
+ * HTML5 Boilerplate
+ *
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ */
+
+/* ==========================================================================
+   Base styles: opinionated defaults
+   ========================================================================== */
+
+html,
+button,
+input,
+select,
+textarea {
+    color: #222;
+    font-family: 'Open Sans';
+}
+
+
+.ui-widget, .esriPopup {
+    font-family: 'Open Sans' !important;
+}
+body {
+    font-size: 1em;
+    line-height: 1.4;
+    -webkit-overflow-scrolling: touch;
+}
+
+html{
+    overflow:hidden;
+}
+
+
+/*
+ * Remove text-shadow in selection highlight: h5bp.com/i
+ * These selection declarations have to be separate.
+ * Customize the background color to match your design.
+ */
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+/*
+ * Remove the gap between images and the bottom of their containers: h5bp.com/i/440
+ */
+
+img {
+    vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+    resize: vertical;
+}
+
+/* ==========================================================================
+   Chrome Frame prompt
+   ========================================================================== */
+
+.chromeframe {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+.navbar {
+    min-height: 40px !important;
+}
+header{
+    
+    /*background-color:  rgb(37,46,65);*/
+    color:white;
+    background-color: rgb(37,46,65);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4D80BC), to(#242D40));
+    background: -moz-linear-gradient(center top , rgb(77, 128, 188), rgb(36, 45, 64)) repeat scroll 0% 0% transparent;
+    border: 0;
+    position: absolute;
+    top:0px;
+    width: 100%;
+    z-index: 5;
+
+
+}
+header h2{
+    padding:0 10px 0 10px;
+    margin:0;
+
+
+}
+footer{
+    height:20px;
+    background-color: rgb(37,46,65);
+    position: absolute;
+    bottom:0px;
+    width:100%;
+    font-size:11px;
+    color:white;
+
+}
+
+select{
+    margin-bottom: 5px;
+    max-width: 250px;
+}
+
+#mapdiv{
+    position: absolute;
+    top:0px;
+    bottom:00px;
+    left:0px;
+    right:0px;
+    background-color: #888;
+    overflow:hidden;
+}
+
+
+
+#mapsection{
+    position: absolute;
+    top:40px;
+    bottom:20px;
+    left:0px;
+    right:300px;
+    background-color: #888;
+    overflow:hidden;  
+}
+
+#basemaps{
+    position: absolute;
+    right:0px;
+    top:0px;
+    border-radius: 0 0 0 10px;
+    padding:0 10px 10px 10px;
+    width:95px;
+}
+
+.basediv{
+    padding: 0 0 5px 0;
+    cursor: pointer;
+}
+
+.basediv img{
+    padding-right:5px;
+}
+
+#imageSelect{
+    display:none;
+}
+
+#servicesContainer a{color:rgb(71,151,220)  !important;}
+
+#servicesContainer a:hover{color:rgb(84,134,50) !important;}
+
+.k-grid-content a{color:rgb(71,151,220) !important;}
+
+.k-grid-content a:hover{color:rgb(84,134,50) !important;}
+
+#tools{
+    position: absolute;
+    left:0px;
+    top:0px;
+    border-radius: 0 0 10px 0;
+    padding:0 10px 10px 10px;
+    width:40px;
+}
+
+#overview{
+    position: absolute;
+    right:0px;
+    bottom:0px;
+    border-radius: 10px 0 0 0;
+    padding:0 10px 10px 10px;
+    width:70px;
+
+}
+
+#ovmapdiv{
+    width: 200px;
+    height: 200px;
+}
+
+.esriOverviewMap{
+    position: static !important;
+}
+
+.collapsed{
+    max-height: 34px;
+    overflow: hidden;
+}
+
+.expanded{
+    max-height: auto;
+    width:auto !important;
+    overflow: auto;
+}
+
+.expandable h3{
+    cursor: pointer;
+}
+
+.expandable{
+    color:white;
+    font-size:12px;
+    z-index: 4;
+    background-color: rgb(37,46,65);
+    background-color: rgba(37,46,65,0.80);
+     -moz-user-select: none;
+    -webkit-user-select: none;
+    cursor: default;
+    -moz-box-shadow: 0 0 16px rgba(0,0,0,0.8);
+    box-shadow: 0 0 16px rgba(0,0,0,0.8);
+}
+
+
+#panel{
+    position: absolute;
+    top:40px;
+    right:0px;
+    bottom:20px;
+    width:300px;
+    background-color: #555;
+    overflow-y:hidden;
+    z-index: 4;
+}
+
+.paneldiv{
+    position: relative;
+    overflow: hidden !important;
+}
+
+.tabli img{
+    max-height: 37px;
+     -moz-box-shadow: 0 0 1px #000;
+  -webkit-box-shadow: 0 0 1px #000;
+  box-shadow: 0 0 1px #000;
+}
+
+#accordion{
+  display: block;
+  background-color: #666666;
+    /*position:absolute;
+    z-index:3;
+    top:40px;
+    left:10px;
+    bottom:20px;
+    background-color: #666666;*/
+    height:100%;
+
+    color:#FFFFFF;
+    font-size:12px;
+    border-radius:5px;
+    overflow: hidden;
+    -moz-border-radius:5px; /* Old Firefox */
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+
+ -moz-box-shadow: 0 0 5px #000;
+  -webkit-box-shadow: 0 0 5px #000;
+  box-shadow: 0 0 5px #000;
+}
+
+.ui-accordion .ui-accordion-header{
+    -moz-box-shadow: 0 0 16px rgba(0,0,0,0.8);
+    box-shadow: 0 0 16px rgba(0,0,0,0.8);
+    border:none;
+    margin-top:0 !important;
+    color:white;
+}
+.ui-accordion .ui-icon{
+    display: none;
+}
+.ui-accordion .ui-state-default{
+    background:rgb(84,134,50);
+}
+.ui-accordion .ui-state-active{
+    background-color: rgb(71,151,220);
+}
+.ui-accordion .ui-widget-content{
+    background:#444 !important;
+    color: white !important; 
+    padding:5px !important;
+    /*position: relative;*/
+}
+.ui-dialog-titlebar.ui-widget-header{
+    background:rgb(71,151,220); 
+    color:white;
+    font-size:12px; 
+    -moz-box-shadow: 0 0 16px rgba(0,0,0,0.8);
+    box-shadow: 0 0 16px rgba(0,0,0,0.8);
+    border:none;
+}
+
+
+#proptabs{
+    position: absolute;
+    bottom:0;
+    left:0;
+    height:40px;
+    background: rgb(37,46,65);
+    width: 100%;
+}
+
+.esriSimpleSliderTL{
+    left:70px !important;
+    -moz-box-shadow: 0 0 16px rgba(0,0,0,0.8);
+    box-shadow: 0 0 16px rgba(0,0,0,0.8);
+    z-index: 3 !important;
+}
+
+.esriScalebar{
+    z-index: 3 !important;
+}
+
+#propertyinput{
+    width:270px;
+    margin:2px;
+}
+
+.ui-autocomplete{
+    max-width: 250px;
+    max-height: 300px;
+    font-size: 14px !important;
+    overflow-y:auto;
+    background-color: white !important;
+}
+.resultsul{
+    padding:0;
+    margin:0;
+    cursor: pointer;
+}
+
+.infoul{
+    padding:0;
+    margin:0;
+    cursor: pointer;
+}
+
+.toolbar{
+     padding:0 !important;   
+}
+
+.toolbar li{
+    list-style-type: none;
+    cursor: pointer;
+}
+
+.resultsul li{
+    display: inline-block;
+    zoom: 1;
+    *display: inline;    
+    text-align: center;
+    vertical-align: top;
+    padding-bottom: 4px;
+    width: 33.3%;
+    word-wrap:break-word;
+    list-style-type: none;
+}
+.headerli{
+    background: rgb(71,151,220);
+    color:white;
+    text-decoration: underline;
+}
+
+.infoul li{
+    display: inline-block;
+    zoom: 1;
+    *display: inline;    
+    text-align: center;
+    vertical-align: top;
+    padding-bottom: 4px;
+    width: 50%;
+    list-style-type: none;
+    word-wrap:break-word;
+}
+
+ul{
+        list-style-type: none;
+        margin:0;
+}
+
+.propertydiv{
+
+    overflow-y: auto;
+    overflow-x: hidden; 
+    -webkit-user-select: text;  
+    -moz-user-select: text;    
+    -ms-user-select: text;      
+    user-select: text;
+    color:white;
+    height: 100%;
+}
+
+.even{
+    background-color: #888;
+}
+
+.odd{
+    background-color: #666;
+}
+
+
+.tabli{
+    display: inline-block;
+    zoom: 1;
+    *display: inline;    
+    width:12.5%;
+    color:white;
+    text-align: center;
+    cursor: pointer;
+}
+
+#tabsul{
+    width:100%;
+    padding:0;
+    margin:0;
+}
+
+.disabled{
+    color:#888;
+}
+
+.enabled{
+    color:#fff;
+    font-weight: bold;
+}
+
+.tabcontainer{
+    position: absolute;
+    top:72px;
+    left:0px;
+    bottom:40px;
+    width:100%;
+    overflow: hidden;
+}
+
+/*.tabcontainer.header{
+    bottom:60px;
+}*/
+
+.visible{
+    display: block;
+}
+
+.invisible{
+    display: none;
+}
+
+#dialog{
+    overflow: hidden;
+}
+
+#toggleBtn{
+    display: none;
+    position: absolute;
+    top:5px;
+    right:10px;
+    font-size: 14px;
+}
+
+.locationcontainer{
+
+}
+
+#poiInfo{
+    text-align: center;
+}
+
+#maploading{
+    position: absolute;
+    max-height: 10px;
+    right:5px;
+    bottom: 5px;
+    display: none;
+    border:none;
+    width: 80px;
+}
+
+
+/*Progress bar dialog styling*/
+.ui-progressbar-value {
+background:rgb(0, 145, 255) !important;
+}
+
+.ui-dialog .ui-dialog-content{
+    color:white !important;  
+    min-height: 0px !important;
+    font-size:12px !important;
+}
+
+.k-window-content{
+    color:white !important;  
+    min-height: 0px !important;
+    font-size:12px !important;
+}
+
+.ui-dialog{
+
+    border:none !important;
+    background-color: rgb(37,46,65) !important;
+    background: rgba(37,46,65,0.8) !important;
+    border-radius: 10px !important;
+    -moz-box-shadow: 0 0 16px rgba(0,0,0,0.8);
+    box-shadow: 0 0 16px rgba(0,0,0,0.8);
+
+}
+
+.checklabel{
+    float:left !important;
+    margin-right:10px !important;
+}
+
+
+.tocslider{
+    margin:5px;
+}
+
+
+.layerTile {
+
+}
+
+
+.sublayers{
+    margin-left:20px;
+    display: none;
+    margin-bottom: 10px;
+}
+
+#layersdiv .ui-widget-content{
+    padding:0px !important;
+
+}
+
+#layersdiv h4{
+    margin-top: 5px;
+    display:inline-block;
+    zoom:1;
+    *display: inline;
+}
+
+#layersdiv{
+    overflow: auto !important;
+}
+
+.ui-button .ui-state-active{
+    background:red;
+}
+
+
+.ui-button .ui-state-default {
+background: rgb(84,134,50);
+}
+
+.sublayertitle{
+    max-height: 35px;
+    min-height: 35px;
+    font-weight: bold;
+}
+
+.legend div{
+    margin:5px 0 5px 0;
+    font-size:10px;
+}
+
+.checklabel{
+        -moz-box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    box-shadow: 0 0 16px rgba(0,0,0,0.8);
+    border:none !important;
+    color:white !important;
+    background: rgb(172,33,33) !important;
+}
+
+.checklabel.ui-state-active{
+
+    background: rgb(33,172,49) !important;
+}
+
+
+.selectpanel{
+    padding:5px;
+    color:white;
+    border:none !important;
+    background-color: rgb(37,46,65) !important;
+    background: rgba(37,46,65,0.8) !important;
+    border-radius: 0 5px 5px 0 !important;
+    -moz-box-shadow: 0 0 16px rgba(0,0,0,0.8);
+    box-shadow: 0 0 16px rgba(0,0,0,0.8);
+}
+
+.bookmark h5{
+    display: inline-block;
+    zoom:1;
+    *display: inline;
+    width:250px;
+    margin: 0;
+    cursor: pointer;
+}
+
+.bookmark {
+    height: 35px;
+    cursor: pointer;
+}
+
+.bookmark button{
+    display: inline-block;
+    zoom:1;
+    *display: inline; 
+    margin-bottom: 5px;
+}
+
+#bookmarkslist{
+    max-height: 120px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.selectpanel img{
+    max-height:30px;
+}
+
+
+
+.selectpanel li{
+    cursor: pointer;
+}
+
+.k-window-titlebar{
+    background: rgb(71,151,220) !important;
+}
+.k-window-title{
+    color:white;
+    /*font-family: 'Verdana,Arial,sans-serif';*/
+    font-family: 'Open Sans';
+    font-size: 14px;    
+}
+
+.k-grid-content{
+    overflow-y:auto !important;
+}
+
+.k-grid td{
+    word-wrap:break-word;
+}
+
+
+
+.servicediv{
+    margin:10px;
+}
+
+/* =========================================================================
+   Helper classes
+   ========================================================================== */
+
+/*
+ * Image replacement
+ */
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    /* IE 6/7 fallback */
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+}
+
+/*
+ * Hide from both screenreaders and browsers: h5bp.com/u
+ */
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+/*
+ * Hide only visually, but have it available for screenreaders: h5bp.com/v
+ */
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/*
+ * Extends the .visuallyhidden class to allow the element to be focusable
+ * when navigated to via the keyboard: h5bp.com/p
+ */
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+/*
+ * Hide visually and from screenreaders, but maintain layout
+ */
+
+.invisible {
+    visibility: hidden;
+}
+
+/*
+ * Clearfix: contain floats
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/*
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+
+.clearfix {
+    *zoom: 1;
+}
+
+/* ==========================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   Theses examples override the primary ('mobile first') styles.
+   Modify as content requires.
+   ========================================================================== */
+
+@media only screen and (max-width: 600px) {
+    /* Style adjustments for viewports that meet the condition */
+    #panel{
+        left:0px;
+        width:100%;
+        bottom:0px;
+    }
+    #mapsection{
+        right:0px;
+        width: 100%;
+        bottom:0px;
+    }
+    #toggleBtn{
+        display: block;
+    }
+    footer{
+        visibility: hidden;
+    }
+
+    #menubar{
+        visibility: hidden;
+    }
+
+
+}
+
+@media print,
+       (-o-min-device-pixel-ratio: 5/4),
+       (-webkit-min-device-pixel-ratio: 1.25),
+       (min-resolution: 120dpi) {
+    /* Style adjustments for high resolution devices */
+}
+
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: h5bp.com/r
+   ========================================================================== */
+
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster: h5bp.com/s */
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /*
+     * Don't show links for images, or javascript/internal links
+     */
+
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group; /* h5bp.com/t */
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    @page {
+        margin: 0.5cm;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}
