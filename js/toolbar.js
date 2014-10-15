@@ -22,13 +22,15 @@ function CreateToolbar(){
 		//load jquery plugin//
 		if (tool.script){
 			
-			loadTool(tool.script, tool, function(loaded, tool){
-
+			//loadTool(tool.script, tool, function(loaded, tool){
+			$.getScript(tool.script, function(data, textStatus) {
+				/*optional stuff to do after getScript */ 
+			
 				cnt+=1;
-				if (!loaded){
+/*				if (!loaded){
 					var idx = $.inArray(tool, config.tools);
 					config.tools.splice(idx,1);
-				}
+				}*/
 				if (cnt == total){
 					$(config.tools).each(function(i,tool){
 						var toolitem = $("<li class='tool'></li>");
