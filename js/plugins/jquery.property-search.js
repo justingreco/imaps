@@ -631,6 +631,7 @@
                 this.addCrimeLink();
             }
             this.getSepticPermits(this.pin, $("#propInfoGrid"));
+            this.checkWaterAnalysis(this.pin, $("#propInfoGrid"));
         },
 
 
@@ -746,21 +747,21 @@
             plugin.showProgress(Plugin.prototype.options,"Searching Septic Permits...");
         	$.ajax({
         		url:config.property.soe+"/SepticPermits",
-        		dataType:"jsonp",
+        		dataType:"json",
         		data:{
         			pin:pin,
         			f:"json"
         		},success:function(data){
                     plugin.hideProgress(Plugin.prototype.options);
 
-        			$(data['Septic Permits']).each(function(i, permit){
+        			$(data['SepticPermits']).each(function(i, permit){
         				var permnum = permit.permitNumber;
         				/*var permul =  $("<ul class='infoul'><li class='infoli'>Septic Permit</li><li class='infoli'><a href='http://imaps.co.wake.nc.us/imaps/RequestedPermit.aspx?permit="+permnum+"' target='_blank'>"+permnum+"</a></li></ul>");
         				permul.addClass((div.children().length%2 == 0)?"even":"odd");
         				div.append(permul);*/
 
                         //$("#propInfoGrid").data("kendoGrid").dataSource
-                        div.data("kendoGrid").dataSource.add({field:"Septic Permit", value:"<a href='http://imaps.co.wake.nc.us/imaps/RequestedPermit.aspx?permit="+permnum+"' target='_blank'>"+permnum+"</a>"});
+                        div.data("kendoGrid").dataSource.add({field:"Septic Permit", value:"<a href='http://gisasp2.wakegov.com/imaps/RequestedPermit.aspx?permit="+permnum+"' target='_blank'>"+permnum+"</a>"});
                         $("#propResultsGrid").data("kendoGrid").refresh();
         			});
 
@@ -770,6 +771,27 @@
         	});
         },
 
+        checkWaterAnalysis:function(pin, div){
+            var plugin = this;
+            plugin.showProgress(Plugin.prototype.options,"Searching Water Analysis Samples...");
+            $.ajax({
+                url:config.property.soe+"/WellResults",
+                dataType:"json",
+                data:{
+                    pin:pin,
+                    f:"json"
+                },success:function(data){
+                    plugin.hideProgress(Plugin.prototype.options);
+                    if (data['WellResults'].length > 0) {
+                         div.data("kendoGrid").dataSource.add({field:"Water Samples", value:"<a href='http://justingreco.github.io/water-analysis/app/index.html#/?pin="+pin+"' target='_blank'>View</a>"});
+                        $("#propResultsGrid").data("kendoGrid").refresh();                       
+                    }
+
+                }, error:function(error){
+                    plugin.hideProgress(Plugin.prototype.options);
+                }
+            });
+        },
         getPhotoInfo:function(){
             var plugin = this;
             plugin.showProgress(Plugin.prototype.options,"Searching Photos...");            
