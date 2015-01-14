@@ -476,7 +476,7 @@
 },
 "property":
 {
-  "soe":"http://mapstest.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/exts/PropertySOE",
+  "soe":"http://maps.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/exts/PropertySOE",
   "realEstateOp":"RealEstateSearch",
   "photoOp":"PhotoSearch",
   "deedOp":"DeedSearch",
