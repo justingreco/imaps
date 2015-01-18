@@ -26,7 +26,6 @@
 			$(this.element).append(header);	
 			$(this.element).append(container);	
             this.createLayerNode();
-
         },
 
         createLayerNode:function(){
@@ -62,7 +61,7 @@
                 }
                 if(item.visible){
                     //CreateSubLayerNode(layer,layerdiv);
-                    var layer = CreateLayer(item);
+                    var layer = Plugin.prototype.createLayer(item);
                     map.addLayer(layer);
                     dojo.connect(layer, "onLoad", function(loadedlayer){
                         plugin.createSubLayerNode(loadedlayer, layerdiv);
@@ -90,7 +89,38 @@
             $("label", disabled.parent()).prop("title", "Layer not visible at this scale");;
             $("label", enabled.parent()).prop("title", "");            
         },
+        createLayer: function (layer){
+            var mapLayer = null;
+            var opacity = 1.00;
+            require(['esri/layers/ArcGISTiledMapServiceLayer', 'esri/layers/ArcGISDynamicMapServiceLayer', 'esri/layers/ArcGISImageServiceLayer', 'esri/layers/FeatureLayer'], function (ArcGISTiledMapServiceLayer, ArcGISDynamicMapServiceLayer, ArcGISImageServiceLayer, FeatureLayer) {
 
+                if(layer.opacity){
+                    opacity = layer.opacity;
+                }
+                switch (layer.type){
+                    case "tiled":
+                        mapLayer = new ArcGISTiledMapServiceLayer(layer.url,{visible:layer.visible, id:layer.id, name:layer.label, opacity:opacity});
+                        break;
+                    case "dynamic":
+                        mapLayer = new ArcGISDynamicMapServiceLayer(layer.url,{visible:layer.visible, id:layer.id, name:layer.label, opacity:opacity});
+                        if (layer.visiblelayers){
+                            mapLayer.setVisibleLayers(layer.visiblelayers);
+                        }
+                        break;
+                    case "image":
+                        mapLayer = new ArcGISImageServiceLayer(layer.url,{visible:layer.visible, id:layer.id, name:layer.label, opacity:opacity});
+                        break;
+                    case "feature":
+                        mapLayer = new FeatureLayer(layer.url,{visible:layer.visible, id:layer.id, name:layer.label, opacity:opacity});
+                        break;
+                }   
+                if(layer.minscale){
+                    mapLayer.setMinScale(layer.minscale);
+                }
+                
+            });
+            return mapLayer;
+        },
         layerUpdated:function(){
             var id = this.id;
             var filtered = $(config.map.oplayers).filter(function(){
@@ -112,6 +142,7 @@
         },
 
         layerCheckButtonChange:function(button){
+                        
             var plugin = this;
             var parent = $(button).parent();
             var sublayers = $('.sublayers', $(button).parent());
@@ -128,7 +159,7 @@
                     var item = $(config.map.oplayers).filter(function(){
                         return this.id == id;
                     });
-                    layer = CreateLayer(item[0]);
+                    layer = Plugin.prototype.createLayer(item[0]);
                     map.addLayer(layer);
                     dojo.connect(layer, "onLoad", function(loadedlayer){
                         layer.setVisibility(true);
@@ -190,7 +221,6 @@
                 var sublayerdiv = $("<div class='sublayer' data-value='"+layerInfo.id+"'></div>");
                 sublayersdiv.append(sublayerdiv);
                 sublayersdiv.css("display","block");
-                console.log(layer.id);
 
 
                 var visible = ($.inArray(layerInfo.id, layer.visibleLayers) > -1)?true:false;

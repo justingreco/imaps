@@ -49,7 +49,9 @@
         Plugin.prototype.element = this.element;
         require(["esri/layers/GraphicsLayer"], function (GraphicsLayer) {
             Plugin.prototype.graphicslayer = new GraphicsLayer();
+            console.log(map);
             map.addLayer(this.graphicslayer);
+
             Plugin.prototype.init();
         });
     }

@@ -20,7 +20,7 @@
 
         init: function() {
         	var plugin = this;
-        	$(this.element).append("<img src='"+this.options.tool.icon+"' style='max-height:30px'>"+this.options.tool.label+"</img>");
+        	$(this.element).append("<img src='"+this.options.tool.icon+"' style='max-height:30px'/><span>"+this.options.tool.label+"</span>");
         	if (this.options.tool.toggle){
         		$(this.element).addClass('toggle');
         	}
@@ -65,7 +65,14 @@
                 plugin.activateSelectDrawToolbar(this);
             });
             $("#tools h3").click(function(){
-                $(".selectpanel").toggle();
+                
+                if ($("#tools").hasClass('collapsed')) {
+                    $(".selectpanel").hide();
+                } else {
+                    if($(".tool.toggle.active span").html() === "Select") {
+                        $(".selectpanel").show();
+                    }
+                }
                 if($(".selectpanel").css("display") == "none"){
                     MoveZoomSlider($("#tools").width()+30);     
                 }else{
@@ -180,18 +187,18 @@
 
         addSelectGraphicToMap:function(geometries){
             require(["esri/graphic", "esri/symbols/SimpleFillSymbol", "esri/symbols/SimpleLineSymbol", "esri/Color"], function (Graphic, SimpleFillSymbol, SimpleLineSymbol, Color){
-            var symbol = new SimpleFillSymbol(
-                SimpleFillSymbol.STYLE_SOLID,
-                new SimpleLineSymbol(
-                  SimpleLineSymbol.STYLE_SOLID,
-                  new Color([255,0,0,0.65]), 2
-                ),
-                new Color([255,0,0,0.35])
-            );
-            map.getLayer("selectgl").clear();
-            $(geometries).each(function(i, geometry){
-                map.getLayer("selectgl").add(new Graphic(geometry, symbol));
-            });
+                var symbol = new SimpleFillSymbol(
+                    SimpleFillSymbol.STYLE_SOLID,
+                    new SimpleLineSymbol(
+                      SimpleLineSymbol.STYLE_SOLID,
+                      new Color([255,0,0,0.65]), 2
+                    ),
+                    new Color([255,0,0,0.35])
+                );
+                map.getLayer("selectgl").clear();
+                $(geometries).each(function(i, geometry){
+                    map.getLayer("selectgl").add(new Graphic(geometry, symbol));
+                });
             });
         },
 

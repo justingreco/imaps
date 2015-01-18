@@ -910,7 +910,7 @@
 
                 var geometry = this.singleGl.graphics[0].geometry;
                 geomService.simplify([geometry], function(geometries){
-                    require("esri/tasks/BufferParameters", function (BufferParameters) {
+                    require(["esri/tasks/BufferParameters"], function (BufferParameters) {
                         var params = new BufferParameters();
                         params.distances = [-5];
                         params.unit = 9002;

@@ -43,8 +43,6 @@ function CreateToolbar(){
 							$(".selectpanel").css("display", "none");							
 							MoveZoomSlider($("#tools").width()+30);
 						}
-
-						
 						drawtoolbar.deactivate();
 						ChangeSelectedToggleItem(this);
 					});
@@ -58,8 +56,10 @@ function CreateToolbar(){
 function ChangeSelectedToggleItem(item){
 	$(".tool.toggle").each(function(i, tool){
 		$("img", tool).attr("src",$("img", tool).attr("src").replace("_selected", "_default"));
+		$(tool).removeClass("active");
 	});
 	$("img", item).attr("src",$("img", item).attr("src").replace("_default", "_selected"));
+	$(item).addClass("active");
 }
 
 

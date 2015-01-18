@@ -292,10 +292,10 @@ select{
     border-radius:5px;
     overflow: hidden;
     -moz-border-radius:5px; /* Old Firefox */
-    -webkit-user-select: none;  
+/*    -webkit-user-select: none;  
     -moz-user-select: none;    
     -ms-user-select: none;      
-    user-select: none;
+    user-select: none;*/
 
  -moz-box-shadow: 0 0 5px #000;
   -webkit-box-shadow: 0 0 5px #000;

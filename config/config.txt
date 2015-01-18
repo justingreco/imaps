@@ -33,6 +33,15 @@
 "imagelayers":
 [
 {
+ "id":"image2013",
+ "label":"2013",
+ "type":"tiled",
+ "visible":false,
+ "opacity":1.00,
+ "url":"http://maps.raleighnc.gov/ArcGIS/rest/services/Orthos10/Orthos2013/ImageServer",
+ "countywide":true
+},
+{
  "id":"image2012",
  "label":"2012",
  "type":"tiled",

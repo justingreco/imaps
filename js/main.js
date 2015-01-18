@@ -1,3 +1,24 @@
+//DO NOT REMOVE//
+var map, ovmap, geomService;
+var basemaps = [];
+var imagelayers = [];
+var opLayers = [];
+var raleigh;
+var inRaleigh = true;
+var lastyear = "2013";
+var lastInRaleigh = false;
+
+var handlers = [];
+var toolhandlers = [];
+var drawhandlers = [];
+
+
+var graphiclayerids = ['propertygl', 'selectgl'];
+
+var drawtoolbar;
+
+
+
 
 
 //jQuery loaded
@@ -9,9 +30,32 @@ $(document).ready(function(){
 
 
 function init(){
-	
 	LoadConfig();
 	$("#maploading").progressbar({value:false, resizeable:false});
+	$(".expandable h3").click(function(e){
+		if ($(this).parent().hasClass("collapsed")){
+			$(this).parent().removeClass("collapsed");
+			$(this).parent().addClass("expanded");
+			/*if ($(this).parent().attr("id") == "tools"){
+				MoveZoomSlider($(this).parent.width()+30);
+			}*/	
+		}else{
+			$(this).parent().removeClass("expanded");
+			$(this).parent().addClass("collapsed");		
+			/*if ($(this).parent().attr("id") == "tools"){
+				$(".esriSimpleSliderTL").css("cssText", "left: 100px !important");
+			}	*/		
+		}	
+
+		if ($(this).parent().attr("id") == "tools"){
+			MoveZoomSlider($(this).parent().width()+30);
+		}	
+
+	});	
+}
+
+function MoveZoomSlider(left){
+	$(".esriSimpleSliderTL").css("cssText", "left: "+left+"px !important");
 }
 
 function LoadConfig(){
@@ -45,8 +89,10 @@ function LoadConfig(){
 			SetHeader();
 			//SetPanel();
 			SetDialog();
-			CreateMap();
-			CreateBaseMapToggle();
+			//CreateMap();
+			$('#mapdiv').mapplugin();
+			//CreateBaseMapToggle();
+			$('#basemaps').basemaps();
 			CreateToolbar();
 		}, error:function(error){
 

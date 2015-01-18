@@ -1,3 +1,4 @@
+
 //DO NOT REMOVE//
 var map, ovmap, geomService;
 var basemaps = [];
@@ -15,10 +16,6 @@ var drawhandlers = [];
 var graphiclayerids = ['propertygl', 'selectgl'];
 
 var drawtoolbar;
-
-
-require(['esri/map', 'esri/dijit/LocateButton', 'esri/config', 'esri/tasks/GeometryService', 'esri/geometry/Extent', 'esri/layers/ArcGISTiledMapServiceLayer', 'esri/layers/ArcGISDynamicMapServiceLayer', 'esri/layers/ArcGISImageServiceLayer', 'esri/layers/FeatureLayer','dojo/domReady!'], function (Map, LocateButton, esriConfig, GeometryService, Extent, ArcGISTiledMapServiceLayer, ArcGISDynamicMapServiceLayer, ArcGISImageServiceLayer, FeatureLayer) {
-
 //
 function mapinit(){
 	esri.config.defaults.io.proxyUrl = "proxy.ashx";
@@ -40,13 +37,22 @@ function GetRaleighBound(){
 }
 
 function CreateMap(){
-
+require([
+      "esri/map", 
+      "esri/dijit/LocateButton",
+      "esri/config",
+      "esri/tasks/GeometryService",
+      "esri/geometry/Extent",
+      "dojo/domReady!"
+    ], function(
+      Map, LocateButton, esriConfig, GeometryService, Extent
+    )  {
 		//var popup = new esri.dijit.Popup({fillSymbol:new esri.symbol.SimpleFillSymbol(config.property.symbolMultiple)}, dojo.create("div"));
 		esriConfig.defaults.io.proxyUrl = "proxy.ashx";
 		raleigh = GetRaleighBound();
 
 		geomService = GeometryService(config.map.geometry);
-		map = new Map("#mapdiv",{
+		map = new Map("mapdiv",{
 			extent:new Extent(config.map.extent),
 			logo:false,
 			showAttribution:false
@@ -85,7 +91,7 @@ function CreateMap(){
 		}));
 		handlers.push(dojo.connect(map, "onUpdateEnd", function(){
 			$("#maploading").css("display", "none");
-		}));
+		}))
 
 		$(".expandable h3").click(function(e){
 			if ($(this).parent().hasClass("collapsed")){
@@ -107,6 +113,8 @@ function CreateMap(){
 			}	
 
 		});
+
+    });
 
 }
 
@@ -203,7 +211,7 @@ function ChangeSelectedAerial(select,id){
 }
 
 function CreateLayer(layer){
-
+	require(['esri/layers/ArcGISTiledMapServiceLayer', 'esri/layers/ArcGISDynamicMapServiceLayer', 'esri/layers/ArcGISImageServiceLayer', 'esri/layers/FeatureLayer'], function (ArcGISTiledMapServiceLayer, ArcGISDynamicMapServiceLayer, ArcGISImageServiceLayer, FeatureLayer){
 		var mapLayer = null;
 		var opacity = 1.00;
 		if(layer.opacity){
@@ -230,7 +238,7 @@ function CreateLayer(layer){
 			mapLayer.setMinScale(layer.minscale);
 		}
 		return mapLayer;
-
+	});
 
 }
 
@@ -420,11 +428,5 @@ function CheckUrlObjects(){
 		}//
 	}
 }
-
-
-
-
-});
-
 
 

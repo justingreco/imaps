@@ -21,7 +21,7 @@
         init: function() {
 
         	var plugin = this;
-        	$(this.element).append("<img src='"+this.options.tool.icon+"' style='max-height:30px'>"+this.options.tool.label+"</img>");
+        	$(this.element).append("<img src='"+this.options.tool.icon+"' style='max-height:30px'/><span>"+this.options.tool.label+"</span>");
         	if (this.options.tool.toggle){
         		$(this.element).addClass('toggle');
         	}
