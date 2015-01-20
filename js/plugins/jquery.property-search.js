@@ -350,7 +350,7 @@
                 ],
                 change:function(e){
                     var row = this.select()[0];
-                    var pin = this.dataItem(row).pin;
+                    pin = this.dataItem(row).pin;
 
                     plugin.enableTabs();
                     plugin.switchTabs($("#infoContainer"));
@@ -406,7 +406,7 @@
 
                 $("#propResultsGrid").data("kendoGrid").refresh();
                 
-                var pins = [];
+                pins = [];
                 $(data.Accounts).each(function(i, account){                
                     if (pins.length < 1000){
                         if ($.inArray(account.pin, pins) == -1){
@@ -590,6 +590,7 @@
 
         addPropertyInfo:function(info, fields){
             this.pin = info['pin'];
+            pin = info['pin'];
             this.reid = info['reid'];
             if ($("#propInfoGrid").length == 0){
                 var grid = $("<div id='propInfoGrid' style='height:100%;overflow:hidden'></div>").appendTo($("#infoContainer"));

@@ -26,7 +26,41 @@
 			  },
 			  url:"http://mapstest.raleighnc.gov/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
 			  progressid:"progressDialog",
-			  messageid:"progressMessage"
+			  messageid:"progressMessage",
+			  layouts: [
+			  	{name: 'Letter Landscape',
+			  		orientation: 'landscape',
+			  		size: '8.5x11'
+			  	},
+			  	{name: 'Letter Portrait',
+			  		orientation: 'portrait',
+			  		size: '8.5x11'
+			  	},
+			  	{name: 'Tabloid Landscape',
+			  		orientation: 'landscape',
+			  		size: '11x17'
+			  	},
+			  	{name: 'Tabloid Portrait',
+			  		orientation: 'portrait',
+			  		size: '11x17'
+			  	},
+			  	{name: '24x36 Landscape',
+			  		orientation: 'landscape',
+			  		size: '24x36'
+			  	},
+			  	{name: '24x36 Portrait',
+			  		orientation: 'portrait',
+			  		size: '24x36'
+			  	},
+			  	{name: '36x48 Landscape',
+			  		orientation: 'landscape',
+			  		size: '36x48'
+			  	},
+			  	{name: '36x48 Portrait',
+			  		orientation: 'portrait',
+			  		size: '36x48'
+			  	}	  				  				  				  				  				  				  	
+			  ]
 		};
 
     function Plugin( element, options ) {
@@ -87,60 +121,100 @@
 
         createContent: function(el, options, dialog){
         	var plugin = this;
-			dialog.append("Title  ");
-			titleinput = $("<input style='margin-bottom:5px'></input>");
-			dialog.append(titleinput);
-			dialog.append("<br/>Layout  ");
-			layoutselect = $("<select style='margin-bottom:5px'></select>");
-			dialog.append(layoutselect);
+			//dialog.append("Title  ");
+			var form = $('<form></form>').appendTo(dialog);
+			form.append('<div class="form-group form-group"><label for="printTitle">Title</label><input type="text" class="form-control input-sm" id="printTitle" placeholder="Title to appear on map" style="width:90%">');
+			form.append('<div class="form-group form-group"><label for="printLayout">Layout</label><select class="form-control input-sm" id="printLayout" ></select>');
+			form.append('<div class="form-group form-group"><label for="printScale">Scale</label><select class="form-control input-sm" id="printScale"></select>');
+			form.append('<div class="form-group form-group"><label class="checkbox-inline"><input type="checkbox" id="printGraphics">Graphics</input></label><label class="checkbox-inline"><input type="checkbox" id="printInfo">Property Info</input></label></div>');
+			form.append('<div class="form-group form-group"><button id="printButton" class="btn btn-primary" type="button">Save PDF</button></div>');
 
-			$(options.template.layouts).each(function(i,layout){
-				layoutselect.append("<option>"+layout+"</option>");			
-			});
+			$.each(options.layouts, function(i, layout) {
+				$('#printLayout').append('<option data-orient="'+layout.orientation+'" data-size="'+layout.size+'">'+layout.name+'</option>');
+			});			
 
-			dialog.append("<br/>Format  ");
-			formatselect = $("<select style='margin-bottom:5px'></select>");
-			dialog.append(formatselect);
-			$(options.template.formats).each(function(i, formats){
-				formatselect.append("<option>"+formats+"</option>");
-			});
-			dialog.append("<br/>");
-			var print = $("<div id='print_button'>Print</div>");	
-			dialog.append(print);
-			print.button().click(function(){
-				plugin.printMap(plugin.options, $("option:selected", layoutselect).val(), $("option:selected", formatselect).val());
-			});
+			$("#printButton").on('click', function () {
+
+				Plugin.prototype.printMap(Plugin.prototype.buildPrintParams());
+			});	
         },
 
-        printMap: function(options, layout, format){
-        	var plugin = this;
-	 		var template = new esri.tasks.PrintTemplate();
-			template.exportOptions = {
-			  width: 500,
-			  height: 400,
-			  dpi: 300
+        buildPrintParams: function () {
+			var layers = map.getLayersVisibleAtScale(map.getScale()),
+				layerList = '',
+				layerTypes = '',
+				extent = map.extent.xmin + ';' + map.extent.ymin + ';' + map.extent.xmax + ';' + map.extent.ymax,
+				opacities = '',
+				visLayers = '';
+			$.each(layers, function(i, layer) {
+				if (layer.visible) {
+					layerList += layer.id + ';';
+					if (layer.tileInfo) {
+						layerTypes += 'tiled;';
+						visLayers += '0;'
+					} else {
+						if (layer.visibleLayers) {
+							layerTypes += 'dynamic;';
+							visLayers += layer.visibleLayers.toString() + ';';								
+						} else {
+							layerTypes += ';';
+						}
+					}
+					opacities += layer.opacity + ';';
+				}	
+			});        	
+			var params = {
+				Services: layerList,
+				Visible_Layers: visLayers,
+				f: 'json',
+				Size: $('#printLayout option:selected').data('size'),
+				Scale: map.getScale(),
+				Transparency_Values: opacities,
+				Graphics_Count: '0;0;0;0',
+				Title: $("#printTitle").val(),
+				Orientation: $('#printLayout option:selected').data('orient'),
+				Types: layerTypes,
+				Extent: extent
 			};
-			template.layoutOptions = {
-				titleText:titleinput.val(),
-				scalebarUnit:"Miles",
-				copyrightText:""
-			};
-			template.format = format;
-			template.layout = layout;
-			template.preserveScale = true;
 
-			var params = new esri.tasks.PrintParameters();
-			params.map = options.map;
-			params.template = template;
-			var printer = new esri.tasks.PrintTask(options.url);
+			if (pin) {
+				params.PIN = pin + ';';
+			}
+			if (pins) {
+				params.PIN += pins.toString().replace(/'/g, '');
+			}
 
-			this.showProgress(options,"Printing map, please wait...");
-			printer.execute(params,function(result){
-				window.open(result.url,"_blank");
-				plugin.hideProgress(options);
-			},function(){
-				plugin.hideProgress(options);
-			});       	
+			if ($("#printInfo").is(':checked')) {
+				var attributes = '';
+				$.each($('#propInfoGrid tr'), function(i, tr) {
+					if (i > 0) {
+						attributes += $('td', tr).first().text() + ': ' + $('td', tr).eq(1).text() + ';';
+						params.Attributes = attributes;							
+					}
+				});
+			}
+			console.log(params);
+			return params;
+        },
+
+        printMap: function(params){
+			require(['esri/tasks/Geoprocessor'], function (Geoprocessor) {
+				var gp = new Geoprocessor("http://maps.raleighnc.gov/arcgis/rest/services/Geoprocessing/SaveToPDF/GPServer/SaveToPDF");
+
+				gp.submitJob(params, function (info) {
+					gp.getResultData(info.jobId, 'Output_URL', function (data) {
+						console.log(data.value);
+						window.open(data.value);
+					});
+				}, 
+				function (status) {
+					console.log(status);
+				},
+				function (error) {
+					console.log(error);
+				});
+
+			});      	
         },
 
         showProgress: function(options, message){

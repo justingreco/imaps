@@ -16,7 +16,8 @@ var drawhandlers = [];
 var graphiclayerids = ['propertygl', 'selectgl'];
 
 var drawtoolbar;
-
+var pin = '',
+	pins = [];
 
 
 

@@ -42,26 +42,6 @@ function CreateLayerNode(){
 					handlers.push(dojo.connect(loadedlayer,"onResume", LayerUpdated));
 				});
 			}
-			/*var layer = map.getLayer(item.id);
-			var layerdiv = $("<div></div>");
-			var label = (layer.visible)?"On":"Off";
-			var layercheck = $("<input type='checkbox' id='layer_check_"+i+"' value='"+layer.id+"' data-minscale='"+layer.minScale+"' class='layercheck'/>");
-			if(layer.visible){
-				layercheck = $("<input type='checkbox' id='layer_check_"+i+"' value='"+layer.id+"' data-minscale='"+layer.minScale+"' class='layercheck' checked='checked'/>");
-			}
-			layerdiv.append(layercheck);
-
-			layerdiv.append("<label for='layer_check_"+i+"' class='checklabel' title=''>"+label+"</label><h4>"+item.label+"</h4>");
-			tocdiv.append(layerdiv);
-
-
-			layercheck.button().bind('change', LayerCheckButtonChange).css("background-color","red");	
-			if (layer.minScale < map.getScale() && layer.minScale > 0){
-				layercheck.button("option","disabled", true);
-			}
-			if(layer.visible){
-				CreateSubLayerNode(layer,layerdiv);
-			}*/
 		}	
 	});
 	dojo.connect(map,"onZoomEnd", MapZoomEnd);

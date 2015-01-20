@@ -1,4 +1,4 @@
-var pin,reid,propresults,propinfo;
+var pin = '',reid,propresults,propinfo, pins = [];
 
 
 function CreatePropertySearch(){
@@ -139,7 +139,7 @@ function SearchRealEstateAccounts(values, type, zoom){
 			HideProgress();
 			propresults = data;
 			$("#resultsdiv").empty();
-			var pins = [];
+			pins = [];
 			$(data.Accounts).each(function(i, account){
 				if (i%2 == 0){
 					$("#resultsdiv").append("<ul class='resultsul even'><li class='resultsli' value='"+account.pin+"'>"+account.owner+"</li><li class='resultsli' value='"+account.pin+"'>"+account.siteAddress+"</li><li class='resultsli' value='"+account.pin+"'>"+account.pin+"</li></ul>");
