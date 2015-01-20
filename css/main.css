@@ -562,10 +562,17 @@ background:rgb(0, 145, 255) !important;
 
 }
 
+.layertitle {
+    margin-left: 10px;
+}
 
 .sublayers{
     margin-left:20px;
     display: none;
+    margin-bottom: 10px;
+}
+
+.sublayer {
     margin-bottom: 10px;
 }
 
@@ -605,6 +612,10 @@ background: rgb(84,134,50);
     font-size:10px;
 }
 
+#labelCheck {
+    margin-top: 5px;
+}
+
 .checklabel{
         -moz-box-shadow: 0 0 5px rgba(0,0,0,0.1);
     box-shadow: 0 0 16px rgba(0,0,0,0.8);
@@ -628,6 +639,10 @@ background: rgb(84,134,50);
     border-radius: 0 5px 5px 0 !important;
     -moz-box-shadow: 0 0 16px rgba(0,0,0,0.8);
     box-shadow: 0 0 16px rgba(0,0,0,0.8);
+}
+
+.selectpanel button {
+    margin-bottom: 5px;
 }
 
 .bookmark h5{

@@ -120,13 +120,13 @@ function SetHeader(){
 	menu.menubar();
 
 	$(window).resize(function () {
-		if (Modernizr.mq()) {
-			if (window.matchMedia("(min-width: 600px)").matches) {
-		  		$("#panel").css("display", "block");
-				$("#toggleBtn").button("option","label","Map");
-			}			
-		}
+		$("#panel").css("display", "block");
+		if ($(window).width() <= 600) {
+			$("#toggleBtn").button("option","label","Map");
+							console.log(map.infoWindow);
+			map.infoWindow.hide();	
 
+		}
 	});
 }
 

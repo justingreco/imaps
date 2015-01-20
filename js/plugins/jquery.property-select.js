@@ -39,8 +39,8 @@
 
         addSelectPanel:function (top, left, width){
             var plugin = this;
-            var selectpanel = $("<ul class='selectpanel' style='background:#666;position:absolute;top:"+top+"px;left:"+(left+width)+"px;max-width:80px;font-size:12px'><li class='selectli' value='point'><img src='./img/select_point_default.png'>Point</img></li><li class='selectli' value='multipoint'><img src='./img/select_multi_default.png'>Line</img></li><li class='selectli' value='polygon'><img src='./img/select_polygon_default.png'>Polygon</img></li><li><input id='buffercheck' type='checkbox'><label for='buffercheck' class='checklabel' style='font-size:10px;margin-bottom:5px'>Buffer?</label></input></input> <input id='bufferdist' type='number' value='0'></input><p/></li><li><input id='selectFreehand' type='checkbox' checked='checked'></input><label for='selectFreehand' class='checklabel' style='font-size:10px'>Freehand?</label></li></ul>")
-
+            //var selectpanel = $("<ul class='selectpanel' style='background:#666;position:absolute;top:"+top+"px;left:"+(left+width)+"px;max-width:80px;font-size:12px'><li class='selectli' value='point'><img src='./img/select_point_default.png'>Point</img></li><li class='selectli' value='multipoint'><img src='./img/select_multi_default.png'>Multi-Point</img></li><li class='selectli' value='polygon'><img src='./img/select_polygon_default.png'>Polygon</img></li><li><input id='buffercheck' type='checkbox'><label for='buffercheck' class='checklabel' style='font-size:10px;margin-bottom:5px'>Buffer?</label></input></input> <input id='bufferdist' type='number' value='0'></input><p/></li><li><input id='selectFreehand' type='checkbox' checked='checked'></input><label for='selectFreehand' class='checklabel' style='font-size:10px'>Freehand?</label></li></ul>");
+            var selectpanel = $("<ul class='selectpanel' style='background:#666;position:absolute;top:"+top+"px;left:"+(left+width)+"px;max-width:80px;font-size:12px'><li class='selectli' value='point'><img src='./img/select_point_default.png'>Point</img></li><li class='selectli' value='multipoint'><img src='./img/select_multi_default.png'>Multi-Point</img></li><li class='selectli' value='polygon'><img src='./img/select_polygon_default.png'>Polygon</img></li><li><button id='buffercheck' type='button' class='btn btn-danger btn-xs'>Buffer?</button><input id='bufferdist' type='number' value='0'></input><p/></li><li><button id='selectFreehand' type='button' class='btn btn-success btn-xs'>Freehand?</button></li></ul>");
 
 
             $("body").append(selectpanel);
@@ -56,11 +56,29 @@
             $("#bufferdist").closest(".k-numerictextbox").css("background-color","#ffffff");
 
 
-            $("#buffercheck").button().click(function(){
+/*            $("#buffercheck").button().click(function(){
                 $("#bufferdist").closest(".k-widget").toggle();
+            });*/
+            $("#buffercheck").on('click', function () {
+                if ($(this).hasClass('btn-success')) {
+                    $(this).removeClass('btn-success').addClass('btn-danger');
+                } else {
+                    $(this).removeClass('btn-danger').addClass('btn-success');
+                }  
+                $("#bufferdist").closest(".k-widget").toggle();             
             });
-            $("#selectFreehand").button().click(function(){
-                plugin.activateSelectDrawToolbar(this)});
+            //$("#selectFreehand").button().click(function(){
+            //    plugin.activateSelectDrawToolbar(this)});
+
+
+            $("#selectFreehand").on('click', function() {
+                if ($(this).hasClass('btn-success')) {
+                    $(this).removeClass('btn-success').addClass('btn-danger');
+                } else {
+                    $(this).removeClass('btn-danger').addClass('btn-success');
+                }
+                plugin.activateSelectDrawToolbar(this);
+            });
             $(".selectli").click(function(){
                 plugin.activateSelectDrawToolbar(this);
             });
@@ -87,7 +105,10 @@
         selectDrawEnd:function(geometry){
             var plugin = this;
             var distance = $("#bufferdist").val();
-            if (!$("#buffercheck").prop("checked")){
+/*            if (!$("#buffercheck").prop("checked")){
+                distance = 0;
+            }*/
+            if (!$("#buffercheck").hasClass('btn-success')) {
                 distance = 0;
             }
             if (parseInt(distance) > 0){
@@ -128,7 +149,9 @@
             if ($(".selectli.selected").length > 0){
                 var drawmode = $(".selectli.selected").attr("value");
 
-                if($("#selectFreehand").is(":checked") && (drawmode == "polygon" || drawmode == "polyline")){
+                //if($("#selectFreehand").is(":checked") && (drawmode == "polygon" || drawmode == "polyline")){
+                if($("#selectFreehand").hasClass("btn-success") && (drawmode == "polygon" || drawmode == "polyline")){
+
                     drawmode = "freehand"+drawmode;
                 }else{
                     drawmode = drawmode.replace("freehand");

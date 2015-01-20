@@ -38,29 +38,42 @@
                 var layerdiv = $("<div></div>");
                 var label = (item.visible)?"On":"Off";
                 var minscale = (item.minscale)?item.minscale:0;
-                var layercheck = $("<input type='checkbox' id='layer_check_"+i+"' value='"+item.id+"' data-minscale='"+minscale+"' class='layercheck'/>");
+
+                var layerbutton = $('<button type="button" id="layer_check_'+i+'" data-toggle="tooltip" data-placement="left" class="btn btn-danger active layercheck" data-minscale="'+minscale+'" value="'+item.id+'">'+label+'</button>');
+
                 if(item.visible){
-                    layercheck = $("<input type='checkbox' id='layer_check_"+i+"' value='"+item.id+"' data-minscale='"+minscale+"' class='layercheck' checked='checked'/>");
+                    layerbutton = $('<button type="button" id="layer_check_'+i+'" data-toggle="tooltip" data-placement="left" class="btn btn-success active layercheck" data-minscale="'+minscale+'" value="'+item.id+'">'+label+'</button>');
                 }
 
-                var checklabel = $("<label for='layer_check_"+i+"' class='checklabel' title=''>"+label+"</label><h4>"+item.label+"</h4>");
+                var checklabel = $("<h4 class='layertitle'>"+item.label+"</h4>");
 
                 if (minscale < map.getScale() && minscale > 0){
-                    checklabel = $("<label for='layer_check_"+i+"' class='checklabel' title='Layer not visible at this scale'>"+label+"</label><h4>"+item.label+"</h4>");
+                    checklabel = $("<h4 class='layertitle'>"+item.label+"</h4>");
                 }
 
 
-                layerdiv.append(layercheck);
+                layerdiv.append(layerbutton);
 
                 layerdiv.append(checklabel);
                 tocdiv.append(layerdiv);            
-                layercheck.button().bind('change', function(){plugin.layerCheckButtonChange(this)}).css("background-color","red");   
+
+                layerbutton.on('click', function () {
+                    
+                    if ($(this).hasClass('btn-success')) {
+                        $(this).removeClass('btn-success').addClass('btn-danger');
+                        $(this).text('Off');
+                    } else {
+                        $(this).removeClass('btn-danger').addClass('btn-success');
+                        $(this).text('On');
+                    }
+                    plugin.layerCheckButtonChange(this);
+
+                });
 
                 if (minscale < map.getScale() && minscale > 0){
-                    layercheck.button("option","disabled", true);
+                   layerbutton.addClass("disabled");
                 }
                 if(item.visible){
-                    //CreateSubLayerNode(layer,layerdiv);
                     var layer = Plugin.prototype.createLayer(item);
                     map.addLayer(layer);
                     dojo.connect(layer, "onLoad", function(loadedlayer){
@@ -76,18 +89,21 @@
         },
 
         mapZoomEnd:function(){
+
             var disabled = $(".layercheck, .sublayercheck").filter(function(){
                 return $(this).data("minscale") < map.getScale() && $(this).data("minscale") > 0
             });
             var enabled = $(".layercheck, .sublayercheck").filter(function(){
-                return $(this).data("minscale") > map.getScale()
+                return $(this).data("minscale") >= map.getScale()
             });
 
-            disabled.button("option", "disabled", true);
-            enabled.button("option", "disabled", false);
+            disabled.addClass('disabled');
+            enabled.removeClass('disabled');
 
-            $("label", disabled.parent()).prop("title", "Layer not visible at this scale");;
-            $("label", enabled.parent()).prop("title", "");            
+            disabled.prop("title", "Layer not visible at this scale");;
+            enabled.prop("title", "");     
+            disabled.tooltip();
+            enabled.tooltip();                   
         },
         createLayer: function (layer){
             var mapLayer = null;
@@ -142,16 +158,14 @@
         },
 
         layerCheckButtonChange:function(button){
-                        
             var plugin = this;
             var parent = $(button).parent();
             var sublayers = $('.sublayers', $(button).parent());
             var id = $(button).val();
             var layer = map.getLayer(id);
-            if ($(button).is(":checked")){
+            if ($(button).hasClass("btn-success")){
                 _gaq.push(['_trackEvent', 'Layer List', 'Layer', id]);
 
-                $(button).button("option", "label", "On");
                 sublayers.css("display","block");
 
                 if(!layer){
@@ -177,13 +191,12 @@
                 }
 
             }else{
-                $(button).button("option", "label", "Off");
                 sublayers.css("display","none");
                 layer.setVisibility(false);
             }           
         },
         sliderChanged: function (e) {
-            var id =$(this.element).parents(".sublayers").parent().find("input").val();
+            var id =$(this.element).parents(".sublayers").parent().find("button").val();
             var layer = map.getLayer(id);
             layer.setOpacity(e.value/100);
             $(this.element).parents(".sublayers").find(".legendimg").css("opacity", e.value/100);
@@ -227,38 +240,39 @@
                 var label = (visible)?"On":"Off";
 
                 if (layer.id == "parcels" && layerInfo.id == 4){
-                    //layerInfo.name = "Dimension Labels";
                 }   
 
-                var sublayercheck = $("<input class='sublayercheck' type='checkbox' id='check_"+layer.id+"_"+layerInfo.id+"' data-layer='"+layer.id+"' data-id='"+layerInfo.id+"' data-minscale='"+layerInfo.minScale+"'/>");
+                
+                var sublayerbutton = $('<button type="button" class="btn btn-danger active sublayercheck" id="check_'+layer.id+'_'+layerInfo.id+'" data-layer="'+layer.id+'" data-id="'+layerInfo.id+'" data-minscale="'+layerInfo.minScale+'">'+label+'</button>');
+
                 if(visible){
-                    sublayercheck = $("<input class='sublayercheck' type='checkbox' checked='checked' id='check_"+layer.id+"_"+layerInfo.id+"' data-layer='"+layer.id+"' data-id='"+layerInfo.id+"' data-minscale='"+layerInfo.minScale+"'/>"); 
+                    sublayerbutton = $('<button type="button" class="btn btn-success active sublayercheck" id="check_'+layer.id+'_'+layerInfo.id+'" data-layer="'+layer.id+'" data-id="'+layerInfo.id+'" data-minscale="'+layerInfo.minScale+'">'+label+'</button>');
                 }
 
-                sublayerdiv.append(sublayercheck);
+               sublayerdiv.append(sublayerbutton);
 
-
-                sublayerdiv.append("<label for='check_"+layer.id+"_"+layerInfo.id+"' class='checklabel'>"+label+"</label><div class='sublayertitle'><div>"+layerInfo.name+"</div></div>");
+                sublayerdiv.append('<span class="layertitle">'+layerInfo.name+'</span>');
                 if (layer.id == "parcels" && layerInfo.id == 4){
                     sublayerdiv.css("display", "none");
                 }   
 
-
-
-                //if (visible){
-
-                //}
                 sublayersdiv.append(sublayerdiv);
-                //sublayercheck.button().bind('change', SublayerCheckChange);
-
-                if (layer.minScale < map.getScale() && layer.minScale > 0){
-                    sublayercheck.button("option","disabled", true);
+                sublayerbutton.on('click', function () {
+                    if ($(this).hasClass('btn-success')) {
+                        $(this).removeClass('btn-success').addClass('btn-danger');
+                        $(this).text('Off');
+                    } else {
+                        $(this).removeClass('btn-danger').addClass('btn-success');
+                        $(this).text('On');
+                    }
+                    Plugin.prototype.sublayerCheckChange(this);
+                });
+                if (layerInfo.minScale < map.getScale() && layer.minScale > 0){
+                    sublayerbutton.addClass('disabled');
                 }
                 var legenddiv = $("<div class='legend'></div>");
                 sublayerdiv.append(legenddiv);
                 legenddiv.css("display",(layerInfo.id, ($.inArray(layerInfo.id, layer.visibleLayers) > -1)?"block":"none"));
-
-                sublayercheck.button().bind('change', plugin.sublayerCheckChange);
             });
             this.createLegendNode(layer, sublayersdiv);           
         },
@@ -286,15 +300,14 @@
             });           
         },
 
-        sublayerCheckChange: function(){
-            var name = $(this).data("layer");
+        sublayerCheckChange: function(button){
+            var name = $(button).data("layer");
             var layer = map.getLayer(name);
-            var id = $(this).data("id");
+            var id = $(button).data("id");
             var vislayers = layer.visibleLayers;
             var pos = $.inArray(id, vislayers);
-            if ($(this).is(":checked")){
-                $(this).button("option", "label", "On");
-                $(".legend", $(this).parent()).css("display", "block");
+            if ($(button).hasClass("btn-success")){
+                $(".legend", $(button).parent()).css("display", "block");
                 if (pos == -1){
                     vislayers.push(id);
                     if (name == "parcels" && id == 3){
@@ -303,8 +316,7 @@
                 }
                 
             }else{
-                $(this).button("option", "label", "Off");
-                $(".legend", $(this).parent()).css("display", "none");
+                $(".legend", $(button).parent()).css("display", "none");
                 vislayers.splice(pos,1);
                 if (vislayers.length == 0){
                     vislayers.push(-1);

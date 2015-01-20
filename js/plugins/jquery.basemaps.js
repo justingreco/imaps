@@ -28,7 +28,9 @@
                     var classname = (layer.countywide)?"countyImage":"raleighImage";
                     html += "<option value='"+layer.id+"' class='"+classname+"'>"+layer.label+"</option>";
                 });
-                html+="</select><div><input id='labelCheck' type='checkbox'/><label for='labelCheck' class='checklabel' style='font-size:10px'>Labels Off</label></div>";
+                //html+="</select><div><input id='labelCheck' type='checkbox'/><label for='labelCheck' class='checklabel' style='font-size:10px'>Labels Off</label></div>";
+                html+="</select><div><button type='button' id='labelCheck' class='btn btn-danger btn-xs'>Labels Off</button></div>";
+
             }
 
                 function CheckAerialInRaleigh(inRaleigh){
@@ -85,11 +87,19 @@
                 });
             }
 
-            function ToggleLabels () {
+            function ToggleLabels (button) {
+                if ($(button).hasClass('btn-success')) {
+                    $(button).removeClass('btn-success').addClass('btn-danger');
+                } else {
+                    $(button).removeClass('btn-danger').addClass('btn-success');
+                }
                 var layer = map.getLayer("labels");
-                layer.setVisibility($(this).is(":checked"));
-                var label = ($(this).is(":checked"))?"Labels On":"Labels Off";
-                $(this).button('option','label',label);
+                //layer.setVisibility($(this).is(":checked"));
+                layer.setVisibility($(button).hasClass('btn-success'));
+                //var label = ($(this).is(":checked"))?"Labels On":"Labels Off";
+                var label = ($(button).hasClass('btn-success')) ? "Labels On" : "Labels Off";
+                //$(this).button('option','label',label);
+                $(button).text(label);
             }
 
 
@@ -117,7 +127,10 @@
                 CheckAerialInRaleigh(inRaleigh);
             });
 
-            $("#labelCheck").button().click(ToggleLabels);
+            //$("#labelCheck").button().click(ToggleLabels);
+            $("#labelCheck").on('click', function () {
+                ToggleLabels(this);
+            });
 
             $("label", $("#labelCheck").parent()).css("margin-top","5px");
 
