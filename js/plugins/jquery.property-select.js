@@ -118,14 +118,14 @@
                     params.bufferSpatialReference = map.spatialReference;
                     params.outSpatialReference = map.spatialReference;      
                     params.unit = 9002;
-                    if (geometry.type === "polygon"){
+/*                    if (geometry.type === "polygon"){
                         geomService.simplify([geometry], function(geometries){
                             params.geometries = geometries;
                         });
-                    }else{
+                    }else{*/
                         params.geometries = [geometry];
 
-                    }
+                    //}
 
                     geomService.buffer(params, function(geometries){
                         plugin.selectBufferComplete(geometries);

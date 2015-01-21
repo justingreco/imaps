@@ -441,6 +441,10 @@ ul{
     background-color: #525252 !important;
 }
 
+.dataTables_scrollBody {
+    overflow-x: hidden !important;
+}
+
 
 .tabli{
     display: inline-block;
@@ -562,11 +566,26 @@ background:rgb(0, 145, 255) !important;
 
 }
 
+.layertitle {
+    margin-left: 5px;
+}
+
 
 .sublayers{
     margin-left:20px;
     display: none;
     margin-bottom: 10px;
+}
+
+
+a:link, a:visited { 
+    color: rgb(71,151,220);
+    text-decoration: underline;
+    cursor: auto;
+}
+
+a:link:active, a:visited:active { 
+    color: rgb(71,151,220);
 }
 
 #layersdiv .ui-widget-content{
@@ -594,6 +613,7 @@ background:rgb(0, 145, 255) !important;
 background: rgb(84,134,50);
 }
 
+
 .sublayertitle{
     max-height: 35px;
     min-height: 35px;
@@ -603,6 +623,10 @@ background: rgb(84,134,50);
 .legend div{
     margin:5px 0 5px 0;
     font-size:10px;
+}
+
+.sublayer button {
+    margin-bottom: 5px;
 }
 
 .checklabel{
