@@ -383,7 +383,7 @@
             });*/
 
             $(window).bind("resize", function() {
-                plugin.refreshGrid($("#propResultsGrid"));
+                Plugin.prototype.refreshGrid();
             });
         },
 
@@ -397,8 +397,9 @@
                 });
 
                 gridElement.children(".k-grid-content").height(newHeight - otherElementsHeight);*/
-                $('.dataTables_scrollBody').css('height', $("#resultsContainer").height() - $('.dataTables_scrollHead').height());
-
+                console.log($("#resultsContainer").height() - 26);
+                $('.dataTables_scrollBody').css('height', $("#resultsContainer").height() - 26);//$('.dataTables_scrollHead').height());
+                $('.dataTable').css('width', $("#resultsContainer").width());
                 
         },
 
@@ -577,13 +578,13 @@
 			$(container).addClass("visible");
 
 
-            
+            Plugin.prototype.refreshGrid();           
 
-            if($(container).prop("id") == "resultsContainer"){
+/*            if($(container).prop("id") == "resultsContainer"){
                 this.refreshGrid($("#propResultsGrid"));
             }else if($(container).prop("id") == "infoContainer"){
                 this.refreshGrid($("#propInfoGrid"));
-            }
+            }*/
 
         },
 
@@ -689,9 +690,9 @@
             });
 
 
-            $(window).bind("resize", function() {
-                Plugin.prototype.refreshGrid($("#propInfoGrid"));
-            });
+           // $(window).bind("resize", function() {
+                //Plugin.prototype.refreshGrid($("#propInfoGrid"));
+          //  });
             if(info.city.toUpperCase == "RALEIGH"){
                 this.addCrimeLink();
             }
