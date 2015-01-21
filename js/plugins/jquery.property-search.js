@@ -337,8 +337,26 @@
 
         createResultsGrid:function(div){
             var plugin = this;
-            var grid = $("<div id='propResultsGrid' style='height:100%;overflow:hidden'></div>").appendTo(div);
-            grid.kendoGrid({
+            //var grid = $("<div id='propResultsGrid' style='height:100%;overflow:hidden'></div>").appendTo(div);
+            var grid = $("<table id='propResultsGrid' class='compact' style='height:100%;overflow:hidden;'><thead><tr><th>Owner</th><th>Address</th><th>PIN #</th></tr></table>").appendTo(div);
+
+
+            Plugin.prototype.t = grid.DataTable({
+                paging: false,
+                info: false,
+                filter: false,
+                scrollY: $("#resultsContainer").height(),
+                scrollCollapse: true
+            });
+
+
+
+
+
+
+
+//console.log(grid.parent().parent().height() - $(".dataTables_scrollHead").outerHeight(true) - $("#proptabs").outerHeight(true));
+/*            grid.kendoGrid({
                 pageable:false,
                 sortable:true,
                 resizeable:true,
@@ -362,15 +380,15 @@
                     }
                     plugin.addSinglePropertyToMap(pin, true);               
                 }
-            });
+            });*/
 
             $(window).bind("resize", function() {
                 plugin.refreshGrid($("#propResultsGrid"));
             });
         },
 
-        refreshGrid:function(gridElement){
-                var newHeight = gridElement.innerHeight(),
+        refreshGrid:function(){
+/*                var newHeight = gridElement.innerHeight(),
                     otherElements = gridElement.children().not(".k-grid-content"),
                     otherElementsHeight = 0;
 
@@ -378,11 +396,14 @@
                     otherElementsHeight += $(this).outerHeight();
                 });
 
-                gridElement.children(".k-grid-content").height(newHeight - otherElementsHeight);
+                gridElement.children(".k-grid-content").height(newHeight - otherElementsHeight);*/
+                $('.dataTables_scrollBody').css('height', $("#resultsContainer").height() - $('.dataTables_scrollHead').height());
+
                 
         },
 
         searchRealEstateAccounts: function(values, type, zoom){
+            Plugin.prototype.refreshGrid();
         	var plugin = this;
             plugin.showProgress(Plugin.prototype.options,"Searching Real Estate...");
 
@@ -399,13 +420,22 @@
                 plugin.hideProgress(Plugin.prototype.options);
               },
               success: function(data, textStatus, xhr) {
-                var ds = new kendo.data.DataSource({
+                Plugin.prototype.accounts = data.Accounts;
+                $("#propResultsGrid").DataTable().clear();
+                $.each(data.Accounts, function(i, account) {
+                    var rowArray = [account.owner,account.siteAddress,account.pin];
+                    var rowPos = $("#propResultsGrid").dataTable().fnAddData(rowArray);
+                    var row = $("#propResultsGrid").dataTable().fnGetNodes(rowPos[0]);
+                    $(row).attr('data-pin', account.pin);
+                    $(row).attr('data-id', i);
+                });
+/*                var ds = new kendo.data.DataSource({
                     data:data.Accounts
                 });
                 $("#propResultsGrid").data("kendoGrid").setDataSource(ds);
 
                 $("#propResultsGrid").data("kendoGrid").refresh();
-                
+*/                
                 pins = [];
                 $(data.Accounts).each(function(i, account){                
                     if (pins.length < 1000){
@@ -432,6 +462,22 @@
                 }
 
                 plugin.hideProgress(Plugin.prototype.options);
+
+                $("#propResultsGrid tr").click(function () {
+                    //var row = this.select()[0];
+                    pin = $(this).data('pin');
+                    var id = $(this).data('id');
+
+                    Plugin.prototype.enableTabs();
+                    Plugin.prototype.switchTabs($("#infoContainer"));
+                    Plugin.prototype.selectTab(1);
+                    Plugin.prototype.addPropertyInfo(Plugin.prototype.accounts[id], plugin.fields);
+
+                    if(pin.length == 9){
+                        pin = "0"+pin;
+                    }
+                    Plugin.prototype.addSinglePropertyToMap(pin, true);  
+                });                
 
               },
               error: function(xhr, textStatus, errorThrown) {
@@ -593,7 +639,17 @@
             pin = info['pin'];
             this.reid = info['reid'];
             if ($("#propInfoGrid").length == 0){
-                var grid = $("<div id='propInfoGrid' style='height:100%;overflow:hidden'></div>").appendTo($("#infoContainer"));
+            var grid = $("<table id='propInfoGrid' class='compact' style='height:100%;overflow:hidden;'><thead><tr><th>Field</th><th>Value</th></tr></table>").appendTo($("#infoContainer"));
+                Plugin.prototype.infoT = grid.DataTable({
+                    paging: false,
+                    info: false,
+                    filter: false,
+                    bSort: false,
+                    scrollY: $("#resultsContainer").height(),
+                    scrollCollapse: true
+                });
+
+/*                var grid = $("<div id='propInfoGrid' style='height:100%;overflow:hidden'></div>").appendTo($("#infoContainer"));
                 grid.kendoGrid({
                     pageable:false,
                     sortable:true,
@@ -602,7 +658,7 @@
                         {field:"field", title:"Field", encoded:false},
                         {field:"value", title:"Value", encoded:false}                                 
                     ]
-                });
+                });*/
 
 
             }
@@ -620,10 +676,18 @@
 
             }
 
-            var ds = new kendo.data.DataSource({
+/*            var ds = new kendo.data.DataSource({
                 data:data
             });
-            $("#propInfoGrid").data("kendoGrid").setDataSource(ds);
+            $("#propInfoGrid").data("kendoGrid").setDataSource(ds);*/
+            console.log(data);
+            $("#propInfoGrid").DataTable().clear();
+            $.each(data, function(i, d) {
+               var rowArray = [d.field, d.value];
+               var rowPos = $("#propInfoGrid").dataTable().fnAddData(rowArray);
+               var row = $("#propInfoGrid").dataTable().fnGetNodes(rowPos[0]);
+            });
+
 
             $(window).bind("resize", function() {
                 Plugin.prototype.refreshGrid($("#propInfoGrid"));
@@ -637,7 +701,7 @@
 
 
         createInfoGrid:function(div){
-            var plugin = this;
+/*            var plugin = this;
             var grid = $("<div id='propInfoGrid' style='height:100%;overflow:hidden'></div>").appendTo($("#infoContainer"));
             grid.kendoGrid({
                 pageable:false,
@@ -660,7 +724,7 @@
                 });
 
                 gridElement.children(".k-grid-content").height(newHeight - otherElementsHeight);
-            });
+            });*/
         },
 
 
@@ -718,14 +782,16 @@
 
         addSinglePropertyToMap:function(pin, zoom){
             var plugin = this;
-            $(this.multipleGl.graphics).each(function(i,graphic){
+            var multiLayer = map.getLayer('propmultgl'),
+                singleLayer = map.getLayer('propsinglegl');
+            $(multiLayer.graphics).each(function(i,graphic){
                 require(["esri/symbols/SimpleFillSymbol"], function (SimpleFillSymbol) {
                     if (graphic.attributes.PIN_NUM == pin){
                         plugin.selProp = graphic;
                         graphic.setSymbol(new SimpleFillSymbol(config.property.symbolSingle));
-                        plugin.multipleGl.remove(graphic);
-                        plugin.singleGl.clear();
-                        plugin.singleGl.add(graphic);
+                        multiLayer.remove(graphic);
+                        singleLayer.clear();
+                        singleLayer.add(graphic);
                         map.setExtent(graphic.geometry.getExtent(), true);
                         if (graphic.attributes.CITY_DECODE) {
                             if (graphic.attributes.CITY_DECODE.toUpperCase() == "RALEIGH"){
@@ -762,8 +828,12 @@
         				div.append(permul);*/
 
                         //$("#propInfoGrid").data("kendoGrid").dataSource
-                        div.data("kendoGrid").dataSource.add({field:"Septic Permit", value:"<a href='http://gisasp2.wakegov.com/imaps/RequestedPermit.aspx?permit="+permnum+"' target='_blank'>"+permnum+"</a>"});
-                        $("#propResultsGrid").data("kendoGrid").refresh();
+/*                        div.data("kendoGrid").dataSource.add({field:"Septic Permit", value:"<a href='http://gisasp2.wakegov.com/imaps/RequestedPermit.aspx?permit="+permnum+"' target='_blank'>"+permnum+"</a>"});
+                        $("#propResultsGrid").data("kendoGrid").refresh();*/
+
+                       var rowArray = ["Septic Permit", "<a href='http://gisasp2.wakegov.com/imaps/RequestedPermit.aspx?permit="+permnum+"' target='_blank'>"+permnum+"</a>"];
+                       var rowPos = $("#propInfoGrid").dataTable().fnAddData(rowArray);
+                       var row = $("#propInfoGrid").dataTable().fnGetNodes(rowPos[0]);
         			});
 
         		}, error:function(error){
@@ -784,8 +854,11 @@
                 },success:function(data){
                     plugin.hideProgress(Plugin.prototype.options);
                     if (data['WellResults'].length > 0) {
-                         div.data("kendoGrid").dataSource.add({field:"Water Samples", value:"<a href='http://justingreco.github.io/water-analysis/app/index.html#/?pin="+pin+"' target='_blank'>View</a>"});
-                        $("#propResultsGrid").data("kendoGrid").refresh();                       
+/*                         div.data("kendoGrid").dataSource.add({field:"Water Samples", value:"<a href='http://justingreco.github.io/water-analysis/app/index.html#/?pin="+pin+"' target='_blank'>View</a>"});
+                        $("#propResultsGrid").data("kendoGrid").refresh();      */    
+                       var rowArray = ["Water Samples", "<a href='http://justingreco.github.io/water-analysis/app/index.html#/?pin="+pin+"' target='_blank'>View</a>"];
+                       var rowPos = $("#propInfoGrid").dataTable().fnAddData(rowArray);
+                       var row = $("#propInfoGrid").dataTable().fnGetNodes(rowPos[0]);                                     
                     }
 
                 }, error:function(error){

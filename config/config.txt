@@ -450,15 +450,6 @@
   "script":"js/plugins/jquery.print-dialog.js",  
   "plugin":"print",
   "toggle":false
- },
- {
-  "id":"clear",  
-  "label":"Clear",
-  "icon":"./img/clear_default.png",  
-  "toggle":false,
-  "script":"js/plugins/jquery.clear.js",
-  "plugin":"clear",
-  "toggle":false
  }],
 "panel":
 {
