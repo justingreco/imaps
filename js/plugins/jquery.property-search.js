@@ -215,11 +215,17 @@
         this.fields = [];
         Plugin.prototype.options = this.options;
         this.init();
+
     }
 
     Plugin.prototype = {
 
         init: function() {
+            $("#accordion").on('accordionactivate', function (event, ui) {
+                if ($(ui.newPanel).attr('id') === 'propertydiv') {
+                    Plugin.prototype.refreshGrid();
+                }
+            });            
             dojo.require("esri.layers.graphics");
             
 			var header = $("<h3>"+this.options.title+"</h3>");
@@ -338,7 +344,7 @@
         createResultsGrid:function(div){
             var plugin = this;
             //var grid = $("<div id='propResultsGrid' style='height:100%;overflow:hidden'></div>").appendTo(div);
-            var grid = $("<table id='propResultsGrid' class='compact' style='height:100%;overflow:hidden;'><thead><tr><th>Owner</th><th>Address</th><th>PIN #</th></tr></table>").appendTo(div);
+            var grid = $("<table id='propResultsGrid' class='compact' style='overflow:hidden;'><thead><tr><th>Owner</th><th>Address</th><th>PIN #</th></tr></table>").appendTo(div);
 
 
             Plugin.prototype.t = grid.DataTable({
@@ -421,6 +427,7 @@
                 plugin.hideProgress(Plugin.prototype.options);
               },
               success: function(data, textStatus, xhr) {
+                $("#accordion").accordion('option', 'active', 0);
                 Plugin.prototype.accounts = data.Accounts;
                 $("#propResultsGrid").DataTable().clear();
                 $.each(data.Accounts, function(i, account) {
@@ -640,7 +647,7 @@
             pin = info['pin'];
             this.reid = info['reid'];
             if ($("#propInfoGrid").length == 0){
-            var grid = $("<table id='propInfoGrid' class='compact' style='height:100%;overflow:hidden;'><thead><tr><th>Field</th><th>Value</th></tr></table>").appendTo($("#infoContainer"));
+            var grid = $("<table id='propInfoGrid' class='compact' style='overflow:hidden;'><thead><tr><th>Field</th><th>Value</th></tr></table>").appendTo($("#infoContainer"));
                 Plugin.prototype.infoT = grid.DataTable({
                     paging: false,
                     info: false,

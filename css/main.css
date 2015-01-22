@@ -292,14 +292,21 @@ select{
     border-radius:5px;
     overflow: hidden;
     -moz-border-radius:5px; /* Old Firefox */
-/*    -webkit-user-select: none;  
+    -webkit-user-select: none;  
     -moz-user-select: none;    
     -ms-user-select: none;      
-    user-select: none;*/
+    user-select: none;
 
  -moz-box-shadow: 0 0 5px #000;
   -webkit-box-shadow: 0 0 5px #000;
   box-shadow: 0 0 5px #000;
+}
+
+.dataTable tbody {
+    -webkit-user-select: text;  
+    -moz-user-select: text;    
+    -ms-user-select: text;      
+    user-select: text;
 }
 
 .ui-accordion .ui-accordion-header{
@@ -562,11 +569,18 @@ background:rgb(0, 145, 255) !important;
 
 }
 
+.layertitle {
+    margin-left: 0.5em;
+}
 
 .sublayers{
     margin-left:20px;
     display: none;
     margin-bottom: 10px;
+}
+
+.sublayers button {
+    margin-bottom: 0.5em;
 }
 
 #layersdiv .ui-widget-content{
