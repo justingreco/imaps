@@ -232,10 +232,12 @@
 			var container = $("<div id='"+this.options.id+"' class='paneldiv'></div>");
 			$(this.element).append(header);	
 			$(this.element).append(container);	
-
-            
-
-			container.append("Search By  ");
+$( "#accordion" ).on( "accordionactivate", function( event, ui ) { 
+                if (ui.newPanel.attr('id') === 'propertydiv') {
+                    Plugin.prototype.refreshGrid();
+                }
+            } );
+            container.append("Search By  ");
 			var select = $("<select id='propertySelect'></select>");
 			var options = "<option>Address</option>";	
 			options += "<option>Street Name</option>";		
@@ -355,60 +357,15 @@
                 scrollCollapse: true
             });
 
-
-
-
-
-
-
-//console.log(grid.parent().parent().height() - $(".dataTables_scrollHead").outerHeight(true) - $("#proptabs").outerHeight(true));
-/*            grid.kendoGrid({
-                pageable:false,
-                sortable:true,
-                resizeable:true,
-                selectable:"row",
-                columns:[
-                    {field:"owner", title:"Owner"},
-                    {field:"siteAddress", title:"Address"},
-                    {field:"pin", title:"PIN #"}                                      
-                ],
-                change:function(e){
-                    var row = this.select()[0];
-                    pin = this.dataItem(row).pin;
-
-                    plugin.enableTabs();
-                    plugin.switchTabs($("#infoContainer"));
-                    plugin.selectTab(1);
-                    plugin.addPropertyInfo(this.dataItem(row), plugin.fields);
-
-                    if(pin.length == 9){
-                        pin = "0"+pin;
-                    }
-                    plugin.addSinglePropertyToMap(pin, true);               
-                }
-            });*/
-
             $(window).bind("resize", function() {
                 Plugin.prototype.refreshGrid();
             });
         },
-
         refreshGrid:function(){
-/*                var newHeight = gridElement.innerHeight(),
-                    otherElements = gridElement.children().not(".k-grid-content"),
-                    otherElementsHeight = 0;
-
-                otherElements.each(function(){
-                    otherElementsHeight += $(this).outerHeight();
-                });
-
-                gridElement.children(".k-grid-content").height(newHeight - otherElementsHeight);*/
-                console.log($("#resultsContainer").height() - 26);
-                $('.dataTables_scrollBody').css('height', $("#resultsContainer").height() - 26);//$('.dataTables_scrollHead').height());
-                $('.dataTable').css('width', $("#resultsContainer").width());
-                
+            console.log($("#resultsContainer").height() - 26);
+            $('.dataTables_scrollBody').css('height', $("#resultsContainer").height() - 26);//$('.dataTables_scrollHead').height());
+            $('.dataTable').css('width', $("#resultsContainer").width());
         },
-
         searchRealEstateAccounts: function(values, type, zoom){
             Plugin.prototype.refreshGrid();
         	var plugin = this;
@@ -492,64 +449,7 @@
                 
               }
             });
-            
-
-
-        	/*var request = esri.request({
-        		url:config.property.soe+"/RealEstateSearch",
-        		handleAs:"json",
-        		content:{
-        			values:values,
-        			type:type,
-        			f:"json"
-        		}},{usePost:true});
-
-        	request.then(function(data){
-                plugin.hideProgress(Plugin.prototype.options);
-        		plugin.propresults = data;
-        		$("#resultsdiv").empty();
-        		var pins = [];
-        		$(data.Accounts).each(function(i, account){
-        			var ul = $("<ul class='resultsul even'><li class='resultsli' value='"+account.pin+"'>"+account.owner+"</li><li class='resultsli' value='"+account.pin+"'>"+account.siteAddress+"</li><li class='resultsli' value='"+account.pin+"'>"+account.pin+"</li></ul>");
-					ul.addClass((i%2 == 0)?"even":"odd");
-					$("#resultsdiv").append(ul);
-					if (pins.length < 1000){
-						if ($.inArray(account.pin, pins) == -1){
-							pins.push("'"+account.pin+"'");
-						}
-					}        			
-
-					if (data.Accounts.length == 1){
-						plugin.enableTabs();
-						plugin.switchTabs($("#infoContainer"));
-						plugin.selectTab(1);
-						plugin.addPropertyInfo(data.Accounts[0], data.Fields);
-					}else{
-						plugin.switchTabs($("#resultsContainer"));
-						plugin.disableTabs();
-					}
-        		});
-
-        		plugin.addPropertiesToMap(pins, true);
-        		$(".resultsli").click(function(){
-        			plugin.enableTabs();
-        			plugin.switchTabs($("#infoContainer"));
-        			plugin.selectTab(1);
-        			plugin.addPropertyInfo(data.Accounts[$(this).parent().index()], data.Fields);
-                    var pin = $(this).attr("value");
-                    if(pin.length == 9){
-                        pin = "0"+pin;
-                    }
-        			plugin.addSinglePropertyToMap(pin, zoom);
-        		});
-        	}, function(error){
-                plugin.hideProgress(Plugin.prototype.options);
-        	});
-            */
         },
-
-
-
         enableTabs:function(){
 			$(".tabli").removeClass("disabled");
 			$(".tabli").addClass("enabled");
@@ -560,7 +460,6 @@
 				$(img).attr("src",src);
 			});
         },
-
         disableTabs:function(){
 			$(".tabli").removeClass("enabled");
 			$(".tabli").addClass("disabled");
@@ -574,7 +473,6 @@
 					src = src.replace('_selected','_disabled');	
 					$(img).attr("src",src);	
 				}
-
 			});
         },
 
@@ -583,16 +481,7 @@
 			$('.tabcontainer').addClass("invisible");
 			$(container).removeClass("invisible");
 			$(container).addClass("visible");
-
-
             Plugin.prototype.refreshGrid();           
-
-/*            if($(container).prop("id") == "resultsContainer"){
-                this.refreshGrid($("#propResultsGrid"));
-            }else if($(container).prop("id") == "infoContainer"){
-                this.refreshGrid($("#propInfoGrid"));
-            }*/
-
         },
 
         tabClick:function(tab){
@@ -653,23 +542,12 @@
                     info: false,
                     filter: false,
                     bSort: false,
-                    scrollY: $("#resultsContainer").height(),
+                    scrollY: $(".dataTables_scrollBody").height(),
                     scrollCollapse: true
                 });
-
-/*                var grid = $("<div id='propInfoGrid' style='height:100%;overflow:hidden'></div>").appendTo($("#infoContainer"));
-                grid.kendoGrid({
-                    pageable:false,
-                    sortable:true,
-                    resizeable:true,
-                    columns:[
-                        {field:"field", title:"Field", encoded:false},
-                        {field:"value", title:"Value", encoded:false}                                 
-                    ]
-                });*/
-
-
+                Plugin.prototype.refreshGrid();
             }
+
             var data = [];
 
             for(var i=0;i<fields.length;i++){
@@ -683,12 +561,6 @@
                 }
 
             }
-
-/*            var ds = new kendo.data.DataSource({
-                data:data
-            });
-            $("#propInfoGrid").data("kendoGrid").setDataSource(ds);*/
-            console.log(data);
             $("#propInfoGrid").DataTable().clear();
             $.each(data, function(i, d) {
                var rowArray = [d.field, d.value];
@@ -696,45 +568,12 @@
                var row = $("#propInfoGrid").dataTable().fnGetNodes(rowPos[0]);
             });
 
-
-           // $(window).bind("resize", function() {
-                //Plugin.prototype.refreshGrid($("#propInfoGrid"));
-          //  });
             if(info.city.toUpperCase == "RALEIGH"){
                 this.addCrimeLink();
             }
             this.getSepticPermits(this.pin, $("#propInfoGrid"));
             this.checkWaterAnalysis(this.pin, $("#propInfoGrid"));
         },
-
-
-        createInfoGrid:function(div){
-/*            var plugin = this;
-            var grid = $("<div id='propInfoGrid' style='height:100%;overflow:hidden'></div>").appendTo($("#infoContainer"));
-            grid.kendoGrid({
-                pageable:false,
-                sortable:true,
-                resizeable:true,
-                columns:[
-                    {field:"field", title:"Field"},
-                    {field:"value", title:"Value"}                                 
-                ]
-            });
-
-            $(window).bind("resize", function() {
-                var gridElement = $("#propInfoGrid"),
-                    newHeight = gridElement.innerHeight(),
-                    otherElements = gridElement.children().not(".k-grid-content"),
-                    otherElementsHeight = 0;
-
-                otherElements.each(function(){
-                    otherElementsHeight += $(this).outerHeight();
-                });
-
-                gridElement.children(".k-grid-content").height(newHeight - otherElementsHeight);
-            });*/
-        },
-
 
         addGraphicLayersToMap:function(){
             this.multipleGl = new esri.layers.GraphicsLayer({id:"propmultgl"});
