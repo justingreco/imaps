@@ -24,6 +24,7 @@
             });
         },
         OpenWindow: function (el) {
+            DisconnectHandlers(toolhandlers);
             var dialog = $("#bookmarksdialog");
             $(".k-window .k-window-content").each(function(index, element){
               $(element).data("kendoWindow").close();
