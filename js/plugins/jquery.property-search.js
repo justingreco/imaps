@@ -568,9 +568,6 @@ $( "#accordion" ).on( "accordionactivate", function( event, ui ) {
                var row = $("#propInfoGrid").dataTable().fnGetNodes(rowPos[0]);
             });
 
-            if(info.city.toUpperCase == "RALEIGH"){
-                this.addCrimeLink();
-            }
             this.getSepticPermits(this.pin, $("#propInfoGrid"));
             this.checkWaterAnalysis(this.pin, $("#propInfoGrid"));
         },
@@ -642,7 +639,7 @@ $( "#accordion" ).on( "accordionactivate", function( event, ui ) {
                         map.setExtent(graphic.geometry.getExtent(), true);
                         if (graphic.attributes.CITY_DECODE) {
                             if (graphic.attributes.CITY_DECODE.toUpperCase() == "RALEIGH"){
-                                plugin.addCrimeLink(graphic.geometry.getExtent().getCenter());
+                                Plugin.prototype.addCrimeLink(graphic.geometry.getExtent().getCenter());
                             }                            
                         }
 
@@ -652,8 +649,10 @@ $( "#accordion" ).on( "accordionactivate", function( event, ui ) {
         },
 
         addCrimeLink:function(point){
-            $("#propInfoGrid").data('kendoGrid').dataSource.add({field:"Crime Activity", value:"<a href='http://int7p4e2/gis/crime?location="+point.x+","+point.y+"' target='_blank'>View</a>"});
-            $("#propInfoGrid").data("kendoGrid").refresh();
+            console.log(point.x);
+               var rowArray = ["Crime Activity", "<a href='http://maps.raleighnc.gov/crime?location="+point.x+","+point.y+"' target='_blank'>View</a>"];
+               var rowPos = $("#propInfoGrid").dataTable().fnAddData(rowArray);
+               var row = $("#propInfoGrid").dataTable().fnGetNodes(rowPos[0]);            
         },
 
         getSepticPermits:function(pin, div){

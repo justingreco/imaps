@@ -50,7 +50,7 @@ function CreateToolbar(){
 					$(".tool").click(function(){
 						if ($(this).text() != "Select"){
 							$(".selectpanel").css("display", "none");	
-							if ($(".selectpanel img")) {
+							if ($(".selectpanel img").attr("src")) {
 								$(".selectpanel img").attr("src",$(".selectpanel img").attr("src").replace("_selected", "_default"));
 							}
 							MoveZoomSlider($("#tools").width()+30);
