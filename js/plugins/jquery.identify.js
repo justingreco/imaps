@@ -27,7 +27,8 @@
         	$(this.element).click(function(){
                 DisconnectHandlers(toolhandlers);
                 toolhandlers.push(dojo.connect(map,"onClick", plugin.identify));
-        	});	         
+        	});	       
+              
         },
 
         identify:function(e){

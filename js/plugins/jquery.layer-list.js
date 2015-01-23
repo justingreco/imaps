@@ -33,16 +33,15 @@
             $(config.map.oplayers.sort(this.sortFunction)).each(function(i, item){
                 var tocdiv = $("<div></div>");
                 $("#layersdiv").append(tocdiv);
-                var layerdiv = $("<div></div>");
+                var layerdiv = $("<div data-toggle='tooltip' data-placement='left'></div>");
                 var label = (item.visible)?"On":"Off";
-                var layerdiv = $("<div></div>");
-                var label = (item.visible)?"On":"Off";
+
                 var minscale = (item.minscale)?item.minscale:0;
 
-                var layerbutton = $('<button type="button" id="layer_check_'+i+'" data-toggle="tooltip" data-placement="left" class="btn btn-danger active layercheck" data-minscale="'+minscale+'" value="'+item.id+'">'+label+'</button>');
+                var layerbutton = $('<button type="button" id="layer_check_'+i+'"  class="btn btn-danger active layercheck" data-minscale="'+minscale+'" value="'+item.id+'">'+label+'</button>');
 
                 if(item.visible){
-                    layerbutton = $('<button type="button" id="layer_check_'+i+'" data-toggle="tooltip" data-placement="left" class="btn btn-success active layercheck" data-minscale="'+minscale+'" value="'+item.id+'">'+label+'</button>');
+                    layerbutton = $('<button type="button" id="layer_check_'+i+'" class="btn btn-success active layercheck" data-minscale="'+minscale+'" value="'+item.id+'">'+label+'</button>');
                 }
 
                 var checklabel = $("<h4 class='layertitle'>"+item.label+"</h4>");
@@ -99,11 +98,9 @@
 
             disabled.addClass('disabled');
             enabled.removeClass('disabled');
-
-            disabled.prop("title", "Layer not visible at this scale");;
-            enabled.prop("title", "");     
-            disabled.tooltip();
-            enabled.tooltip();                   
+            //disabled.parent().prop("title", "Layer not visible at this scale").tooltip();
+            //enabled.parent().prop("title", "").tooltip(); 
+       
         },
         createLayer: function (layer){
             var mapLayer = null;

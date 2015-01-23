@@ -58,6 +58,7 @@
                     visible:false,
                     width:"400px",
                     height:"200px",
+                    pinned: true,
                     resize:function(){
                         google.maps.event.trigger(panorama,'resize');
                     }

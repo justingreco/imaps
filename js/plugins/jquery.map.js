@@ -11,7 +11,7 @@
     }
     Plugin.prototype = {
         init: function() {
-            require(['esri/map', 'esri/dijit/LocateButton', 'esri/config', 'esri/tasks/GeometryService', 'esri/geometry/Extent', 'esri/layers/ArcGISTiledMapServiceLayer', 'esri/layers/ArcGISDynamicMapServiceLayer', 'esri/layers/ArcGISImageServiceLayer', 'esri/layers/FeatureLayer', 'esri/geometry/Polygon', 'esri/dijit/OverviewMap', 'esri/toolbars/draw', 'esri/layers/GraphicsLayer','dojo/domReady!'], function (Map, LocateButton, esriConfig, GeometryService, Extent, ArcGISTiledMapServiceLayer, ArcGISDynamicMapServiceLayer, ArcGISImageServiceLayer, FeatureLayer, Polygon, OverviewMap, Draw, GraphicsLayer) {    
+            require(['esri/map', 'esri/dijit/LocateButton', 'esri/dijit/HomeButton', 'esri/config', 'esri/tasks/GeometryService', 'esri/geometry/Extent', 'esri/layers/ArcGISTiledMapServiceLayer', 'esri/layers/ArcGISDynamicMapServiceLayer', 'esri/layers/ArcGISImageServiceLayer', 'esri/layers/FeatureLayer', 'esri/geometry/Polygon', 'esri/dijit/OverviewMap', 'esri/toolbars/draw', 'esri/layers/GraphicsLayer','dojo/domReady!'], function (Map, LocateButton, HomeButton, esriConfig, GeometryService, Extent, ArcGISTiledMapServiceLayer, ArcGISDynamicMapServiceLayer, ArcGISImageServiceLayer, FeatureLayer, Polygon, OverviewMap, Draw, GraphicsLayer) {    
                 esriConfig.defaults.io.proxyUrl = "proxy.ashx";
                 raleigh = GetRaleighBound();
                 geomService = GeometryService(config.map.geometry);
@@ -20,7 +20,20 @@
                     logo:false,
                     showAttribution:false
                 });
-                console.log(config);
+
+                homeButton = new esri.dijit.HomeButton({
+                  map: map,
+                  extent: new Extent(config.map.extent),
+                  visible: true
+                }, "HomeButton");
+                homeButton.startup(); 
+                             
+                geoLocate = new LocateButton({
+                    map: map,
+                    scale: 1200
+                  }, "LocateButton");
+                  geoLocate.startup();  
+
                 GetStoredConfig();
                 AddBaseMap(config.map.baselayers[0]);
                 AddMapEvents();
@@ -31,7 +44,11 @@
                         var id = "image"+text.toString();
                         if(!inRaleigh){
                             $(".raleighImage").css("display","none");
-                            if (text > 2010){
+                            if (text > 2013) {
+                                 id = "image2010";
+                                $(aerialselect).val("2010").data("kendoDropDownList").text("2013");
+                            }
+                            else if (text > 2010 && text < 2013){
                                 id = "image2010";
                                 $(aerialselect).val("2010").data("kendoDropDownList").text("2010");
                             }else if (text > 2005 && text < 2010){
