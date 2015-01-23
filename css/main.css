@@ -152,6 +152,16 @@ span.dijitReset.dijitInline.dijitArrowButtonChar{
 }
 /*========================================================================== */
 
+
+a:link, a:visited { 
+    color: rgb(71,151,220);;
+    text-decoration: underline;
+    cursor: auto;
+}
+
+a:link:active, a:visited:active { 
+    color: rgb(71,151,220);;
+}
 .navbar {
     min-height: 40px !important;
 }
