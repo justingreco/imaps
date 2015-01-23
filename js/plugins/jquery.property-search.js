@@ -3,199 +3,207 @@
 		defaults = {
 			title: 'Property Search',
 			id: 'propertydiv',
-            progressid:"progressDialog",
-            messageid:"progressMessage",
+            progressid: "progressDialog",
+            messageid: "progressMessage",
             services:{
-                url:"http://maps.raleighnc.gov/ArcGIS/rest/services/Services/ServicesIMaps/MapServer/identify",
-                categories:[
-                    {title:"Voting",
-                        services:[
-                            {title:"Precinct [PRECINCT] Polling Place",
-                                labels:"[POLL_PL];[ST_NUMBER] [ST_NAME:proper], [CITY:proper]",
-                                layerId:1,
-                                url:""
+                url: "http://maps.raleighnc.gov/ArcGIS/rest/services/Services/ServicesIMaps/MapServer/identify",
+                categories: [
+                    {title: "Voting",
+                        services: [
+                            {
+                                title: "Precinct [PRECINCT] Polling Place",
+                                labels: "[POLL_PL];[ST_NUMBER] [ST_NAME:proper], [CITY:proper]",
+                                layerId: 1,
+                                url: ""
                             },
-                            {title:"State Senate District [DISTRICT]",
-                                labels:"[NAME] ([PARTY]);<a href='[WEBSITE]' target='_blank'>Website</a>",
-                                layerId:2
+                            {
+                                title: "State Senate District [DISTRICT]",
+                                labels: "[NAME] ([PARTY]);<a href='[WEBSITE]' target='_blank'>Website</a>",
+                                layerId: 2
                             },
-                            {title:"US House District [DISTRICT]",
-                                labels:"[NAME] ([PARTY]);<a href='[WEBSITE]' target='_blank'>Website</a>",
-                                layerId:3
+                            {
+                                title: "US House District [DISTRICT]",
+                                labels: "[NAME] ([PARTY]);<a href='[WEBSITE]' target='_blank'>Website</a>",
+                                layerId: 3
                             },
-                            {title:"State House District [DISTRICT]",
-                                labels:"[NAME] ([PARTY]);<a href='[WEBSITE]' target='_blank'>Website</a>",
-                                layerId:4
+                            {
+                                title: "State House District [DISTRICT]",
+                                labels: "[NAME] ([PARTY]);<a href='[WEBSITE]' target='_blank'>Website</a>",
+                                layerId: 4
                             },
-                            {title:"Wake County Commissioners District [DISTRICT]",
-                                labels:"[NAME];<a href='http://www.wakegov.com/commissioners/districts/Pages/district[DISTRICT].aspx' target='_blank'>Website</a>",
-                                layerId:5
+                            {
+                                title: "Wake County Commissioners District [DISTRICT]",
+                                labels: "[NAME];<a href='http://www.wakegov.com/commissioners/districts/Pages/district[DISTRICT].aspx' target='_blank'>Website</a>",
+                                layerId: 5
                             },
-                            {title:"Board of Education District [DISTRICT]",
-                                labels:"[NAME];<a href='http://www.wcpss.net/Board/boeinfo.html' target='_blank'>Website</a>",
-                                layerId:6
+                            {
+                                title: "Board of Education District [DISTRICT]",
+                                labels: "[NAME];<a href='http://www.wcpss.net/Board/boeinfo.html' target='_blank'>Website</a>",
+                                layerId: 6
                             },
-                            {title:"Raleigh Council District [DISTRICT]",
-                                labels:"[NAME];<a href='http://www.raleighnc.gov/home/content/BoardsCommissions/Articles/CityCouncil.html' target='_blank'>Website</a>",
-                                layerId:7
+                            {
+                                title: "Raleigh Council District [DISTRICT]",
+                                labels: "[NAME];<a href='http://www.raleighnc.gov/home/content/BoardsCommissions/Articles/CityCouncil.html' target='_blank'>Website</a>",
+                                layerId: 7
                             },
-                            {title:"Cary Council District [DIST]",
-                                labels:"[REP];<a href='http://www.townofcary.org/Departments/Town_Clerk_s_Office/Cary_Town_Council.htm' target='_blank'>Website</a>",
-                                layerId:8
+                            {
+                                title: "Cary Council District [DIST]",
+                                labels: "[REP];<a href='http://www.townofcary.org/Departments/Town_Clerk_s_Office/Cary_Town_Council.htm' target='_blank'>Website</a>",
+                                layerId: 8
                             }
                         ]
                     },
-                    {title:"Planning",
-                        services:[
-                            {title:"Angier Zoning",
-                                labels:"[CLASS]",
-                                layerId:11
+                    {title: "Planning",
+                        services: [
+                            {title: "Angier Zoning",
+                                labels: "[CLASS]",
+                                layerId: 11
                             },
-                            {title:"Apex Zoning",
-                                labels:"[CLASS]",
-                                layerId:12
+                            {title: "Apex Zoning",
+                                labels: "[CLASS]",
+                                layerId: 12
                             },
-                            {title:"Cary Zoning",
-                                labels:"[NAME]",
-                                layerId:13
+                            {title: "Cary Zoning",
+                                labels: "[NAME]",
+                                layerId: 13
                             },
-                            {title:"County Zoning",
-                                labels:"[CLASS]",
-                                layerId:14
+                            {title: "County Zoning",
+                                labels: "[CLASS]",
+                                layerId: 14
                             },
-                            {title:"Fuquay-Varina Zoning",
-                                labels:"[CLASS]",
-                                layerId:15
+                            {title: "Fuquay-Varina Zoning",
+                                labels: "[CLASS]",
+                                layerId: 15
                             },
-                            {title:"Garner Zoning",
-                                labels:"[CLASS]",
-                                layerId:16
+                            {title: "Garner Zoning",
+                                labels: "[CLASS]",
+                                layerId: 16
                             },
-                            {title:"Holly Springs Zoning",
-                                labels:"[CLASS]",
-                                layerId:17
+                            {title: "Holly Springs Zoning",
+                                labels: "[CLASS]",
+                                layerId: 17
                             },
-                            {title:"Knightdale Zoning",
-                                labels:"[CLASS]",
-                                layerId:18
+                            {title: "Knightdale Zoning",
+                                labels: "[CLASS]",
+                                layerId: 18
                             },
-                            {title:"Morrisville Zoning",
-                                labels:"[CLASS]",
-                                layerId:19
+                            {title: "Morrisville Zoning",
+                                labels: "[CLASS]",
+                                layerId: 19
                             },
-                            {title:"Rolesville Zoning",
-                                labels:"[CLASS]",
-                                layerId:20
+                            {title: "Rolesville Zoning",
+                                labels: "[CLASS]",
+                                layerId: 20
                             },
-                            {title:"Wake Forest Zoning",
-                                labels:"[CLASS]",
-                                layerId:21
+                            {title: "Wake Forest Zoning",
+                                labels: "[CLASS]",
+                                layerId: 21
                             },
-                            {title:"Wendell Zoning",
-                                labels:"[CLASS]",
-                                layerId:22
+                            {title: "Wendell Zoning",
+                                labels: "[CLASS]",
+                                layerId: 22
                             },
-                            {title:"Zebulon Zoning",
-                                labels:"[CLASS]",
-                                layerId:23
+                            {title: "Zebulon Zoning",
+                                labels: "[CLASS]",
+                                layerId: 23
                             },
-                            {title:"City Limit",
-                                labels:"[LONG_NAME:proper]",
-                                layerId:24
+                            {title: "City Limit",
+                                labels: "[LONG_NAME:proper]",
+                                layerId: 24
                             },
-                            {title:"Planning Jurisdiction (ETJ)",
-                                labels:"[JURISDICTION:proper]",
-                                layerId:25
+                            {title: "Planning Jurisdiction (ETJ)",
+                                labels: "[JURISDICTION:proper]",
+                                layerId: 25
                             },
-                            {title:"Raleigh Annexation Year",
-                                labels:"[CASE_YEAR]",
-                                layerId:27
+                            {title: "Raleigh Annexation Year",
+                                labels: "[CASE_YEAR]",
+                                layerId: 27
                             },
-                            {title:"Raleigh Future Landuse",
-                                labels:"[Land_Use]",
-                                layerId:28
-                            },{title:"Subdivision",
-                                labels:"[NAME:proper]",
-                                layerId:29
-                            },{title:"Development Plans",
-                                labels:"File #: [CASE];Name: [FILE_NAME:proper]",
-                                layerId:30
+                            {title: "Raleigh Future Landuse",
+                                labels: "[Land_Use]",
+                                layerId: 28
+                            },{title: "Subdivision",
+                                labels: "[NAME:proper]",
+                                layerId: 29
+                            },{title: "Development Plans",
+                                labels: "File #: [CASE];Name: [FILE_NAME:proper]",
+                                layerId: 30
                             }
                         ]
                     } ,
-                    {title:"Solid Waste",
-                        services:[
-                            {title:"Collection Day",
-                                labels:"[TRASH_COLLECTION_DAY];<a href='[URL]' target='_blank'>Website</a>;<a href='[HOLIDAY_URL]' target='_blank'>Holiday Schedule</a>",
-                                layerId:32
+                    {title: "Solid Waste",
+                        services: [
+                            {title: "Collection Day",
+                                labels: "[TRASH_COLLECTION_DAY];<a href='[URL]' target='_blank'>Website</a>;<a href='[HOLIDAY_URL]' target='_blank'>Holiday Schedule</a>",
+                                layerId: 32
                             },{
-                                title:"Trash Collection Route",
-                                labels:"[Trash Route]",
-                                layerId:33
+                                title: "Trash Collection Route",
+                                labels: "[Trash Route]",
+                                layerId: 33
                             },{
-                                title:"Yardwaste Collection Route",
-                                labels:"[Yardwaste Route]",
-                                layerId:33
+                                title: "Yardwaste Collection Route",
+                                labels: "[Yardwaste Route]",
+                                layerId: 33
                             },{
-                                title:"Bi-Weekly Recycling Collection",
-                                labels:"Route: [Recycling Route]",
-                                layerId:33
+                                title: "Bi-Weekly Recycling Collection",
+                                labels: "Route: [Recycling Route]",
+                                layerId: 33
                             },{
-                                title:"Bi-Weekly Recycling Collection",
-                                labels:"Collection Day:[Collection Day];Rollout Phase: <a href='http://www.raleighnc.gov/content/SolidWaste/Documents/[Collection Day:upper].pdf' target='_blank'>[PHASE]</a>;Rollout Start Date:[PHASE_DATE];Recycling Week: <a href='http://www.raleighnc.gov/content/SolidWaste/Documents/Calendars2012/[Collection Day][WEEK].pdf' target='_blank'>[WEEK]</a>",
-                                layerId:34
+                                title: "Bi-Weekly Recycling Collection",
+                                labels: "Collection Day: [Collection Day];Rollout Phase: <a href='http://www.raleighnc.gov/content/SolidWaste/Documents/[Collection Day:upper].pdf' target='_blank'>[PHASE]</a>;Rollout Start Date: [PHASE_DATE];Recycling Week: <a href='http://www.raleighnc.gov/content/SolidWaste/Documents/Calendars2012/[Collection Day][WEEK].pdf' target='_blank'>[WEEK]</a>",
+                                layerId: 34
                             }
                         ]
-                    },{title:"Public Safety",
-                        services:[
-                            {title:"Sheriff Zone",
-                            labels:"[DISTRICT]",
-                            layerId:36},
-                            {title:"Raleigh Police Beat",
-                            labels:"[Name]",
-                            layerId:37},
-                            {title:"Garner Police Beat",
-                            labels:"[Name]",
-                            layerId:38},
-                            {title:"Fire Insurance District",
-                            labels:"[District]",
-                            layerId:39},
-                            {title:"County Fire Response District",
-                            labels:"[District]",
-                            layerId:40},
-                            {title:"Raleigh Fire Response District",
-                            labels:"[District]",
-                            layerId:41},
-                            {title:"EMS Franchise District",
-                            labels:"[District:proper]",
-                            layerId:42},
-                            {title:"EMS Response District",
-                            labels:"[District:proper]",
-                            layerId:43}
+                    },{title: "Public Safety",
+                        services: [
+                            {title: "Sheriff Zone",
+                            labels: "[DISTRICT]",
+                            layerId: 36},
+                            {title: "Raleigh Police Beat",
+                            labels: "[Name]",
+                            layerId: 37},
+                            {title: "Garner Police Beat",
+                            labels: "[Name]",
+                            layerId: 38},
+                            {title: "Fire Insurance District",
+                            labels: "[District]",
+                            layerId: 39},
+                            {title: "County Fire Response District",
+                            labels: "[District]",
+                            layerId: 40},
+                            {title: "Raleigh Fire Response District",
+                            labels: "[District]",
+                            layerId: 41},
+                            {title: "EMS Franchise District",
+                            labels: "[District:proper]",
+                            layerId: 42},
+                            {title: "EMS Response District",
+                            labels: "[District:proper]",
+                            layerId: 43}
                         ]
-                    },{title:"Environmental",
-                        services:[
-                            {title:"Floodplain",
-                            labels:"[ZONE_IMAPS]",
-                            layerId:45},
-                            {title:"Soils",
-                            labels:"[NAME]",
-                            layerId:46},
-                            {title:"Hydrologic Unit",
-                            labels:"[HUC_CODE]",
-                            layerId:47},
-                            {title:"Critical Wastershed",
-                            labels:"[PROPWS]",
-                            layerId:48},
-                            {title:"Drainage Basin",
-                            labels:"[BASINS:proper]",
-                            layerId:50}
+                    },{title: "Environmental",
+                        services: [
+                            {title: "Floodplain",
+                            labels: "[ZONE_IMAPS]",
+                            layerId: 45},
+                            {title: "Soils",
+                            labels: "[NAME]",
+                            layerId: 46},
+                            {title: "Hydrologic Unit",
+                            labels: "[HUC_CODE]",
+                            layerId: 47},
+                            {title: "Critical Wastershed",
+                            labels: "[PROPWS]",
+                            layerId: 48},
+                            {title: "Drainage Basin",
+                            labels: "[BASINS:proper]",
+                            layerId: 50}
                         ]
-                    },{title:"City of Raleigh Assessments",
-                        services:[
-                            {title:"Assement Liens",
-                            labels:"Account #: [Account];Type: [Type];Status: [Status];Confirmed: [Confirmed Date];<a href='http://www.raleighnc.gov/home/content/Finance/Articles/OtherPaymentInformatio.html' target='_blank'>Website</a>",
-                            layerId:52}
+                    },{title: "City of Raleigh Assessments",
+                        services: [
+                            {title: "Assement Liens",
+                            labels: "Account #: [Account];Type: [Type];Status: [Status];Confirmed: [Confirmed Date];<a href='http://www.raleighnc.gov/home/content/Finance/Articles/OtherPaymentInformatio.html' target='_blank'>Website</a>",
+                            layerId: 52}
                         ]
                     }
                 ]
@@ -283,11 +291,11 @@
                     read:function(options){
                         $.ajax({
                             url:config.property.soe+"/AutoComplete",
-                            dataType:"jsonp",
+                            dataType: "jsonp",
                             data:{
                                 input:input.val(),
                                 type:$("#propertySelect option:selected").val(),
-                                f:"json"
+                                f: "json"
                             },success:function(data){
                                 options.success(data.Results);
                             }
@@ -312,7 +320,6 @@
             input.closest(".k-autocomplete").css("margin","5px 0 5px 0");
         },
         createResultsGrid:function(div){
-            var plugin = this;
             var grid = $("<table id='propResultsGrid' class='compact' style='overflow:hidden;'><thead><tr><th>Owner</th><th>Address</th><th>PIN #</th></tr></table>").appendTo(div);
             Plugin.prototype.t = grid.DataTable({
                 paging: false,
@@ -341,7 +348,7 @@
               data: {
                 values:values,
                 type:type,
-                f:"json"
+                f: "json"
               },
               complete: function(xhr, textStatus) {
                 Plugin.prototype.hideProgress(Plugin.prototype.options);
@@ -507,9 +514,9 @@
             this.checkWaterAnalysis(this.pin, $("#propInfoGrid"));
         },
         addGraphicLayersToMap:function(){
-            this.multipleGl = new esri.layers.GraphicsLayer({id:"propmultgl"});
+            this.multipleGl = new esri.layers.GraphicsLayer({id: "propmultgl"});
             map.addLayer(this.multipleGl);
-            this.singleGl = new esri.layers.GraphicsLayer({id:"propsinglegl"})
+            this.singleGl = new esri.layers.GraphicsLayer({id: "propsinglegl"})
             map.addLayer(this.singleGl);
         },
         addPropertiesToMap:function(pins, zoom){
@@ -574,10 +581,10 @@
             Plugin.prototype.showProgress(Plugin.prototype.options,"Searching Septic Permits...");
         	$.ajax({
         		url:config.property.soe+"/SepticPermits",
-        		dataType:"json",
+        		dataType: "json",
         		data:{
         			pin:pin,
-        			f:"json"
+        			f: "json"
         		},success:function(data){
                     Plugin.prototype.hideProgress(Plugin.prototype.options);
 
@@ -597,10 +604,10 @@
             Plugin.prototype.showProgress(Plugin.prototype.options,"Searching Water Analysis Samples...");
             $.ajax({
                 url:config.property.soe+"/WellResults",
-                dataType:"json",
+                dataType: "json",
                 data:{
                     pin:pin,
-                    f:"json"
+                    f: "json"
                 },success:function(data){
                     Plugin.prototype.hideProgress(Plugin.prototype.options);
                     if (data['WellResults'].length > 0) {
@@ -617,10 +624,10 @@
             Plugin.prototype.showProgress(Plugin.prototype.options,"Searching Photos...");
             $.ajax({
                 url:config.property.soe+"/PhotoSearch",
-                dataType:"jsonp",
+                dataType: "jsonp",
                 data:{
                     reid: this.reid,
-                    f:"json"
+                    f: "json"
                 },success:function(data){
                     Plugin.prototype.hideProgress(Plugin.prototype.options);
                     $("#photodiv").empty();
@@ -634,7 +641,7 @@
                         if (win.length == 0){
                             win = $("<div id='photowindow'></div>");
                             $("body").append(win);
-                            win.kendoWindow({actions:['Maximize','Close'], visible:false,width:"500px"});
+                            win.kendoWindow({actions: ['Maximize','Close'], visible:false,width: "500px"});
                         }
                         win.empty();
                         win.append("<img src='"+$(this).attr("src")+"' style='max-width:100%;max-height:100%'/>");
@@ -650,10 +657,10 @@
             Plugin.prototype.showProgress(Plugin.prototype.options,"Searching Deeds...");
             $.ajax({
                 url:config.property.soe+"/DeedSearch",
-                dataType:"jsonp",
+                dataType: "jsonp",
                 data:{
                     reid: this.reid,
-                    f:"json"
+                    f: "json"
                 },success:function(data){
                     Plugin.prototype.hideProgress(Plugin.prototype.options);
                     $("#deedContainer").empty();
@@ -697,7 +704,7 @@
 			return (((sign)?'':'-') + '$' + num + '.' + cents);
         },
         getServices:function(){
-            Plugin.prototype.(Plugin.prototype.options,"Getting Services...");
+            Plugin.prototype.showProgress(Plugin.prototype.options,"Getting Services...");
             if (this.options.services){
                 var geometry = this.singleGl.graphics[0].geometry;
                 geomService.simplify([geometry], function(geometries){
@@ -768,12 +775,12 @@
                 var start = label.indexOf("[")+1;
                 var end = label.indexOf("]");
                 var field = label.substring(start,end);
-                var arr = field.split(":");
+                var arr = field.split(": ");
                 field = arr[0];
                 var value = service.feature.attributes[field];
                 if (arr.length > 1){
                     value = Plugin.prototype.checkCase(value, arr[1]);
-                    label = label.replace(new RegExp(field+":"+arr[1],"gi"), field);
+                    label = label.replace(new RegExp(field+": "+arr[1],"gi"), field);
                 }
                 label = label.replace('['+field+']', value);
             }
@@ -804,7 +811,7 @@
                 var input = $("<input id='propertyBufferDistance' type='number'></input>").css("width","100px").appendTo(span);
                 var bufferBtn = $("<button>Buffer</button>").button().appendTo(div);
                 input.kendoNumericTextBox({
-                    format:"# ft",
+                    format: "# ft",
                     min:0,
                     max:5000,
                     step:50,
@@ -838,11 +845,11 @@
             Plugin.prototype.showProgress(Plugin.prototype.options,"Searching Addresses...");
             $.ajax({
                 url:config.property.soe+"/AddressSearch",
-                dataType:"jsonp",
+                dataType: "jsonp",
                 data:{
                     reid: this.reid,
                     pin: this.pin,
-                    f:"json"
+                    f: "json"
                 },success:function(data){
                     Plugin.prototype.hideProgress(Plugin.prototype.options);
                     var grid = null;

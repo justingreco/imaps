@@ -1,8 +1,8 @@
 //DO NOT REMOVE//
 var map, ovmap, geomService;
-var basemaps = [],
-imagelayers = [],
-opLayers = [];
+var basemaps = [];
+var imagelayers = [];
+var opLayers = [];
 var raleigh;
 var inRaleigh = true;
 var lastyear = "2013";
@@ -26,9 +26,15 @@ function init(){
 		if ($(this).parent().hasClass("collapsed")){
 			$(this).parent().removeClass("collapsed");
 			$(this).parent().addClass("expanded");
+			/*if ($(this).parent().attr("id") == "tools"){
+				MoveZoomSlider($(this).parent.width()+30);
+			}*/
 		}else{
 			$(this).parent().removeClass("expanded");
 			$(this).parent().addClass("collapsed");
+			/*if ($(this).parent().attr("id") == "tools"){
+				$(".esriSimpleSliderTL").css("cssText", "left: 100px !important");
+			}	*/
 		}
 		if ($(this).parent().attr("id") == "tools"){
 			MoveZoomSlider($(this).parent().width()+30);
@@ -112,7 +118,13 @@ function SetPanel(){
 	$(config.panel.tools).each(function(i, tool){
 		if (tool.script){
 			$.getScript(tool.script, function(data, textStatus) {
+				console.log(tool.script);
 				cnt+=1;
+				//remove tool from config if load unsuccessful//
+/*				if (!loaded){
+					var idx = $.inArray(tool, config.panel.tools);
+					config.panel.tools.splice(idx,1);
+				}*/
 				if (cnt == total){
 					//initiate panel tool plugins//
 					$(config.panel.tools).each(function(i,tool){
@@ -133,7 +145,9 @@ function SetDialog(){
 	$("#dialog").dialog({autoOpen:false});
 	$("#progressDialog").dialog({modal:true,autoOpen:false});
 	$("#progressBar").progressbar({value:false, resizeable:false});
-	$("#progressDialog").dialog().siblings('.ui-dialog-titlebar').remove();
+	$("#progressDialog").dialog().siblings('.ui-dialog-titlebar').remove()
+	 //$($(".ui-dialog-titlebar"),$("#progressBar").parent()).hide();
+	// $($(".ui-dialog-titlebar"),$("#dialog").parent()).show();
 }
 $(window).resize(function(){
 	$("#accordion").accordion("refresh");
