@@ -1006,7 +1006,7 @@ $( "#accordion" ).on( "accordionactivate", function( event, ui ) {
                     plugin.hideProgress(Plugin.prototype.options);
                     var grid = null;
                     if ($("#addressGrid").length == 0){
-                        grid = $("<table id='addressGrid' class='compact' style='overflow:hidden;'><thead><tr><th>Address</th><th>Suite</th><th>Type</th><th>Description</th></tr></table>").appendTo($("#addressesContainer"));
+                        grid = $("<table id='addressGrid' class='compact' style='overflow:hidden;'><thead><tr><th>Address</th><th>Type</th><th>Description</th></tr></table>").appendTo($("#addressesContainer"));
                         Plugin.prototype.infoT = grid.DataTable({
                             paging: false,
                             info: false,
@@ -1022,7 +1022,7 @@ $( "#accordion" ).on( "accordionactivate", function( event, ui ) {
                         console.log(d);
                         var rowArray  =[];
                         if (d.rpidMap) {
-                            rowArray = [d.address, d.suite, d.type, d.status];
+                            rowArray = [d.address + (($.trim(d.suite) != '') ? ' STE ' + d.suite : ''), d.type, d.status];
                         } else {
                             rowArray = [d.address, '', '', ''];
                         }
@@ -1034,12 +1034,10 @@ $( "#accordion" ).on( "accordionactivate", function( event, ui ) {
                             
                             grid.fnSetColumnVis( 1, true );
                             grid.fnSetColumnVis( 2, true );
-                            grid.fnSetColumnVis( 3, true );
     
                         } else {
                             grid.fnSetColumnVis( 1, false );
                             grid.fnSetColumnVis( 2, false );
-                            grid.fnSetColumnVis( 3, false );
                         }
                     }
 
