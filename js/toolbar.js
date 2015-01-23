@@ -32,6 +32,7 @@ function CreateToolbar(){
 					config.tools.splice(idx,1);
 				}*/
 				if (cnt == total){
+
 					$(config.tools).each(function(i,tool){
 						var toolitem = $("<li class='tool'></li>");
 						toollist.append(toolitem);
@@ -46,6 +47,17 @@ function CreateToolbar(){
 						drawtoolbar.deactivate();
 						ChangeSelectedToggleItem(this);
 					});
+					$(".tool").click(function(){
+						if ($(this).text() != "Select"){
+							$(".selectpanel").css("display", "none");	
+							if ($(".selectpanel img")) {
+								$(".selectpanel img").attr("src",$(".selectpanel img").attr("src").replace("_selected", "_default"));
+							}
+							MoveZoomSlider($("#tools").width()+30);
+						}
+						drawtoolbar.deactivate();
+						ChangeSelectedToggleItem(this);
+					});					
 				}
 
 			});
@@ -54,7 +66,13 @@ function CreateToolbar(){
 }
 
 function ChangeSelectedToggleItem(item){
-	$(".tool.toggle").each(function(i, tool){
+	if ($(item).hasClass('toggle')) {
+				$(".k-window .k-window-content").each(function(index, element){
+			  $(element).data("kendoWindow").close();
+			});		
+	}
+
+	$(".tool").each(function(i, tool){
 		$("img", tool).attr("src",$("img", tool).attr("src").replace("_selected", "_default"));
 		$(tool).removeClass("active");
 	});

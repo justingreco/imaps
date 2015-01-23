@@ -57,6 +57,9 @@ function init(){
 
 function MoveZoomSlider(left){
 	$(".esriSimpleSliderTL").css("cssText", "left: "+left+"px !important");
+	$("#HomeButton").css("cssText", "left: "+left+"px !important");
+	$("#LocateButton").css("cssText", "left: "+left+"px !important");
+
 }
 
 function LoadConfig(){

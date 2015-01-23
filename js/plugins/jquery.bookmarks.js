@@ -65,7 +65,8 @@
                     actions:['Close'],
                     visible:false,
                     resizable: false,
-                    width: '300px'
+                    width: '300px',
+                    pinned: true
                 }).data("kendoWindow").center();
 				Plugin.prototype.createContent(el, Plugin.prototype.options, dialog);
 		   		win = dialog.data("kendoWindow");

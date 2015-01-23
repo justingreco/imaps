@@ -681,6 +681,7 @@ $( "#accordion" ).on( "accordionactivate", function( event, ui ) {
                        var rowArray = ["Septic Permit", "<a href='http://gisasp2.wakegov.com/imaps/RequestedPermit.aspx?permit="+permnum+"' target='_blank'>"+permnum+"</a>"];
                        var rowPos = $("#propInfoGrid").dataTable().fnAddData(rowArray);
                        var row = $("#propInfoGrid").dataTable().fnGetNodes(rowPos[0]);
+
         			});
 
         		}, error:function(error){
@@ -992,7 +993,62 @@ $( "#accordion" ).on( "accordionactivate", function( event, ui ) {
         },
 
         getAddresses:function(){
+            var plugin = this;
+            plugin.showProgress(Plugin.prototype.options,"Searching Addresses...");            
+            $.ajax({
+                url:config.property.soe+"/AddressSearch",
+                dataType:"jsonp",
+                data:{
+                    reid: this.reid,
+                    pin: this.pin,
+                    f:"json"
+                },success:function(data){
+                    plugin.hideProgress(Plugin.prototype.options);
+                    var grid = null;
+                    if ($("#addressGrid").length == 0){
+                        grid = $("<table id='addressGrid' class='compact' style='overflow:hidden;'><thead><tr><th>Address</th><th>Suite</th><th>Type</th><th>Description</th></tr></table>").appendTo($("#addressesContainer"));
+                        Plugin.prototype.infoT = grid.DataTable({
+                            paging: false,
+                            info: false,
+                            filter: false,
+                            scrollY: $(".dataTables_scrollBody").height(),
+                            scrollCollapse: true
+                        });
+                        Plugin.prototype.refreshGrid();
+                    }
 
+                    $("#addressGrid").DataTable().clear();
+                    $.each(data.Addresses, function(i, d) {
+                        console.log(d);
+                        var rowArray  =[];
+                        if (d.rpidMap) {
+                            rowArray = [d.address, d.suite, d.type, d.status];
+                        } else {
+                            rowArray = [d.address, '', '', ''];
+                        }
+                       var rowPos = $("#addressGrid").dataTable().fnAddData(rowArray);
+                    });                    
+                    if (data.Addresses.length > 0) {
+                        grid = $("#addressGrid").dataTable();
+                        if (data.Addresses[0].rpidMap != null) {
+                            
+                            grid.fnSetColumnVis( 1, true );
+                            grid.fnSetColumnVis( 2, true );
+                            grid.fnSetColumnVis( 3, true );
+    
+                        } else {
+                            grid.fnSetColumnVis( 1, false );
+                            grid.fnSetColumnVis( 2, false );
+                            grid.fnSetColumnVis( 3, false );
+                        }
+                    }
+
+Plugin.prototype.refreshGrid();
+
+                }, error:function(error){
+                    plugin.hideProgress(Plugin.prototype.options);
+                }
+            }); 
         },
 
         checkUrl:function(){
