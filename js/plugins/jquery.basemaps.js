@@ -1,8 +1,7 @@
 ;(function ( $, window, document, undefined ) {
     var pluginName = "basemaps",
-		defaults = {
-		};
-
+        defaults = {
+        };
     function Plugin( element, options ) {
         this.element = element;
         this.options = $.extend( {}, defaults, options );
@@ -10,7 +9,6 @@
         this._name = pluginName;
         this.init();
     }
-
     Plugin.prototype = {
         init: function() {
             var html = "<div id='streetmapdiv' name='basemaps' class='basediv'><img src='img/selected/basemap.png'/><label for='streetmapdiv'>Street Map</div>";
@@ -30,9 +28,7 @@
                 });
                 //html+="</select><div><input id='labelCheck' type='checkbox'/><label for='labelCheck' class='checklabel' style='font-size:10px'>Labels Off</label></div>";
                 html+="</select><div><button type='button' id='labelCheck' class='btn btn-danger btn-xs'>Labels Off</button></div>";
-
             }
-
                 function CheckAerialInRaleigh(inRaleigh){
                     var aerialselect = $('.baseselect[name="aerials"]');
                     if (aerialselect.parent().is(":visible")){
@@ -50,7 +46,7 @@
                                 id = "image1999";
                                 $(aerialselect).val("1999").data("kendoDropDownList").text("1999");
                             }
-                            ChangeBaseMap(id);  
+                            ChangeBaseMap(id);
                             ChangeSelectedAerial(aerialselect, id);
                             if(lastInRaleigh){
                                 lastyear = text;
@@ -61,17 +57,13 @@
                                 $(aerialselect).val(lastyear.toString()).data("kendoDropDownList").text(lastyear.toString());
                                 id = "image"+lastyear;
                                 ChangeBaseMap(id);
-                                ChangeSelectedAerial(aerialselect,id);              
+                                ChangeSelectedAerial(aerialselect,id);
                             }
-
                         }
-                    
+
                     }
-
-
                     lastInRaleigh = inRaleigh;
                 }
-
             function ChangeSelectedAerial(select,id){
                 $("option", select).filter(function(){
                     return $(this).val() == id.toString();
@@ -82,11 +74,10 @@
                     if (basemap.id == id){
                         basemap.setVisibility(true);
                     }else{
-                        basemap.setVisibility(false);           
+                        basemap.setVisibility(false);
                     }
                 });
             }
-
             function ToggleLabels (button) {
                 if ($(button).hasClass('btn-success')) {
                     $(button).removeClass('btn-success').addClass('btn-danger');
@@ -101,46 +92,34 @@
                 //$(this).button('option','label',label);
                 $(button).text(label);
             }
-
-
             $(this.element).append(html);
-
-
             $(".basediv").click(function(){
                 inRaleigh = raleigh.contains(map.extent.getCenter());
                 var name = $(this).attr("name");
-
                 var src = $('.basediv[name!="'+name+'"] img').attr("src");
                 $('.basediv[name!="'+name+'"] img').attr("src", src.replace("img/selected/", "img/"));
                 src = $('.basediv[name="'+name+'"] img').attr("src");
                 if (src.indexOf('selected') == -1){
-                    $('.basediv[name="'+name+'"] img').attr("src", src.replace("img/", "img/selected/"));   
-                    $('#basemaps .k-dropdown').toggle();    
-                    ChangeBaseMap($('.baseselect[name="'+name+'"] option:selected').val());     
-                    CheckAerialInRaleigh(inRaleigh);    
+                    $('.basediv[name="'+name+'"] img').attr("src", src.replace("img/", "img/selected/"));
+                    $('#basemaps .k-dropdown').toggle();
+                    ChangeBaseMap($('.baseselect[name="'+name+'"] option:selected').val());
+                    CheckAerialInRaleigh(inRaleigh);
                 }
-
             });
-
             $(".baseselect").change(function(){
                 ChangeBaseMap($("option:selected", this).val());
                 CheckAerialInRaleigh(inRaleigh);
             });
-
             //$("#labelCheck").button().click(ToggleLabels);
             $("#labelCheck").on('click', function () {
                 ToggleLabels(this);
             });
-
             $("label", $("#labelCheck").parent()).css("margin-top","5px");
-
             $(".baseselect").kendoDropDownList();
             $(".k-header", ".expandable").css("background-color", "#444");
-
             $("#imageSelect").closest(".k-widget").hide();
-        }	
-	};
-
+        }
+    };
     $.fn[pluginName] = function ( options ) {
         return this.each(function () {
             //if (!$.data(this, "plugin_" + pluginName)) {
@@ -148,5 +127,4 @@
             //}
         });
     };
-
 })( jQuery, window, document );

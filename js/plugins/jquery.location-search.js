@@ -1,19 +1,18 @@
 ;(function ( $, window, document, undefined ) {
-
     var pluginName = "locationSearch",
-		defaults = {
-			title: 'Location Search',
-			id: 'locationdiv',
+        defaults = {
+            title: 'Location Search',
+            id: 'locationdiv',
             progressid:"progressDialog",
             messageid:"progressMessage",
             searches:[
                 "Address", "Intersection", "Place of Interest", "Subdivision", "Coordinates"
             ],
             geocoder:"http://maps.raleighnc.gov/ArcGIS/rest/services/Locators/WakeLocator/GeocodeServer",
-            intersection:{url:"http://maps.raleighnc.gov/ArcGIS/rest/services/StreetsDissolved/MapServer/0", 
+            intersection:{url:"http://maps.raleighnc.gov/ArcGIS/rest/services/StreetsDissolved/MapServer/0",
                 field:"CARTONAME"},
             places:{url:"http://maps.raleighnc.gov/ArcGIS/rest/services/POI1/MapServer/0",
-                categoryField:"ICON", 
+                categoryField:"ICON",
                 nameField:"NAME",
                 addressField:"ADDRESS",
                 cityField:"CITY",
@@ -31,15 +30,14 @@
             coordinates:[
                 {
                     name:"Decimal Degrees",
-                    wkid:4326    
+                    wkid:4326
                 },
                 {
                     name:"Stateplane Feet",
                     wkid:2264
                 }
             ]
-		};
-
+        };
     function Plugin( element, options ) {
         this.element = element;
         this.options = $.extend( {}, defaults, options );
@@ -51,33 +49,26 @@
             Plugin.prototype.graphicslayer = new GraphicsLayer();
             console.log(map);
             map.addLayer(this.graphicslayer);
-
             Plugin.prototype.init();
         });
     }
-
     Plugin.prototype = {
-
         init: function() {
-			var header = $("<h3>"+Plugin.prototype.options.title+"</h3>");
-			var container = $("<div id='"+Plugin.prototype.options.id+"' class='paneldiv'></div>");
-			$(Plugin.prototype.element).append(header);	
-			$(Plugin.prototype.element).append(container);
-            this.createContent(container, Plugin.prototype.options)	
+            var header = $("<h3>"+Plugin.prototype.options.title+"</h3>");
+            var container = $("<div id='"+Plugin.prototype.options.id+"' class='paneldiv'></div>");
+            $(Plugin.prototype.element).append(header);
+            $(Plugin.prototype.element).append(container);
+            this.createContent(container, Plugin.prototype.options)
         },
-
         createContent:function(container, options){
             var select = $("<select></select>");
             $(options.searches).each(function(i, search){
                 select.append("<option>"+search+"</option>");
             });
-
             container.append(select);
             $(select).kendoDropDownList();
             $(".k-header", container).css("background-color", "#444");
-
             this.addContainers(container);
-
             select.change(function(){
                 var idx = this.selectedIndex;
                 $(".locationcontainer").each(function(i, container){
@@ -89,7 +80,6 @@
                 });
             });
         },
-
         addContainers:function(container){
             var plugin = this;
             $(Plugin.prototype.options.searches).each(function(i, search){
@@ -117,10 +107,8 @@
                         plugin.createCoordinatesSearch(div);
                         break;
                 }
-
-            });            
+            });
         },
-
         createAddressSearch:function(div){
             require(["esri/dijit/Geocoder"], function (Geocoder) {
                 div.append("<div id='geocoder'></div>");
@@ -129,21 +117,17 @@
                 geocoder.startup();
             });
         },
-
         createIntersectionSearch:function(div){
             var plugin = this;
             var input = $("<input></input>");
             var url = plugin.options.intersection.url+"/query";
             var field = plugin.options.intersection.field;
             div.append(input);
-
             var ddl = $("<input></input>").appendTo(div);
             ddl.kendoDropDownList({
                 optionLabel:"Select Intersecting Street...",
                 enable:false
             });
-
-
             var ds = new kendo.data.DataSource({
                 serverFiltering:true,
                 transport:{
@@ -166,14 +150,12 @@
                         });
                     }
                 }
-            });   
-
+            });
             input.kendoAutoComplete({
                 minLength:4,
                 dataSource:ds,
                 select:function(e){
                     var street = e.item.text();
-
                     $.ajax({
                       url: url,
                       type: 'POST',
@@ -193,13 +175,13 @@
                             q.returnGeometry = true;
                             q.where = field+" = '"+street+"'";
                             qt.execute(q, function(featureset){
-                                if (featureset.features.length > 0){     
-                                    var line = featureset.features[0].geometry;  
+                                if (featureset.features.length > 0){
+                                    var line = featureset.features[0].geometry;
                                     var ds2 = new kendo.data.DataSource({
                                         serverFiltering:true,
-                                        transport:{     
-                                            read:function(options){  
-                                                require(["dojo/_base/json"], function(dojo){    
+                                        transport:{
+                                            read:function(options){
+                                                require(["dojo/_base/json"], function(dojo){
                                                     $.ajax({
                                                       url: url,
                                                       type: 'POST',
@@ -226,11 +208,10 @@
                                                       }
                                                     });
                                                 });
-                                            }                              
-                                        }                               
-                                    });                          
-                                }    
-
+                                            }
+                                        }
+                                    });
+                                }
                                 ddl.kendoDropDownList({
                                     optionLabel:"Select Intersecting Street...",
                                     dataSource:ds2,
@@ -256,9 +237,8 @@
                                             });
                                         });
                                     }
-                                });    
-
-                                ddl.data("kendoDropDownList").enable(true);                                           
+                                });
+                                ddl.data("kendoDropDownList").enable(true);
                             });
                         });
                       },
@@ -266,16 +246,14 @@
                         //called when there is an error
                       }
                     });
-                    
+
                 },
                 highlightFirst:true,
                 suggest:true
             });
-
             input.closest(".k-autocomplete").css("width","100%");
-            input.closest(".k-autocomplete").css("margin","5px 0 5px 0");                     
+            input.closest(".k-autocomplete").css("margin","5px 0 5px 0");
         },
-
         createPlaceOfInterestSearch:function(div){
             var plugin = this;
             var options = Plugin.prototype.options;
@@ -290,17 +268,13 @@
             var photoField =options.places.photoField;
             var outFields = [nameField, addressField, phoneField, urlField, cityField, zipField, photoField];
             var imageDirectory = options.places.imageDirectory;
-
-
             if ($(div).children().length == 0){
                 var ddl = $("<input></input>");
                 div.append(ddl);
-
                 var ddl2 = $("<input></input>");
                 div.append(ddl2);
                 var info = $("<div style='text-align:center;'></div>");
-                div.append(info);   
-
+                div.append(info);
                 var ds = new kendo.data.DataSource({
                     serverFiltering:true,
                     transport:{
@@ -325,8 +299,7 @@
                             });
                         }
                     }
-                });  
-
+                });
                 ddl.kendoDropDownList({
                     optionLabel:"Select Place Type...",
                     dataSource:ds,
@@ -355,8 +328,7 @@
                                     });
                                 }
                             }
-                        });    
-
+                        });
                         ddl2.kendoDropDownList({
                             dataTextField:"label",
                             dataValueField:"data",
@@ -370,8 +342,6 @@
                                     var sym = new PictureMarkerSymbol("img/pin.png", 30,30);
                                     var g = new Graphic(point, sym);
                                     plugin.graphicslayer.add(g);
-
-
                                     map.centerAndZoom(point, 8);
                                     info.empty();
                                     info.append("<h3>"+feature.attributes[nameField]+"</h3>");
@@ -385,26 +355,21 @@
                                     if (feature.attributes[phoneField]){
                                         info.append("<div>"+feature.attributes[phoneField]+"</div>");
                                     }
-
                                     if (feature.attributes[urlField]){
                                         info.append("<div><a href='"+feature.attributes[urlField]+"' target='_blank'>Website</a></div>");
-                                    }    
-                                });                             
+                                    }
+                                });
                             }
                         });
-
                         ddl2.data("kendoDropDownList").enable();
-
                     }
                 });
-
                 ddl2.kendoDropDownList({enable:false});
                 $(".k-dropdown", $('#'+plugin.options.id)).css("width","100%");
-                $(".k-dropdown", $('#'+plugin.options.id)).css("margin","5px 0 5px 0");   
-                       
+                $(".k-dropdown", $('#'+plugin.options.id)).css("margin","5px 0 5px 0");
+
             }
         },
-
         createSubdivisionSearch:function(div){
             var plugin = this;
             var input = $("<input></input>");
@@ -412,7 +377,6 @@
             var field = plugin.options.subdivisions.field;
             var color = plugin.options.subdivisions.color;
             div.append(input);
-
             var ds = new kendo.data.DataSource({
                 serverFiltering:true,
                 transport:{
@@ -436,14 +400,12 @@
                         });
                     }
                 }
-            });   
-
-
+            });
             input.kendoAutoComplete({
                 minLength:4,
                 dataSource:ds,
                 highlightFirst:true,
-                suggest:true,                
+                suggest:true,
                 select:function(e){
                     require(["esri/tasks/query", "esri/tasks/QueryTask", "esri/symbols/SimpleFillSymbol", "esri/symbols/SimpleLineSymbol", "esri/graphicsUtils", "esri/Color"], function (Query, QueryTask, SimpleFillSymbol, SimpleLineSymbol, graphicsUtils, Color) {
                         var q = new Query();
@@ -461,22 +423,19 @@
                             });
                             map.setExtent(graphicsUtils.graphicsExtent(featureset.features), true);
                         }, function(error){
-
                         });
                     });
                 }
-            });     
+            });
             input.closest(".k-autocomplete").css("width","100%");
-            input.closest(".k-autocomplete").css("margin","5px 0 5px 0"); 
+            input.closest(".k-autocomplete").css("margin","5px 0 5px 0");
         },
-
         createCoordinatesSearch:function(div){
             var select = $("<select></select>").appendTo(div);
             $(Plugin.prototype.options.coordinates).each(function(i, item){
                 select.append("<option value='"+item.wkid+"'>"+item.name+"</option>");
             });
             select.kendoDropDownList();
-
             div.append("<p/>X   ");
             var xinput = $("<input class='k-textbox'></input>").appendTo(div);
             div.append("<p/>Y   ");
@@ -489,38 +448,29 @@
                     var y = yinput.val();
                     var wkid = $("option:selected",select).val();
                     var sr = new SpatialReference({latestWkid:wkid});
-
                     var point = new Point(x,y,sr);
-
                     if (sr.latestWkid == map.spatialReference.latestWkid.toString()){
                         map.centerAndZoom(point, 10);
                     }else{
-
                     }
                 });
             });
-
         },
-
         showProgress: function(options, message){
             var dialog = $("#"+options.progressid);
             var messagediv = $("#"+options.messageid);
             if(dialog.length > 0 && messagediv.length > 0){
                 messagediv.html(message);
-                dialog.dialog("open");      
+                dialog.dialog("open");
             }
         },
-
         hideProgress: function(options){
             var dialog = $("#"+options.progressid);
             if(dialog.length > 0){
-                dialog.dialog("close");     
+                dialog.dialog("close");
             }
-
-        }               
-
-	};
-
+        }
+    };
    $.fn[pluginName] = function(options) {
         return this.each(function() {
             if (!$.data(this, 'plugin_' + pluginName)) {
@@ -531,5 +481,4 @@
             }
         });
     }
-
 })( jQuery, window, document );

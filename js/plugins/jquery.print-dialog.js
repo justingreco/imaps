@@ -1,5 +1,4 @@
 ;(function ( $, window, document, undefined ) {
-
     var pluginName = "print",
 		defaults = {
 			title: 'Print',
@@ -59,23 +58,18 @@
 			  	{name: '36x48 Portrait',
 			  		orientation: 'portrait',
 			  		size: '36x48'
-			  	}	  				  				  				  				  				  				  	
+			  	}
 			  ]
 		};
-
     function Plugin( element, options ) {
         this.element = element;
-
         this.options = $.extend( {}, defaults, options );
 		Plugin.prototype.options = this.options;
         this._defaults = defaults;
         this._name = pluginName;
-
         this.init();
     }
-
     Plugin.prototype = {
-
         init: function() {
         	var plugin = this;
         	$(this.element).append("<img src='"+this.options.tool.icon+"' style='max-height:30px'>"+this.options.tool.label+"</img>");
@@ -85,9 +79,7 @@
 			$(this.element).click(function(){
 				Plugin.prototype.OpenWindow(this);
            	});
-
         },
-
         OpenWindow: function (el) {
             var dialog = $("#bookmarksdialog");
 			$(".k-window .k-window-content").each(function(index, element){
@@ -95,10 +87,9 @@
 			});
             var win;
             $(".ui-dialog-content").dialog("close");
-   
+
             dialog = $("<div id='bookmarksdialog'><div>");
             $("body").append(dialog);
-
             win = dialog.kendoWindow({
                 title:Plugin.prototype.options.title,
                 actions:['Close'],
@@ -109,17 +100,15 @@
             }).data("kendoWindow").center();
 			Plugin.prototype.createContent(el, Plugin.prototype.options, dialog);
 	   		win = dialog.data("kendoWindow");
-            
+
             win.open();
         },
-
         createDialog: function(el, options, dialog) {
 			$(el).append(dialog);
 			dialog.dialog({autoOpen:false});
-			dialog.dialog("option","title", options.title);	
+			dialog.dialog("option","title", options.title);
 			this.createContent(el, options, dialog);
         },
-
         createContent: function(el, options, dialog){
         	var plugin = this;
 			//dialog.append("Title  ");
@@ -129,17 +118,13 @@
 			form.append('<div class="form-group form-group"><label for="printScale">Scale</label><select class="form-control input-sm" id="printScale"></select>');
 			form.append('<div class="form-group form-group"><label class="checkbox-inline"><input type="checkbox" id="printGraphics">Graphics</input></label><label class="checkbox-inline"><input type="checkbox" id="printInfo">Property Info</input></label></div>');
 			form.append('<div class="form-group form-group"><button id="printButton" class="btn btn-primary" type="button">Save PDF</button></div>');
-
 			$.each(options.layouts, function(i, layout) {
 				$('#printLayout').append('<option data-orient="'+layout.orientation+'" data-size="'+layout.size+'">'+layout.name+'</option>');
-			});			
-
+			});
 			$("#printButton").on('click', function () {
-
 				Plugin.prototype.printMap(Plugin.prototype.buildPrintParams());
-			});	
+			});
         },
-
         buildPrintParams: function () {
 			var layers = map.getLayersVisibleAtScale(map.getScale()),
 				layerList = '',
@@ -156,14 +141,14 @@
 					} else {
 						if (layer.visibleLayers) {
 							layerTypes += 'dynamic;';
-							visLayers += layer.visibleLayers.toString() + ';';								
+							visLayers += layer.visibleLayers.toString() + ';';
 						} else {
 							layerTypes += ';';
 						}
 					}
 					opacities += layer.opacity + ';';
-				}	
-			});        	
+				}
+			});
 			var params = {
 				Services: layerList,
 				Visible_Layers: visLayers,
@@ -177,65 +162,56 @@
 				Types: layerTypes,
 				Extent: extent
 			};
-
 			if (pin) {
 				params.PIN = pin + ';';
 			}
 			if (pins) {
 				params.PIN += pins.toString().replace(/'/g, '');
 			}
-
 			if ($("#printInfo").is(':checked')) {
 				var attributes = '';
 				$.each($('#propInfoGrid tr'), function(i, tr) {
 					if (i > 0) {
 						attributes += $('td', tr).first().text() + ': ' + $('td', tr).eq(1).text() + ';';
-						params.Attributes = attributes;							
+						params.Attributes = attributes;
 					}
 				});
 			}
 			console.log(params);
 			return params;
         },
-
         printMap: function(params){
 			require(['esri/tasks/Geoprocessor'], function (Geoprocessor) {
 				var gp = new Geoprocessor("http://maps.raleighnc.gov/arcgis/rest/services/Geoprocessing/SaveToPDF/GPServer/SaveToPDF");
-
 				gp.submitJob(params, function (info) {
 					gp.getResultData(info.jobId, 'Output_URL', function (data) {
 						console.log(data.value);
 						window.open(data.value);
 					});
-				}, 
+				},
 				function (status) {
 					console.log(status);
 				},
 				function (error) {
 					console.log(error);
 				});
-
-			});      	
+			});
         },
-
         showProgress: function(options, message){
 			var dialog = $("#"+options.progressid);
 			var messagediv = $("#"+options.messageid);
 			if(dialog.length > 0 && messagediv.length > 0){
 				messagediv.html(message);
-				dialog.dialog("open");		
+				dialog.dialog("open");
 			}
 		},
-
 		hideProgress: function(options){
 			var dialog = $("#"+options.progressid);
 			if(dialog.length > 0){
-				dialog.dialog("close");		
+				dialog.dialog("close");
 			}
-
-		}		
+		}
 	};
-
     $.fn[pluginName] = function ( options ) {
         return this.each(function () {
             //if (!$.data(this, "plugin_" + pluginName)) {
@@ -243,5 +219,4 @@
             //}
         });
     };
-
 })( jQuery, window, document );

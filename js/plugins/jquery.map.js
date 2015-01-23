@@ -1,7 +1,7 @@
 ;(function ( $, window, document, undefined ) {
     var pluginName = "mapplugin",
-		defaults = {
-		};
+        defaults = {
+        };
     function Plugin( element, options ) {
         this.element = element;
         this.options = $.extend( {}, defaults, options );
@@ -11,7 +11,7 @@
     }
     Plugin.prototype = {
         init: function() {
-            require(['esri/map', 'esri/dijit/LocateButton', 'esri/dijit/HomeButton', 'esri/config', 'esri/tasks/GeometryService', 'esri/geometry/Extent', 'esri/layers/ArcGISTiledMapServiceLayer', 'esri/layers/ArcGISDynamicMapServiceLayer', 'esri/layers/ArcGISImageServiceLayer', 'esri/layers/FeatureLayer', 'esri/geometry/Polygon', 'esri/dijit/OverviewMap', 'esri/toolbars/draw', 'esri/layers/GraphicsLayer','dojo/domReady!'], function (Map, LocateButton, HomeButton, esriConfig, GeometryService, Extent, ArcGISTiledMapServiceLayer, ArcGISDynamicMapServiceLayer, ArcGISImageServiceLayer, FeatureLayer, Polygon, OverviewMap, Draw, GraphicsLayer) {    
+            require(['esri/map', 'esri/dijit/LocateButton', 'esri/dijit/HomeButton', 'esri/config', 'esri/tasks/GeometryService', 'esri/geometry/Extent', 'esri/layers/ArcGISTiledMapServiceLayer', 'esri/layers/ArcGISDynamicMapServiceLayer', 'esri/layers/ArcGISImageServiceLayer', 'esri/layers/FeatureLayer', 'esri/geometry/Polygon', 'esri/dijit/OverviewMap', 'esri/toolbars/draw', 'esri/layers/GraphicsLayer','dojo/domReady!'], function (Map, LocateButton, HomeButton, esriConfig, GeometryService, Extent, ArcGISTiledMapServiceLayer, ArcGISDynamicMapServiceLayer, ArcGISImageServiceLayer, FeatureLayer, Polygon, OverviewMap, Draw, GraphicsLayer) {
                 esriConfig.defaults.io.proxyUrl = "proxy.ashx";
                 raleigh = GetRaleighBound();
                 geomService = GeometryService(config.map.geometry);
@@ -20,20 +20,17 @@
                     logo:false,
                     showAttribution:false
                 });
-
                 homeButton = new esri.dijit.HomeButton({
                   map: map,
                   extent: new Extent(config.map.extent),
                   visible: true
                 }, "HomeButton");
-                homeButton.startup(); 
-                             
+                homeButton.startup();
                 geoLocate = new LocateButton({
                     map: map,
                     scale: 1200
                   }, "LocateButton");
-                  geoLocate.startup();  
-
+                  geoLocate.startup();
                 GetStoredConfig();
                 AddBaseMap(config.map.baselayers[0]);
                 AddMapEvents();
@@ -58,7 +55,7 @@
                                 id = "image1999";
                                 $(aerialselect).val("1999").data("kendoDropDownList").text("1999");
                             }
-                            ChangeBaseMap(id);  
+                            ChangeBaseMap(id);
                             ChangeSelectedAerial(aerialselect, id);
                             if(lastInRaleigh){
                                 lastyear = text;
@@ -69,26 +66,26 @@
                                 $(aerialselect).val(lastyear.toString()).data("kendoDropDownList").text(lastyear.toString());
                                 id = "image"+lastyear;
                                 ChangeBaseMap(id);
-                                ChangeSelectedAerial(aerialselect,id);              
+                                ChangeSelectedAerial(aerialselect,id);
                             }
                         }
                     }
                     lastInRaleigh = inRaleigh;
-                }    
+                }
                 function ChangeSelectedAerial(select,id){
                     $("option", select).filter(function(){
                         return $(this).val() == id.toString();
                     }).prop('selected', true);
-                }                
+                }
                 function ChangeBaseMap(id){
                     $(basemaps).each(function(i, basemap){
                         if (basemap.id == id){
                             basemap.setVisibility(true);
                         }else{
-                            basemap.setVisibility(false);           
+                            basemap.setVisibility(false);
                         }
                     });
-                }                            
+                }
                 function MapExtentChange(extent){
                     if (raleigh){
                         inRaleigh = raleigh.contains(extent.getCenter());
@@ -96,7 +93,7 @@
                     }
                     if(Modernizr.localstorage){
                         if(map.extent){
-                            localStorage.setItem(configName+"_extent", dojo.toJson(map.extent.toJson()));           
+                            localStorage.setItem(configName+"_extent", dojo.toJson(map.extent.toJson()));
                         }
                     }
                     $("#scalevalue").html(map.getScale());
@@ -106,7 +103,7 @@
                     if (urlObject.query){
                         var query = urlObject.query;
                         if (query.pins){
-                            var pins = query.pins.split(",");       
+                            var pins = query.pins.split(",");
                         }
                     }
                 }
@@ -139,7 +136,7 @@
                         }
                     });
                     if(Modernizr.localstorage){
-                        localStorage.setItem(configName+"_layers", dojo.toJson(config.map.oplayers));           
+                        localStorage.setItem(configName+"_layers", dojo.toJson(config.map.oplayers));
                     }
                 }
                 function AddImageLayers(){
@@ -147,8 +144,8 @@
                     $(config.map.imagelayers).each(function(i, layer){
                         imagelayer = CreateLayer(layer);
                         if (imagelayer){
-                            map.addLayer(imagelayer);   
-                            basemaps.push(imagelayer);  
+                            map.addLayer(imagelayer);
+                            basemaps.push(imagelayer);
                         }
                     });
                 }
@@ -176,7 +173,6 @@
                     AddLabelsLayer();
                     AddGraphicsLayers();
                     CreateCoordinateIndicator();
-
                     CheckUrlObjects();
                     handlers.push(dojo.connect(map, "onExtentChange", MapExtentChange));
                 }
@@ -185,7 +181,7 @@
                     handlers.push(dojo.connect(map,"onUnload",function(){
                         $.each(toolhandlers, function(i, handler){
                             dojo.disconnect(handler);
-                        }); 
+                        });
                         DisconnectHandlers(toolhandlers);
                         DisconnectHandlers(handlers);
                         handlers = [];
@@ -196,7 +192,7 @@
                     }));
                     handlers.push(dojo.connect(map, "onUpdateEnd", function(){
                         $("#maploading").css("display", "none");
-                    }));                   
+                    }));
                 }
                 function CreateLayer(layer){
                     var mapLayer = null;
@@ -220,7 +216,7 @@
                         case "feature":
                             mapLayer = new FeatureLayer(layer.url,{visible:layer.visible, id:layer.id, name:layer.label, opacity:opacity});
                             break;
-                    }   
+                    }
                     if(layer.minscale){
                         mapLayer.setMinScale(layer.minscale);
                     }
@@ -230,7 +226,7 @@
                     var basemap = CreateLayer(layer);
                     if (basemap){
                         map.addLayer(basemap);
-                        basemaps.push(basemap);     
+                        basemaps.push(basemap);
                     }
                 }
                 function GetStoredConfig() {
@@ -238,12 +234,12 @@
                         if(localStorage[configName+"_extent"]){
                             map.setExtent(new Extent($.parseJSON(localStorage.getItem(configName+"_extent"))));
                         }
-                    }   
+                    }
                     if(Modernizr.localstorage){
                         if(localStorage[configName+"_layers"]){
                             config.map.oplayers = $.parseJSON(localStorage.getItem(configName+"_layers"));
                         }
-                    }   
+                    }
                 }
                 function GetRaleighBound(){
                     $.ajax({
@@ -252,11 +248,11 @@
                         ,success:function(data){
                             raleigh = new Polygon(data);
                         }
-                    }); 
+                    });
                 }
-            });        
+            });
         }
-	};
+    };
     $.fn[pluginName] = function ( options ) {
         return this.each(function () {
             //if (!$.data(this, "plugin_" + pluginName)) {

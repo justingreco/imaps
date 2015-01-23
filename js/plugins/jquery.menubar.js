@@ -1,22 +1,15 @@
 ;(function ( $, window, document, undefined ) {
-
     var pluginName = "menubar",
-		defaults = {           
-		};
-
+        defaults = {
+        };
     function Plugin( element, options ) {
         this.element = element;
-
         this.options = $.extend( {}, defaults, options );
-
         this._defaults = defaults;
         this._name = pluginName;
-
         this.init();
     }
-
     Plugin.prototype = {
-
         init: function() {
             $(this.element).css("height", $(this.element).parent().height()+"px");
             $(this.element).css("position", "absolute");
@@ -39,15 +32,12 @@
                         list.append(ul);
                     }
                     menu.append(list);
-                });               
+                });
             }
-
             $(this.element).append(menu);
             menu.kendoMenu();
-        },        
-
-	};
-
+        },
+    };
    $.fn[pluginName] = function(options) {
         return this.each(function() {
             if (!$.data(this, 'plugin_' + pluginName)) {
@@ -58,5 +48,4 @@
             }
         });
     }
-
 })( jQuery, window, document );
