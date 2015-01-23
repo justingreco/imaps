@@ -104,6 +104,54 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+/*styling Esri measure dijit*/
+.k-window {
+    z-index: 999 !important;
+}
+
+.dijitButtonText {
+    color: white;
+}
+
+.esriMeasurement .esriButton .dijitButtonNode {
+    background: #3d3d3d !important;
+}
+
+.esriMeasurement .esriButtonChecked .dijitButtonNode {
+background-color: #b3d4fc !important;
+color: black !important;
+border: none;
+background: #b3d4fc url("../dijit/images/button-active.png") bottom repeat-x !important;
+border-radius: 4px;
+}
+
+.dijitMenuTable {
+    border-radius: 4px !important;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.3);
+    border-color: #2b2b2b;
+    background-color: #272727;
+    color:white;
+
+}
+
+span.dijitReset.dijitInline.dijitArrowButtonChar{
+    color: white !important;
+    display: inline-block !important;
+    font-size: 8px !important;
+}
+
+
+
+.dijitButtonNode {
+    background: #3d3d3d;
+}
+
+.dijitMenuItem.dijitHover {
+    background-color: #b3d4fc;
+}
+/*========================================================================== */
+
 .navbar {
     min-height: 40px !important;
 }
@@ -142,6 +190,7 @@ footer{
 select{
     margin-bottom: 5px;
     max-width: 250px;
+    height: 24px;
 }
 
 #mapdiv{
@@ -154,7 +203,18 @@ select{
     overflow:hidden;
 }
 
-
+#HomeButton {
+  position: absolute;
+  top: 95px;
+  left: 20px;
+  z-index: 50;
+}
+#HomeButton {
+  position: absolute;
+  top: 110px;
+  left: 20px;
+  z-index: 50;
+}
 
 #mapsection{
     position: absolute;
@@ -355,6 +415,19 @@ select{
     -moz-box-shadow: 0 0 16px rgba(0,0,0,0.8);
     box-shadow: 0 0 16px rgba(0,0,0,0.8);
     z-index: 3 !important;
+}
+
+#HomeButton {
+  position: absolute;
+  top: 95px;
+  left: 70px;
+  z-index: 3;
+}
+#LocateButton {
+  position: absolute;
+  top: 135px;
+  left: 70px;
+  z-index: 3;
 }
 
 .esriScalebar{
