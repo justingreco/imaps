@@ -395,7 +395,7 @@
                     Plugin.prototype.enableTabs();
                     Plugin.prototype.switchTabs($("#infoContainer"));
                     Plugin.prototype.selectTab(1);
-                    Plugin.prototype.addPropertyInfo(Plugin.prototype.accounts[id], plugin.fields);
+                    Plugin.prototype.addPropertyInfo(Plugin.prototype.accounts[id], Plugin.prototype.fields);
                     if(pin.length == 9){
                         pin = "0"+pin;
                     }
@@ -543,10 +543,11 @@
                 });
                 if (zoom){
                     if (Plugin.prototype.multipleGl.graphics.length > 0) {
-                        map.setExtent(esri.graphicsExtent(plugin.multipleGl.graphics), true);
+                        map.setExtent(esri.graphicsExtent(Plugin.prototype.multipleGl.graphics), true);
                     }
                 }
             }, function(error){
+                console.log(error);
                 Plugin.prototype.hideProgress(Plugin.prototype.options);
             });
         },
@@ -751,9 +752,9 @@
                             if (result.length > 0){
                                 $(result).each(function(i, item){
                                     if (i == 0){
-                                        div.append("<b>"+plugin.getServiceLabel(service.title, service.layerId, item)+"</b><br/>");
+                                        div.append("<b>"+Plugin.prototype.getServiceLabel(service.title, service.layerId, item)+"</b><br/>");
                                     }
-                                    div.append(plugin.getServiceLabel(service.labels, service.layerId, item)+"<p/>");
+                                    div.append(Plugin.prototype.getServiceLabel(service.labels, service.layerId, item)+"<p/>");
                                 });
                                 numadded++;
                             }
@@ -824,7 +825,7 @@
                             var params = new BufferParameters();
                             params.distances = [dist];
                             params.unit = GeometryService.UNIT_FOOT;
-                            params.geometries = [plugin.selProp.geometry];
+                            params.geometries = [Plugin.prototype.selProp.geometry];
                             geomService.buffer(params, function(geometries){
                                 var qt = new QueryTask(config.property.propertyService);
                                 var q = new Query();
