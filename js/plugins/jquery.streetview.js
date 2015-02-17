@@ -46,7 +46,8 @@
                     height:"200px",
                     pinned: true,
                     resize:function(){
-                        google.maps.event.trigger(panorama,'resize');
+                        google.maps.event.trigger(Plugin.prototype.panorama,'resize');
+                        console.log('resize');
                     }
                 }).data("kendoWindow").center();
             //}
@@ -54,18 +55,22 @@
             params.geometries = [e.mapPoint];
             params.outSR = new esri.SpatialReference(4226);
             geomService.project(params, function(geometries){
+                                win = $("#streetviewdialog").data("kendoWindow");
+                win.open();
                 var geom = geometries[0];
                 var loc = new google.maps.LatLng(geom.y, geom.x);
-                var options = {position:loc};
+                var options = {position:loc, imageDateControl: true};
                 if (!panorama){
-                    panorama = new google.maps.StreetViewPanorama(document.getElementById('streetviewdialog'), options);
-                }else{
-                    panorama.setLocation(loc);
+                    panorama = new google.maps.StreetViewPanorama(document.getElementById('streetviewdialog'));
                 }
+                    
+                panorama.setOptions(options);
+                Plugin.prototype.panorama = panorama;
                 //dialog.dialog("open");
                 //dialog.kendoWindow({actions:['Maximize','Close'], visible:true});
                 win = $("#streetviewdialog").data("kendoWindow");
                 win.open();
+
             });
             /*dialog.on("dialogresize",function(){
                 pano.css("height", dialog.css("height"));
