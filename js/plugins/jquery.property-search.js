@@ -334,7 +334,6 @@
             });
         },
         refreshGrid:function(){
-            console.log($("#resultsContainer").height() - 26);
             $('.dataTables_scrollBody').css('height', $("#resultsContainer").height() - 26);//$('.dataTables_scrollHead').height());
             $('.dataTable').css('width', $("#resultsContainer").width());
         },
@@ -354,24 +353,25 @@
                 Plugin.prototype.hideProgress(Plugin.prototype.options);
               },
               success: function(data, textStatus, xhr) {
+                console.log('yeah');
+                pins = [];
                 $("#accordion").accordion('option', 'active', 0);
                 Plugin.prototype.accounts = data.Accounts;
                 $("#propResultsGrid").DataTable().clear();
                 $.each(data.Accounts, function(i, account) {
                     var rowArray = [account.owner,account.siteAddress,account.pin];
-                    var rowPos = $("#propResultsGrid").dataTable().fnAddData(rowArray);
+                    var rowPos = $("#propResultsGrid").dataTable().fnAddData(rowArray, false);
                     var row = $("#propResultsGrid").dataTable().fnGetNodes(rowPos[0]);
                     $(row).attr('data-pin', account.pin);
                     $(row).attr('data-id', i);
-                });
-                pins = [];
-                $(data.Accounts).each(function(i, account){
                     if (pins.length < 1000){
                         if ($.inArray(account.pin, pins) == -1){
                             pins.push("'"+account.pin+"'");
                         }
-                    }
+                    }                    
                 });
+                $("#propResultsGrid").DataTable().draw();
+
                 Plugin.prototype.fields = data.Fields;
                 if (!data.error){
                     if (data.Accounts.length == 1){
@@ -547,7 +547,6 @@
                     }
                 }
             }, function(error){
-                console.log(error);
                 Plugin.prototype.hideProgress(Plugin.prototype.options);
             });
         },
@@ -573,7 +572,6 @@
             });
         },
         addCrimeLink:function(point){
-            console.log(point.x);
                var rowArray = ["Crime Activity", "<a href='http://maps.raleighnc.gov/crime?location="+point.x+","+point.y+"' target='_blank'>View</a>"];
                var rowPos = $("#propInfoGrid").dataTable().fnAddData(rowArray);
                var row = $("#propInfoGrid").dataTable().fnGetNodes(rowPos[0]);
@@ -867,7 +865,6 @@
                     }
                     $("#addressGrid").DataTable().clear();
                     $.each(data.Addresses, function(i, d) {
-                        console.log(d);
                         var rowArray  =[];
                         if (d.rpidMap) {
                             rowArray = [d.address + (($.trim(d.suite) != '') ? ' STE ' + d.suite : ''), d.type, d.status];
