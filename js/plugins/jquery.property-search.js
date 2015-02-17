@@ -326,7 +326,10 @@
                 info: false,
                 filter: false,
                 scrollY: $("#resultsContainer").height(),
-                scrollCollapse: true
+                scrollCollapse: true,
+                language: {
+                    zeroRecords: "No properties selected"
+                }
             });
 
             $(window).bind("resize", function() {
