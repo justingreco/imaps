@@ -165,7 +165,7 @@
             });
         },
         selectBufferComplete:function(geometries){
-            this.addSelectGraphicToMap(geometries);
+            //this.addSelectGraphicToMap(geometries);
             this.selectPropertyByGeometry(geometries);
             map.setExtent(geometries[0].getExtent(), true);
         },
