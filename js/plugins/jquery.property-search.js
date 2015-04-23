@@ -789,12 +789,12 @@
                 var start = label.indexOf("[")+1;
                 var end = label.indexOf("]");
                 var field = label.substring(start,end);
-                var arr = field.split(": ");
+                var arr = field.split(":");
                 field = arr[0];
                 var value = service.feature.attributes[field];
                 if (arr.length > 1){
                     value = Plugin.prototype.checkCase(value, arr[1]);
-                    label = label.replace(new RegExp(field+": "+arr[1],"gi"), field);
+                    label = label.replace(new RegExp(field+":"+arr[1],"gi"), field);
                 }
                 label = label.replace('['+field+']', value);
             }
@@ -802,6 +802,7 @@
             return label;
         },
         checkCase:function(value, caseType){
+            console.log(value, caseType);
             switch (caseType){
                 case "upper":
                     value = value.toUpperCase();
