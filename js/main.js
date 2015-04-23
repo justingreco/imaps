@@ -86,17 +86,17 @@ function LoadConfig(){
 	});
 }
 function SetHeader(){
-	var html="<h2>"+config.title+"</h2><button id='toggleBtn'>Map</button>";
+	var html="<h2>"+config.title+"</h2><button id='toggleBtn' class='btn'>Map</button>";
 	$("header").append(html);
 	$("#toggleBtn").button().click(function(){
 		switch ($(this).text()){
 			case "Map":
 				$("#panel").css("display", "none");
-				$("#toggleBtn").button("option","label","Search");
+				$("#toggleBtn").text("Search");//.button("option","label","Search");
 				break;
 			case "Search":
 				$("#panel").css("display", "block");
-				$("#toggleBtn").button("option","label","Map");
+				$("#toggleBtn").text("Map");//.button("option","label","Map");
 				break;
 		}
 	});

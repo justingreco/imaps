@@ -517,9 +517,12 @@ ul{
 #toggleBtn{
     display: none;
     position: absolute;
-    top:5px;
+    top:2px;
     right:10px;
     font-size: 14px;
+    background-color: transparent;
+    border-color: #fff;
+    color: white;
 }
 .locationcontainer{
 }
