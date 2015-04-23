@@ -241,7 +241,7 @@
 			options += "<option>Owner</option>";
 			options += "<option>PIN</option>";
 			options += "<option>REID</option>";
-			select.append(options);
+			select.append(options);            
 			container.append(select);
 			var inputdiv = $("<div></div>");
 			var input = $("<input id='propertyinput' type='search'></input>");
@@ -356,7 +356,9 @@
                 Plugin.prototype.hideProgress(Plugin.prototype.options);
               },
               success: function(data, textStatus, xhr) {
-                console.log('yeah');
+                setTimeout(function () {
+                    $(".k-autocomplete").focus();
+                }, 100);
                 pins = [];
                 $("#accordion").accordion('option', 'active', 0);
                 Plugin.prototype.accounts = data.Accounts;
@@ -380,6 +382,7 @@
                     if (data.Accounts.length == 1){
                         Plugin.prototype.enableTabs();
                         Plugin.prototype.switchTabs($("#infoContainer"));
+
                         Plugin.prototype.selectTab(1);
                         Plugin.prototype.addPropertyInfo(data.Accounts[0], data.Fields);
                     }else{
@@ -557,7 +560,7 @@
             var multiLayer = map.getLayer('propmultgl'),
                 singleLayer = map.getLayer('propsinglegl');
             $(multiLayer.graphics).each(function(i,graphic){
-                require(["esri/symbols/SimpleFillSymbol"], function (SimpleFillSymbol) {
+                require(["esri/symbols/SimpleFillSymbol", "esri/SpatialReference", "esri/tasks/ProjectParameters"], function (SimpleFillSymbol, SpatialReference, ProjectParameters) {
                     if (graphic.attributes.PIN_NUM == pin){
                         Plugin.prototype.selProp = graphic;
                         graphic.setSymbol(new SimpleFillSymbol(config.property.symbolSingle));
@@ -567,7 +570,16 @@
                         map.setExtent(graphic.geometry.getExtent(), true);
                         if (graphic.attributes.CITY_DECODE) {
                             if (graphic.attributes.CITY_DECODE.toUpperCase() == "RALEIGH"){
-                                Plugin.prototype.addCrimeLink(graphic.geometry.getExtent().getCenter());
+                                var params = new ProjectParameters();
+
+                                params.geometries = [graphic.geometry.getExtent().getCenter()];
+                                params.outSR = new SpatialReference(4326);                           
+                                geomService.project(params, function (geoms) {
+                                    if (geoms.length > 0) {
+                                        Plugin.prototype.addCrimeLink(geoms[0]);
+                                    } 
+                                });
+                                
                             }
                         }
                     }
@@ -575,7 +587,7 @@
             });
         },
         addCrimeLink:function(point){
-               var rowArray = ["Crime Activity", "<a href='http://maps.raleighnc.gov/crime?location="+point.x+","+point.y+"' target='_blank'>View</a>"];
+               var rowArray = ["Crime Activity", "<a href='http://maps.raleighnc.gov/crime?lng="+point.x+"&lat="+point.y+"' target='_blank'>View</a>"];
                var rowPos = $("#propInfoGrid").dataTable().fnAddData(rowArray);
                var row = $("#propInfoGrid").dataTable().fnGetNodes(rowPos[0]);
         },

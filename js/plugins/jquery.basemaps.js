@@ -36,10 +36,10 @@
                         var id = "image"+text.toString();
                         if(!inRaleigh){
                             $(".raleighImage").css("display","none");
-                            if (text > 2010){
-                                id = "image2010";
+                            if (text > 2013){
+                                id = "image2013";
                                 $(aerialselect).val("2010").data("kendoDropDownList").text("2010");
-                            }else if (text > 2005 && text < 2010){
+                            }else if (text > 2005 && text < 2013){
                                 id = "image2005";
                                 $(aerialselect).val("2005").data("kendoDropDownList").text("2005");
                             }else if (text > 1999 && text < 2005){

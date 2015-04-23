@@ -113,7 +113,7 @@
             require(["esri/dijit/Geocoder"], function (Geocoder) {
                 div.append("<div id='geocoder'></div>");
                 var geocoders = [{url:Plugin.prototype.options.geocoder,name:"Wake Locator"}];
-                var geocoder = new Geocoder({map:map, geocoders:geocoders, arcgisGeocoder:false, showResults:true}, "geocoder");
+                var geocoder = new Geocoder({map:map, geocoders:geocoders, autoComplete: true, arcgisGeocoder:false, showResults:true}, "geocoder");
                 geocoder.startup();
             });
         },

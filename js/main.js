@@ -22,7 +22,7 @@ $(document).ready(function(){
 function init(){
 	LoadConfig();
 	$("#maploading").progressbar({value:false, resizeable:false});
-	$(".expandable h3").click(function(e){
+	$(".expandable .expand-title").click(function(e){
 		if ($(this).parent().hasClass("collapsed")){
 			$(this).parent().removeClass("collapsed");
 			$(this).parent().addClass("expanded");

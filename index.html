@@ -14,7 +14,7 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <link rel="icon" type="image/ico" href="imaps.ico">
         <!--<link rel="stylesheet" href="css/normalize.css"> -->
-        <link rel="stylesheet" type="text/css"  href="css/bootstrap.css">
+        <link rel="stylesheet" type="text/css"  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <link rel="stylesheet" href="http://js.arcgis.com/3.12/esri/css/esri.css">
         <link rel="stylesheet" href="http://js.arcgis.com/3.12/dijit/themes/claro/claro.css">
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans">
@@ -38,20 +38,20 @@
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
         <!-- Add your site or application content here -->
-        <header class="navbar">
+        <header class="navbar navbar-inverse">
         </header>
         <div id='mapsection'>
             <div id='mapdiv'>
                 <div id="HomeButton"></div>
                 <div id="LocateButton"></div>
                 <div id='tools' class='expandable collapsed'>
-                    <h3>Tools</h3>
+                    <div class="expand-title">Tools</div>
                 </div>
                 <div id='basemaps' class='expandable collapsed'>
-                    <h3>Change Map</h3>
+                    <div class="expand-title">Change Map</div>
                 </div>
                 <div id='overview' class='expandable collapsed'>
-                    <h3>Overview</h3>
+                     <div class="expand-title">Overview</div>
                     <div id='ovmapdiv'>
                     </div>
                 </div>
@@ -77,6 +77,7 @@
         <script src="http://js.arcgis.com/3.12/"></script>
         <!--<script src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/"></script>-->
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="js/plugins.js"></script>
        <!-- <script src="js/config.js"></script>-->
         <script src="js/toolbar.js"></script>
@@ -84,6 +85,7 @@
         <script src="js/plugins/jquery.basemaps.js"></script> 
         <script src="js/main.js"></script>
         <script src="js/plugins/jquery.menubar.js"></script>  
+        <script src="js/spToDd.js"></script>
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
             var _gaq=[['_setAccount','UA-11110258-19'],['_trackPageview']];

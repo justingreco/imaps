@@ -87,6 +87,10 @@
                     });
                 }
                 function MapExtentChange(extent){
+                    var mp = extent.getCenter(),
+                        dd = spToDD(mp.x, mp.y);
+                    $('#yvalue').html(dd[0].toFixed(4));//Math.round(mp.y,0));
+                    $('#xvalue').html(dd[1].toFixed(4));//Math.round(mp.x,0));                    
                     if (raleigh){
                         inRaleigh = raleigh.contains(extent.getCenter());
                         CheckAerialInRaleigh(inRaleigh);
@@ -108,12 +112,14 @@
                     }
                 }
                 function MapMouseMoveHandler(e){
-                    var mp = e.mapPoint;
-                    $('#yvalue').html(Math.round(mp.y,0));
-                    $('#xvalue').html(Math.round(mp.x,0));
+                    var mp = e.mapPoint,
+                        dd = spToDD(mp.x, mp.y);
+                    $('#yvalue').html(dd[0].toFixed(4));//Math.round(mp.y,0));
+                    $('#xvalue').html(dd[1].toFixed(4));//Math.round(mp.x,0));
                 }
                 function CreateCoordinateIndicator(){
-                    html = "<span id='ytext'>Northing: </span><span id='yvalue'></span><span id='xtext'> Easting: </span><span id='xvalue'></span>      Scale: <span id='scalevalue'></span>";
+                    var dd = spToDD(map.extent.getCenter().x, map.extent.getCenter().y);
+                    html = "<span id='ytext'>Latitude: </span><span id='yvalue'>" + dd[0].toFixed(4) + "</span><span id='xtext'> Longitude: </span><span id='xvalue'>" + dd[0].toFixed(4) + "</span>      Scale: <span id='scalevalue'>" + map.getScale() + "</span>";
                     $("footer").append(html);
                     handlers.push(dojo.connect(map, "onMouseMove", MapMouseMoveHandler));
                 }

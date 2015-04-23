@@ -302,15 +302,16 @@ function AddImageLayers(){
 }
 
 function CreateCoordinateIndicator(){
-	html = "<span id='ytext'>Northing: </span><span id='yvalue'></span><span id='xtext'> Easting: </span><span id='xvalue'></span>		Scale: <span id='scalevalue'></span>";
+	html = "<span id='ytext'>Latitude: </span><span id='yvalue'></span><span id='xtext'> Longitude: </span><span id='xvalue'></span>		Scale: <span id='scalevalue'></span>";
 	$("footer").append(html);
 	handlers.push(dojo.connect(map, "onMouseMove", MapMouseMoveHandler));
 }
 
 function MapMouseMoveHandler(e){
-	var mp = e.mapPoint;
-	$('#yvalue').html(Math.round(mp.y,0));
-	$('#xvalue').html(Math.round(mp.x,0));
+	var mp = e.mapPoint.
+		dd = spToDD(mp.x, mp.y);
+	$('#yvalue').html(dd[0]);//Math.round(mp.y,0));
+	$('#xvalue').html(dd[1]);//Math.round(mp.x,0));
 }
 
 function CreateBaseMapToggle(){

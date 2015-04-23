@@ -9,18 +9,24 @@
    Base styles: opinionated defaults
    ========================================================================== */
 html,
+body,
 button,
 input,
 select,
 textarea {
     color: #222;
-    font-family: 'Open Sans';
+    font-family: 'Open Sans' !important;
+
+}
+
+html {
+        -webkit-user-select: none;
+    -webkit-user-select: none;
 }
 .ui-widget, .esriPopup {
     font-family: 'Open Sans' !important;
 }
 body {
-    font-size: 1em;
     line-height: 1.4;
     -webkit-overflow-scrolling: touch;
 }
@@ -84,6 +90,8 @@ textarea {
    Author's custom styles
    ========================================================================== */
 /*styling Esri measure dijit*/
+
+
 .k-window {
     z-index: 999 !important;
 }
@@ -122,7 +130,7 @@ span.dijitReset.dijitInline.dijitArrowButtonChar{
 /*========================================================================== */
 a:link, a:visited {
     color: rgb(71,151,220);;
-    text-decoration: underline;
+/*    text-decoration: underline;*/
     cursor: auto;
 }
 a:link:active, a:visited:active {
@@ -130,13 +138,16 @@ a:link:active, a:visited:active {
 }
 .navbar {
     min-height: 40px !important;
+    border-radius: 0;
 }
 header{
     /*background-color:  rgb(37,46,65);*/
     color:white;
-    background-color: rgb(37,46,65);
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4D80BC), to(#242D40));
-    background: -moz-linear-gradient(center top , rgb(77, 128, 188), rgb(36, 45, 64)) repeat scroll 0% 0% transparent;
+    background: rgb(37,46,65) !important;
+    border-color:  rgb(37,46,65)!important;
+/*    background-color: rgb(37,46,65);*/
+/*    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4D80BC), to(#242D40));
+    background: -moz-linear-gradient(center top , rgb(77, 128, 188), rgb(36, 45, 64)) repeat scroll 0% 0% transparent;*/
     border: 0;
     position: absolute;
     top:0px;
@@ -147,6 +158,11 @@ header h2{
     padding:0 10px 0 10px;
     margin:0;
 }
+
+h3 {
+    font-size: 14px;
+}
+
 footer{
     height:20px;
     background-color: rgb(37,46,65);
@@ -245,8 +261,24 @@ select{
     width:auto !important;
     overflow: auto;
 }
-.expandable h3{
+
+.navbar-nav > li > a {padding-top:8px !important; padding-bottom:8px !important;}
+.navbar-right {
+    margin-right: 0px;
+}
+
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr {
+    border-radius: 0 !important;
+}
+
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tl {
+    border-radius: 0 !important;
+}
+
+.expand-title{
     cursor: pointer;
+    font-size: 12pt;
+    margin: 0.7em 0 0.7em 0;
 }
 .expandable{
     color:white;
@@ -292,9 +324,7 @@ select{
     height:100%;
     color:#FFFFFF;
     font-size:12px;
-    border-radius:5px;
     overflow: hidden;
-    -moz-border-radius:5px; /* Old Firefox */
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -303,7 +333,7 @@ select{
   -webkit-box-shadow: 0 0 5px #000;
   box-shadow: 0 0 5px #000;
 }
-.dataTable tbody {
+.dataTable  {
     -webkit-user-select: text;
     -moz-user-select: text;
     -ms-user-select: text;
@@ -370,7 +400,7 @@ select{
 }
 #propertyinput{
     width:270px;
-    margin:2px;
+    margin:0px;
 }
 .ui-autocomplete{
     max-width: 250px;
@@ -531,10 +561,15 @@ background:rgb(0, 145, 255) !important;
     float:left !important;
     margin-right:10px !important;
 }
+
+#labelCheck {
+    margin-top: 5px;
+}
 .tocslider{
     margin:5px;
 }
-.layerTile {
+.layer {
+    margin: 1em 0 1em 0;
 }
 .layertitle {
     margin-left: 0.5em;
@@ -583,6 +618,11 @@ background: rgb(84,134,50);
 }
 .checklabel.ui-state-active{
     background: rgb(33,172,49) !important;
+}
+
+
+.simpleGeocoder .esriGeocoderResult {
+    color: black;
 }
 .selectpanel{
     padding:5px;
@@ -815,4 +855,12 @@ background: rgb(84,134,50);
     h3 {
         page-break-after: avoid;
     }
+}
+
+
+
+.expandable {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
 }

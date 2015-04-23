@@ -33,6 +33,15 @@
 "imagelayers":
 [
 {
+ "id":"image2014",
+ "label":"2014",
+ "type":"tiled",
+ "visible":false,
+ "opacity":1.00,
+ "url":"http://maps.raleighnc.gov/ArcGIS/rest/services/Orthos10/Orthos2014/ImageServer",
+ "countywide":false
+},
+{
  "id":"image2013",
  "label":"2013",
  "type":"tiled",
@@ -278,6 +287,13 @@
  "url":"http://maps.raleighnc.gov/ArcGIS/rest/services/PublicWorks/Stormwater/MapServer",
  "opacity":1.00,
  "inlist":true},  
+  {"id":"streetplan",
+ "label":"Raleigh Streetplan",
+ "type":"dynamic",
+ "visible":false,
+ "url":"http://maps.raleighnc.gov/ArcGIS/rest/services/Planning/StreetPlan/MapServer",
+ "opacity":1.00,
+ "inlist":true}, 
  {"id":"devplans",
  "label":"Raleigh Development Plans",
  "type":"dynamic",

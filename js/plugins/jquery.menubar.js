@@ -14,14 +14,15 @@
             $(this.element).css("height", $(this.element).parent().height()+"px");
             $(this.element).css("position", "absolute");
             $(this.element).css("right","0px").css("top","0px");
-            var menu = $("<ul></ul");
+            var menu = $("<ul class='nav navbar-nav navbar-right'></ul");
             if (config.menu){
                 $(config.menu.items).each(function(i, item){
-                    var list = $("<li>"+item.title+"</li>");
+                    //var list = $("<li>"+item.title+"</li>");
+                    var list = $("<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'>"+item.title+"<span class='caret'></span></a></li>");
+                    var ul =$("<ul class='dropdown-menu menubar-list' role='menu'></ul>").appendTo(list);
                     if (item.items.length > 0){
-                        var ul = $("<ul></ul>");
                         $(item.items).each(function(j, subitem){
-                            var sublist = $("<li>"+subitem.title+"</li>");
+                            var sublist = $("<li><a href='#'>"+subitem.title+"</a></li>");
                             if (subitem.url){
                                 sublist.click(function(){
                                     window.open(subitem.url);
@@ -35,7 +36,7 @@
                 });
             }
             $(this.element).append(menu);
-            menu.kendoMenu();
+            //menu.kendoMenu();
         },
     };
    $.fn[pluginName] = function(options) {

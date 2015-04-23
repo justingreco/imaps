@@ -62,31 +62,29 @@
         createContent: function(el, options, dialog){
             dialog.append('<div id="measurementDiv"></div>');
             require(["esri/dijit/Measurement", "esri/tasks/GeometryService", "esri/units", "esri/config", "dojo/dom"], function(Measurement, GeometryService, Units, esriConfig, dom) {
-                esriConfig.defaults.geometryService = new esri.tasks.GeometryService("http://maps.raleighnc.gov/arcgis/rest/services/Utilities/Geometry/GeometryServer");
+                esriConfig.defaults.geometryService = new GeometryService("http://maps.raleighnc.gov/arcgis/rest/services/Utilities/Geometry/GeometryServer");
                 Plugin.prototype.measurement = new Measurement({
                           map: map
                         }, dom.byId("measurementDiv"));
                         Plugin.prototype.measurement.startup();
+
+                        if(Modernizr.localstorage){
+                            if(localStorage[configName+"_measureTool"]){
+                                Plugin.prototype.measurement.setTool(localStorage.getItem(configName+"_measureTool"), true);
+                            } else {
+                                Plugin.prototype.measurement.setTool("area", true);
+                            }  
+                        } else {
+                            Plugin.prototype.measurement.setTool("area", true);
+                        }                     
+                        Plugin.prototype.measurement.on('tool-change', function (e) {
+                            console.log(e);
+                            if(Modernizr.localstorage){
+                                localStorage.setItem(configName+"_measureTool", e.toolName);
+                                localStorage.setItem(configName+"_measureUnit", e.unitName);                                
+                            }
+                        });
             });
-            // var plugin = this;
-            // var radio = $("<div id='measureradio'></div>");
-            // dialog.append(radio);
-            // var labels = [{label:'Coordinates', value:'point'},
-            //  {label:'Distance', value:'polyline'},{label:'Area', value:'polygon'}];
-            // $(labels).each(function(i, item){
-            //  var input = $("<input type='radio' id='"+item.label.toLowerCase()+"Radio' name='radio' value='"+item.value+"'/>");
-            //  var label = $("<label for='"+item.label.toLowerCase()+"Radio'>"+item.label+"</label>");
-            //  radio.append(input);
-            //  radio.append(label);
-            // });
-            // radio.buttonset();
-            // $('input', radio).bind('change', function(){
-            //  if (drawhandlers){
-            //      plugin.cleardrawtool(drawhandlers);
-            //  }
-            //  draw.deactivate();
-            //  draw.activate($(this).val());
-            // });
         },
         cleardrawtool:function(handlers){
             $(handlers).each(function(i, handler){

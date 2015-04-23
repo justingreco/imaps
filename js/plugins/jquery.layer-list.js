@@ -24,7 +24,7 @@
         createLayerNode:function(){
             var plugin = this;
             $(config.map.oplayers.sort(this.sortFunction)).each(function(i, item){
-                var tocdiv = $("<div></div>");
+                var tocdiv = $("<div class='layer'></div>");
                 $("#layersdiv").append(tocdiv);
                 var layerdiv = $("<div data-toggle='tooltip' data-placement='left'></div>");
                 var label = (item.visible)?"On":"Off";
@@ -33,9 +33,9 @@
                 if(item.visible){
                     layerbutton = $('<button type="button" id="layer_check_'+i+'" class="btn btn-success active layercheck" data-minscale="'+minscale+'" value="'+item.id+'">'+label+'</button>');
                 }
-                var checklabel = $("<h4 class='layertitle'>"+item.label+"</h4>");
+                var checklabel = $("<span class='layertitle'>"+item.label+"</span>");
                 if (minscale < map.getScale() && minscale > 0){
-                    checklabel = $("<h4 class='layertitle'>"+item.label+"</h4>");
+                    checklabel = $("<span class='layertitle'>"+item.label+"</span>");
                 }
                 layerdiv.append(layerbutton);
                 layerdiv.append(checklabel);
